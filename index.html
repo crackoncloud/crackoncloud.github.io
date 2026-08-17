@@ -1,1 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>crackoncloud — Cloud &amp; offline media apps for Android and iOS</title>
+<meta name="description" content="crackoncloud builds cloud and offline media players for Android and iOS: Spiral Player for music and Vot Player for video.">
+<meta name="theme-color" content="#0b0d12">
+<link rel="canonical" href="https://crackoncloud.com/">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/icon-180.png" sizes="180x180" type="image/png">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
 
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://crackoncloud.com/">
+<meta property="og:site_name" content="crackoncloud">
+<meta property="og:title" content="crackoncloud — Cloud &amp; offline media apps">
+<meta property="og:description" content="Spiral Player and Vot Player: play your music and video from Google Drive, Dropbox, OneDrive, Box, pCloud — or straight off your device.">
+<meta property="og:image" content="https://crackoncloud.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "crackoncloud",
+  "url": "https://crackoncloud.com/",
+  "logo": "https://crackoncloud.com/assets/icon-180.png",
+  "sameAs": ["https://spiralplayer.com/", "https://www.votplayer.com/"]
+}
+</script>
+
+<style>
+:root{
+  --bg:#0b0d12;
+  --bg-soft:#11141c;
+  --card:#141824;
+  --line:#232838;
+  --text:#e8ecf5;
+  --muted:#98a2b8;
+  --accent:#6d7cff;
+  --accent-2:#26d0a8;
+  --radius:16px;
+  --maxw:1080px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+img{max-width:100%;display:block}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+/* ---------- header ---------- */
+header{
+  position:sticky;top:0;z-index:20;
+  background:rgba(11,13,18,.82);
+  backdrop-filter:saturate(160%) blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em;text-decoration:none}
+.brand .mark{width:30px;height:30px;flex:none}
+.nav nav{display:flex;gap:22px;font-size:14px;color:var(--muted)}
+.nav nav a{text-decoration:none}
+.nav nav a:hover{color:var(--text)}
+@media(max-width:560px){.nav nav{display:none}}
+
+/* ---------- hero ---------- */
+.hero{padding:88px 0 64px;position:relative;overflow:hidden}
+.hero::before{
+  content:"";position:absolute;inset:-200px 0 auto 50%;
+  width:900px;height:520px;transform:translateX(-50%);
+  background:radial-gradient(closest-side,rgba(109,124,255,.22),transparent 70%);
+  pointer-events:none;
+}
+.eyebrow{
+  display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent-2);border:1px solid var(--line);border-radius:999px;
+  padding:6px 12px;background:var(--bg-soft);
+}
+h1{
+  font-size:clamp(34px,6vw,58px);line-height:1.08;letter-spacing:-.03em;
+  margin:20px 0 16px;max-width:16ch;
+}
+.lede{color:var(--muted);font-size:clamp(16px,2.2vw,19px);max-width:58ch;margin:0}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:11px 18px;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px;
+  border:1px solid var(--line);background:var(--card);color:var(--text);
+  transition:transform .15s ease,border-color .15s ease,background .15s ease;
+}
+.btn:hover{transform:translateY(-1px);border-color:#39415c}
+.btn-primary{background:linear-gradient(180deg,#6d7cff,#5563f0);border-color:#5563f0;color:#fff}
+.btn-primary:hover{border-color:#8390ff}
+.btn svg{width:16px;height:16px;flex:none;fill:currentColor}
+
+/* ---------- sections ---------- */
+section{padding:64px 0;border-top:1px solid var(--line)}
+.section-head h2{font-size:clamp(24px,3.4vw,32px);letter-spacing:-.02em;margin:0 0 8px}
+.section-head p{color:var(--muted);margin:0 0 32px;max-width:60ch}
+
+/* ---------- app cards ---------- */
+.apps{display:grid;gap:24px}
+.app{
+  background:linear-gradient(180deg,var(--card),var(--bg-soft));
+  border:1px solid var(--line);border-radius:var(--radius);
+  padding:28px;display:grid;grid-template-columns:96px 1fr;gap:24px;
+}
+@media(max-width:640px){.app{grid-template-columns:1fr;padding:22px}}
+.app-icon{
+  width:96px;height:96px;border-radius:22px;
+  box-shadow:0 10px 30px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.06);
+}
+.app h3{margin:0;font-size:22px;letter-spacing:-.02em}
+.app .kicker{color:var(--accent-2);font-size:13px;font-weight:600;margin:4px 0 12px}
+.app p.desc{color:var(--muted);margin:0 0 18px}
+.features{list-style:none;padding:0;margin:0 0 22px;display:grid;gap:8px 20px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));font-size:14.5px}
+.features li{position:relative;padding-left:22px;color:#c6cde0}
+.features li::before{
+  content:"";position:absolute;left:0;top:.55em;width:8px;height:8px;border-radius:3px;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+}
+.links{display:flex;flex-wrap:wrap;gap:10px}
+
+/* ---------- about ---------- */
+.grid-3{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.tile{background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.tile h4{margin:0 0 8px;font-size:16px}
+.tile p{margin:0;color:var(--muted);font-size:14.5px}
+
+/* ---------- contact ---------- */
+.contact-list{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.contact-list a{color:var(--accent);text-decoration:none}
+.contact-list a:hover{text-decoration:underline}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--muted);font-size:14px}
+.foot{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center}
+.foot nav{display:flex;flex-wrap:wrap;gap:18px}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--text)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top"><img class="mark" src="assets/logo.svg" alt="" width="30" height="30">crackoncloud</a>
+    <nav>
+      <a href="#apps">Apps</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Independent app studio</span>
+      <h1>Your media, wherever it lives.</h1>
+      <p class="lede">
+        crackoncloud builds media players that treat cloud storage like local storage.
+        Stream from Google Drive, Dropbox, OneDrive, Box and pCloud — or play straight
+        off your device with no connection at all.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#apps">Browse the apps</a>
+        <a class="btn" href="mailto:support@crackoncloud.com">Get in touch</a>
+      </div>
+    </div>
+  </div>
+
+  <section id="apps">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Apps</h2>
+        <p>Two players, one idea: cloud and offline playback in a single library.</p>
+      </div>
+
+      <div class="apps">
+
+        <article class="app">
+          <img class="app-icon" src="assets/spiralplayer.png" alt="Spiral Player app icon" width="256" height="256" loading="lazy">
+          <div>
+            <h3>Spiral Player</h3>
+            <p class="kicker">Cloud &amp; offline music player · Android and iOS</p>
+            <p class="desc">
+              A music player for the library you already have. Play local files or stream
+              from your cloud drives, with lossless audio, a real equalizer and themes you
+              can bend to taste.
+            </p>
+            <ul class="features">
+              <li>Google Drive, Dropbox, OneDrive, Box, pCloud</li>
+              <li>FLAC and lossless audio support</li>
+              <li>5-band equalizer with presets</li>
+              <li>Embedded lyrics and visualizers</li>
+              <li>Unlimited theme customization</li>
+              <li>Sleep timer, shuffle, repeat, quick search</li>
+              <li>Backup and restore</li>
+              <li>Adjustable playback speed (Pro)</li>
+            </ul>
+            <div class="links">
+              <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.spiralplayerx" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.8a1.5 1.5 0 0 0-.5 1.1v18.2c0 .45.19.86.5 1.1l10-10.2-10-10.2Zm11.1 9.1 2.9-2.9-11-6.2 8.1 9.1Zm0 2.2-8.1 9.1 11-6.2-2.9-2.9Zm4.3-3.9-2.4 2.4 2.4 2.4 2.5-1.4c.9-.5.9-1.9 0-2.4l-2.5-1Z"/></svg>
+                Google Play
+              </a>
+              <a class="btn" href="https://apps.apple.com/us/app/spiral-cloud-music-player/id6504449410" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.15-2.8.85-3.5.85-.7 0-1.85-.83-3.05-.8-1.55.02-3 .9-3.8 2.3-1.6 2.8-.4 7 1.15 9.3.77 1.13 1.68 2.4 2.88 2.35 1.16-.05 1.6-.75 3-.75s1.8.75 3.03.72c1.25-.02 2.04-1.14 2.8-2.28.88-1.3 1.25-2.57 1.27-2.64-.03-.01-2.43-.93-2.43-3.7ZM14.1 5.6c.63-.77 1.06-1.83.94-2.9-.9.04-2 .6-2.66 1.36-.58.67-1.1 1.76-.96 2.8 1.01.08 2.04-.5 2.68-1.26Z"/></svg>
+                App Store
+              </a>
+              <a class="btn" href="https://spiralplayer.com/" target="_blank" rel="noopener">Website</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="app">
+          <img class="app-icon" src="assets/votplayer.png" alt="Vot Player app icon" width="256" height="256" loading="lazy">
+          <div>
+            <h3>Vot Player</h3>
+            <p class="kicker">Cloud &amp; offline video player · Android</p>
+            <p class="desc">
+              Play any video, anywhere it lives. Stream from your cloud drives or open
+              local files offline, with subtitle control, picture-in-picture and an
+              equalizer with volume boost.
+            </p>
+            <ul class="features">
+              <li>Google Drive, Dropbox, OneDrive, Box, pCloud</li>
+              <li>Offline playback of popular formats</li>
+              <li>Custom subtitles with styling controls</li>
+              <li>Picture-in-picture and background play</li>
+              <li>Audio equalizer with volume boost</li>
+              <li>Playlists, bookmarks and blacklist</li>
+              <li>Light, dark and night themes</li>
+              <li>Adjustable playback speed (Pro)</li>
+            </ul>
+            <div class="links">
+              <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.crackoncloud.vot" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.8a1.5 1.5 0 0 0-.5 1.1v18.2c0 .45.19.86.5 1.1l10-10.2-10-10.2Zm11.1 9.1 2.9-2.9-11-6.2 8.1 9.1Zm0 2.2-8.1 9.1 11-6.2-2.9-2.9Zm4.3-3.9-2.4 2.4 2.4 2.4 2.5-1.4c.9-.5.9-1.9 0-2.4l-2.5-1Z"/></svg>
+                Google Play
+              </a>
+              <a class="btn" href="https://www.votplayer.com/" target="_blank" rel="noopener">Website</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>About</h2>
+        <p>
+          crackoncloud is a small independent studio building media apps for Android and iOS.
+          The apps are free to use, with an optional Pro upgrade.
+        </p>
+      </div>
+      <div class="grid-3">
+        <div class="tile">
+          <h4>Cloud-first</h4>
+          <p>Your drives are just another folder. Connect an account once and browse it like local storage.</p>
+        </div>
+        <div class="tile">
+          <h4>Works offline</h4>
+          <p>No connection, no problem. Local files play with the full feature set, nothing gated behind a network.</p>
+        </div>
+        <div class="tile">
+          <h4>Yours to shape</h4>
+          <p>Themes, equalizers, subtitles, playback speed — the details are settings, not opinions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Contact &amp; support</h2>
+        <p>Bug reports, feature requests and Pro questions go to the app's support address.</p>
+      </div>
+      <ul class="contact-list">
+        <li>crackoncloud — <a href="mailto:support@crackoncloud.com">support@crackoncloud.com</a></li>
+        <li>Spiral Player — <a href="mailto:support@spiralplayer.com">support@spiralplayer.com</a></li>
+        <li>Vot Player — <a href="mailto:support@votplayer.com">support@votplayer.com</a></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© <span id="year">2026</span> crackoncloud</span>
+    <nav>
+      <a href="https://spiralplayer.com/privacy_policy.html" target="_blank" rel="noopener">Spiral Player privacy</a>
+      <a href="https://www.votplayer.com/privacy_policy.html" target="_blank" rel="noopener">Vot Player privacy</a>
+      <a href="app-ads.txt">app-ads.txt</a>
+    </nav>
+  </div>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

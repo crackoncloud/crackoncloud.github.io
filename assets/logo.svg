@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="crackoncloud">
+  <defs>
+    <linearGradient id="cocGrad" x1="10" y1="12" x2="54" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8B97FF"/>
+      <stop offset=".5" stop-color="#5D6BF5"/>
+      <stop offset="1" stop-color="#26D0A8"/>
+    </linearGradient>
+    <mask id="cocMask">
+      <rect width="64" height="64" fill="#000"/>
+      <g fill="#fff">
+        <circle cx="22" cy="37" r="10"/>
+        <circle cx="42" cy="37" r="10"/>
+        <circle cx="32" cy="29" r="13"/>
+        <rect x="22" y="37" width="20" height="10"/>
+      </g>
+      <path d="M35.5 11 L28.5 31 L34.5 29.5 L26.5 54"
+            fill="none" stroke="#000" stroke-width="3.6"
+            stroke-linejoin="round" stroke-linecap="round"/>
+    </mask>
+  </defs>
+  <rect width="64" height="64" fill="url(#cocGrad)" mask="url(#cocMask)"/>
+</svg>
