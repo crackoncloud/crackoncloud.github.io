@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!--
+    Play Store icon, 512x512. The launcher icon at store scale: same indigo field, same circle
+    cut in two by a vertical gap. No adaptive mask here, so the art is scaled to the ratio the
+    launcher actually shows (circle diameter ~60% of the visible square) rather than to the
+    108dp adaptive safe zone, which would leave it looking lost.
+
+    Geometry: centre (256,256), r=155, gap 51.7 wide (the 7:42 ratio of the launcher icon).
+    Arc endpoints where x = 230.17 and x = 281.83 meet the circle: dy = sqrt(155^2 - 25.83^2) = 152.83.
+    Fully opaque, no alpha anywhere — Play applies its own corner mask.
+  -->
+  <defs>
+    <linearGradient id="field" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2E3468"/>
+      <stop offset="1" stop-color="#10122B"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#field)"/>
+  <!-- Left half: the impulse. -->
+  <path d="M230.17,103.17 A155,155 0 1 0 230.17,408.83 Z" fill="#DFE0FF"/>
+  <!-- Right half: the action, held back. -->
+  <path d="M281.83,103.17 A155,155 0 1 1 281.83,408.83 Z" fill="#7EDBD1"/>
+</svg>

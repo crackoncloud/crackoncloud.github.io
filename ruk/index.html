@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ruk — App blocker &amp; screen time for Android · crackoncloud</title>
+<meta name="description" content="Ruk puts a few deliberate seconds between the impulse and the feed. App blocker, daily screen time limits, schedules, focus sessions and feed blocking for Android. No account, no ads, nothing leaves your phone.">
+<meta name="theme-color" content="#10122B">
+<link rel="canonical" href="https://crackoncloud.com/ruk/">
+<link rel="icon" href="/assets/ruk/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/ruk/icon-256.png" sizes="256x256" type="image/png">
+<link rel="apple-touch-icon" href="/assets/ruk/icon-256.png">
+<meta name="robots" content="index,follow">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://crackoncloud.com/ruk/">
+<meta property="og:site_name" content="crackoncloud">
+<meta property="og:title" content="Ruk — Pause before you open.">
+<meta property="og:description" content="App blocker, screen time limits, schedules and focus sessions for Android. No account. No ads. Nothing leaves your phone.">
+<meta property="og:image" content="https://crackoncloud.com/assets/ruk/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="586">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Ruk: App Blocker & Screen Time",
+  "operatingSystem": "Android",
+  "applicationCategory": "LifestyleApplication",
+  "url": "https://crackoncloud.com/ruk/",
+  "downloadUrl": "https://play.google.com/store/apps/details?id=com.crackoncloud.ruk",
+  "installUrl": "https://play.google.com/store/apps/details?id=com.crackoncloud.ruk",
+  "image": "https://crackoncloud.com/assets/ruk/icon-256.png",
+  "description": "Ruk is an app blocker and screen time app that puts a few deliberate seconds between the impulse and the feed. Daily limits, schedules, focus sessions and feed blocking, with no account and nothing sent anywhere.",
+  "author": { "@type": "Organization", "name": "crackoncloud", "url": "https://crackoncloud.com/" },
+  "offers": [
+    { "@type": "Offer", "price": "0", "priceCurrency": "USD", "name": "Free" }
+  ],
+  "privacyPolicy": "https://crackoncloud.com/ruk/privacy-policy/"
+}
+</script>
+
+<style>
+:root{
+  --bg:#0b0d12;
+  --bg-soft:#11141c;
+  --card:#141824;
+  --line:#232838;
+  --text:#e8ecf5;
+  --muted:#98a2b8;
+  --accent:#7c86ff;
+  --accent-2:#7EDBD1;
+  --lilac:#DFE0FF;
+  --radius:16px;
+  --maxw:1080px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+img{max-width:100%;display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+/* ---------- header ---------- */
+header{
+  position:sticky;top:0;z-index:20;
+  background:rgba(11,13,18,.82);
+  backdrop-filter:saturate(160%) blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em;text-decoration:none}
+.brand .mark{width:30px;height:30px;flex:none;border-radius:8px}
+.brand .sep{color:var(--line)}
+.brand .sub{color:var(--muted);font-weight:500}
+.nav nav{display:flex;gap:22px;font-size:14px;color:var(--muted);align-items:center}
+.nav nav a{text-decoration:none}
+.nav nav a:hover{color:var(--text)}
+@media(max-width:720px){.nav nav a:not(.btn-sm){display:none}}
+.btn-sm{
+  padding:8px 14px;border-radius:10px;border:1px solid #5563f0;
+  background:linear-gradient(180deg,#6d7cff,#5563f0);color:#fff;font-weight:600;
+}
+.btn-sm:hover{color:#fff}
+
+/* ---------- hero ---------- */
+.hero{padding:80px 0 64px;position:relative;overflow:hidden}
+.hero::before{
+  content:"";position:absolute;inset:-240px 0 auto 50%;
+  width:980px;height:600px;transform:translateX(-50%);
+  background:radial-gradient(closest-side,rgba(74,82,168,.55),transparent 70%);
+  pointer-events:none;
+}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:40px}}
+.eyebrow{
+  display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent-2);border:1px solid var(--line);border-radius:999px;
+  padding:6px 12px;background:var(--bg-soft);
+}
+h1{
+  font-size:clamp(34px,6vw,58px);line-height:1.06;letter-spacing:-.03em;
+  margin:20px 0 16px;max-width:14ch;
+}
+h1 .half{color:var(--accent-2)}
+.lede{color:var(--muted);font-size:clamp(16px,2.2vw,19px);max-width:52ch;margin:0}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hero-note{color:var(--muted);font-size:13.5px;margin:16px 0 0}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:11px 18px;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px;
+  border:1px solid var(--line);background:var(--card);color:var(--text);
+  transition:transform .15s ease,border-color .15s ease,background .15s ease;
+}
+.btn:hover{transform:translateY(-1px);border-color:#39415c}
+.btn-primary{background:linear-gradient(180deg,#6d7cff,#5563f0);border-color:#5563f0;color:#fff}
+.btn-primary:hover{border-color:#8390ff}
+.btn svg{width:16px;height:16px;flex:none;fill:currentColor}
+
+/* ---------- phone shot ---------- */
+.shot{
+  border-radius:26px;border:1px solid var(--line);
+  background:var(--bg-soft);
+  box-shadow:0 24px 60px rgba(0,0,0,.55);
+  overflow:hidden;
+}
+.hero-shot{max-width:300px;margin:0 auto}
+
+/* ---------- sections ---------- */
+section{padding:64px 0;border-top:1px solid var(--line)}
+.section-head h2{font-size:clamp(24px,3.4vw,32px);letter-spacing:-.02em;margin:0 0 8px}
+.section-head p{color:var(--muted);margin:0 0 32px;max-width:62ch}
+
+/* ---------- pause ---------- */
+.split{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:center}
+@media(max-width:860px){.split{grid-template-columns:1fr;gap:32px}}
+.split .shot{max-width:280px}
+.steps{list-style:none;padding:0;margin:0;display:grid;gap:18px}
+.steps li{display:grid;grid-template-columns:34px 1fr;gap:14px;align-items:start}
+.steps .n{
+  width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
+  background:var(--bg-soft);border:1px solid var(--line);color:var(--accent-2);
+  font-size:13px;font-weight:700;
+}
+.steps b{display:block;margin-bottom:2px}
+.steps span.d{color:var(--muted);font-size:15px}
+
+/* ---------- feature cards ---------- */
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.tile{background:linear-gradient(180deg,var(--card),var(--bg-soft));border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+.tile h3{margin:0 0 8px;font-size:17px;letter-spacing:-.01em}
+.tile p{margin:0;color:var(--muted);font-size:14.5px}
+.badge{
+  display:inline-block;margin-left:8px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:#0b0d12;background:var(--accent-2);border-radius:999px;padding:2px 8px;font-weight:700;vertical-align:2px;
+}
+
+/* ---------- gallery ---------- */
+.gallery{display:flex;gap:20px;overflow-x:auto;padding:4px 0 18px;scroll-snap-type:x mandatory}
+.gallery figure{margin:0;flex:0 0 232px;scroll-snap-align:start}
+.gallery figcaption{color:var(--muted);font-size:13.5px;margin-top:12px}
+.gallery figcaption b{display:block;color:var(--text);font-size:14.5px;font-weight:600;margin-bottom:2px}
+
+/* ---------- numbers / trust ---------- */
+.facts{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.facts li{position:relative;padding-left:24px;color:#c6cde0;font-size:15.5px}
+.facts li::before{
+  content:"";position:absolute;left:0;top:.6em;width:9px;height:9px;border-radius:3px;
+  background:linear-gradient(135deg,var(--lilac),var(--accent-2));
+}
+
+/* ---------- pricing ---------- */
+.plans{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.plan{background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--radius);padding:26px;display:flex;flex-direction:column}
+.plan.pro{border-color:#39415c;background:linear-gradient(180deg,var(--card),var(--bg-soft))}
+.plan h3{margin:0;font-size:20px;letter-spacing:-.02em}
+.plan .price{color:var(--accent-2);font-size:14px;font-weight:600;margin:6px 0 16px}
+.plan ul{list-style:none;padding:0;margin:0 0 20px;display:grid;gap:9px;font-size:14.5px;color:#c6cde0}
+.plan li{position:relative;padding-left:22px}
+.plan li::before{content:"";position:absolute;left:0;top:.55em;width:8px;height:8px;border-radius:3px;background:linear-gradient(135deg,var(--accent),var(--accent-2))}
+.plan .foot{margin-top:auto;color:var(--muted);font-size:13.5px}
+
+/* ---------- faq ---------- */
+.faq{display:grid;gap:0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line);padding:18px 0}
+.faq summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--accent-2);font-weight:700}
+.faq details[open] summary::after{content:"–"}
+.faq p{color:var(--muted);margin:12px 0 0;font-size:15px;max-width:70ch}
+
+/* ---------- cta band ---------- */
+.band{text-align:center}
+.band h2{font-size:clamp(24px,3.6vw,34px);letter-spacing:-.02em;margin:0 0 10px}
+.band p{color:var(--muted);margin:0 auto 26px;max-width:52ch}
+.band .hero-cta{justify-content:center}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--muted);font-size:14px}
+.foot{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center}
+.foot nav{display:flex;flex-wrap:wrap;gap:18px}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--text)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <img class="mark" src="/assets/ruk/icon.svg" alt="" width="30" height="30">
+      Ruk <span class="sep">·</span> <span class="sub">crackoncloud</span>
+    </a>
+    <nav>
+      <a href="#how">How it works</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn-sm" href="https://play.google.com/store/apps/details?id=com.crackoncloud.ruk" target="_blank" rel="noopener">Get Ruk</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Android · App blocker &amp; screen time</span>
+        <h1>Pause before <span class="half">you open.</span></h1>
+        <p class="lede">
+          You did not decide to open that app. Your thumb did. Ruk puts a few deliberate
+          seconds between the impulse and the feed — and most of the time, that is enough
+          to notice you did not want it after all.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.crackoncloud.ruk" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.8a1.5 1.5 0 0 0-.5 1.1v18.2c0 .45.19.86.5 1.1l10-10.2-10-10.2Zm11.1 9.1 2.9-2.9-11-6.2 8.1 9.1Zm0 2.2-8.1 9.1 11-6.2-2.9-2.9Zm4.3-3.9-2.4 2.4 2.4 2.4 2.5-1.4c.9-.5.9-1.9 0-2.4l-2.5-1Z"/></svg>
+            Get it on Google Play
+          </a>
+          <a class="btn" href="#how">See how it works</a>
+        </div>
+        <p class="hero-note">Free to use. No account, no sign-up, no ads. Ruk (رُک / रुक) means “stop, pause”.</p>
+      </div>
+      <div class="hero-shot shot">
+        <img src="/assets/ruk/01-pause.png" alt="The Ruk pause screen over a YouTube open, showing a breathing countdown" width="324" height="720">
+      </div>
+    </div>
+  </div>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>The pause</h2>
+        <p>Choose the apps that take your day. When one of them opens, Ruk gets there first.</p>
+      </div>
+      <div class="split">
+        <div class="shot">
+          <img src="/assets/ruk/06-schedules.png" alt="A Ruk schedule: wind down, 11 PM to 7 AM, every day" width="324" height="720" loading="lazy">
+        </div>
+        <ol class="steps">
+          <li><span class="n">1</span><span><b>A breath, and a countdown.</b><span class="d">The screen holds while you catch up with your own hand.</span></span></li>
+          <li><span class="n">2</span><span><b>Say what you came for.</b><span class="d">Typing the reason is often the moment you realise there isn’t one.</span></span></li>
+          <li><span class="n">3</span><span><b>Continue, or not now.</b><span class="d">Nothing is hidden from you and nothing is decided for you.</span></span></li>
+          <li><span class="n">4</span><span><b>It gets harder if you keep going.</b><span class="d">The tenth open of the day is not the first. Pauses grow as the day repeats itself, and the screen tells you exactly why this one is longer.</span></span></li>
+          <li><span class="n">5</span><span><b>Continue can buy a timebox.</b><span class="d">Ten minutes instead of an open door — and when the box runs out, Ruk asks how it went.</span></span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>When a pause is not enough</h2>
+        <p>Friction you can dial up, one rule at a time.</p>
+      </div>
+      <div class="grid">
+        <div class="tile">
+          <h3>Daily limits</h3>
+          <p>Screen time limits per app or across a group, with a warning before you run out. Then block, or ask again harder.</p>
+        </div>
+        <div class="tile">
+          <h3>Schedules</h3>
+          <p>A window where an app simply does not open — including one that crosses midnight. Set it once, decide nothing in the moment.</p>
+        </div>
+        <div class="tile">
+          <h3>Focus sessions</h3>
+          <p>Start from the app, a Quick Settings tile or a home screen widget, with an allow list for what you actually need.</p>
+        </div>
+        <div class="tile">
+          <h3>Feed blocking <span class="badge">Experimental</span></h3>
+          <p>Stops Reels, Shorts, Explore, Stories and a home feed without closing the app they live in, so your messages and search still work. Six feeds, each tested on a real phone — and if an app update stops one being recognised, Ruk says so instead of pretending.</p>
+        </div>
+        <div class="tile">
+          <h3>Strict mode</h3>
+          <p>For the days you cannot be trusted with your own settings. Weakening a rule can be made to wait — it can never be made impossible.</p>
+        </div>
+        <div class="tile">
+          <h3>Attention budget</h3>
+          <p>A daily allowance for the whole habit, not one app. Days under budget build a streak that forgives one bad day for every seven good ones.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="insights">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What it tells you afterwards</h2>
+        <p>Your real screen time, from Android’s own figures — not a guess, and not a leaderboard.</p>
+      </div>
+      <div class="split">
+        <div class="shot">
+          <img src="/assets/ruk/02-insights.png" alt="Ruk insights: a week of screen time, opens decided against, and time not spent" width="324" height="720" loading="lazy">
+        </div>
+        <ul class="facts">
+          <li>Screen time per app and per hour of the day.</li>
+          <li>How many opens you abandoned, and roughly what that saved you.</li>
+          <li>Which app you always open next, once the first one has you.</li>
+          <li>Days under budget, and a streak with a little forgiveness built in.</li>
+          <li>Export the lot to a file you choose, any time.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="screens">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Inside the app</h2>
+        <p>Six screens, straight off a phone.</p>
+      </div>
+      <div class="gallery">
+        <figure>
+          <div class="shot"><img src="/assets/ruk/01-pause.png" alt="The breathing pause over a YouTube open" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>A pause before the app opens</b>Ruk gets there first. Breathe, then decide.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/ruk/02-insights.png" alt="Weekly bar chart and hour-of-day band" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Your week, and what you took back</b>Real screen time, and the opens you walked away from.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/ruk/03-limits.png" alt="Daily limits: 45 minutes on YouTube, 12 opens on Chrome" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>A budget for the day</b>Per app or per group. Block, or ask again harder.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/ruk/04-block.png" alt="Instagram is off during this session" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Blocked, never trapped</b>Every block carries its own way out.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/ruk/05-escape.png" alt="A screen listing every way out of every restriction" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Every exit, written down</b>No device admin. Uninstall whenever you like.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/ruk/06-schedules.png" alt="Wind down schedule, 11 PM to 7 AM, all seven days" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Hours when it simply doesn’t open</b>Set the window once. Crossing midnight is fine.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What it never does</h2>
+        <p>Ruk sends nothing anywhere. No server behind it, no analytics, no crash reporting.</p>
+      </div>
+      <div class="grid">
+        <div class="tile">
+          <h3>Nothing leaves the phone</h3>
+          <p>Everything Ruk records — usage totals, the pause log, your settings — stays in this phone’s own storage. Uninstalling takes all of it with you.</p>
+        </div>
+        <div class="tile">
+          <h3>No account, no ads</h3>
+          <p>No sign-up, no sync, no profile, no ads. Nothing to log into and nothing to leak.</p>
+        </div>
+        <div class="tile">
+          <h3>You are never trapped</h3>
+          <p>Every restriction has a documented way out, and a screen inside the app lists them all. Ruk never uses device admin, never hides itself, and can always be uninstalled. Every escape is free on every plan.</p>
+        </div>
+      </div>
+      <p class="hero-note" style="margin-top:22px">
+        Full details in the <a href="/ruk/privacy-policy/" style="color:var(--accent)">privacy policy</a>.
+      </p>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Free, and what Pro adds</h2>
+        <p>Set anything up before you buy — it is kept exactly as you left it, and unlocking turns it on with nothing to redo.</p>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <h3>Free</h3>
+          <p class="price">No account, no trial, no card</p>
+          <ul>
+            <li>Three monitored apps with the breathing pause</li>
+            <li>The full screen time insights</li>
+            <li>Your streak and data export</li>
+            <li>Every escape, and every way out</li>
+          </ul>
+          <p class="foot">Everything here stays free, forever.</p>
+        </div>
+        <div class="plan pro">
+          <h3>Ruk Pro</h3>
+          <p class="price">One payment · never a subscription</p>
+          <ul>
+            <li>Unlimited monitored apps</li>
+            <li>Every other kind of pause</li>
+            <li>Daily limits and schedules</li>
+            <li>Focus sessions</li>
+            <li>Feed blocking (experimental)</li>
+            <li>The attention budget and strict mode</li>
+          </ul>
+          <p class="foot">Bought once through Google Play. Refund it and your rules are switched off, not deleted.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Questions</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>Does Ruk need Accessibility access?</summary>
+          <p>The pause does, because that is what lets Ruk notice an app opening and get there first. If you would rather not grant it, Ruk still works in observe-only mode: it reads Android’s own usage figures and shows you the insights, without interrupting anything.</p>
+        </details>
+        <details>
+          <summary>Can I get out of a block?</summary>
+          <p>Always. Every restriction has a documented way out and a screen inside the app lists them all. Strict mode can make weakening a setting wait — it can never make it impossible. Ruk never uses device admin, never hides itself, and can always be uninstalled.</p>
+        </details>
+        <details>
+          <summary>What does feed blocking actually block?</summary>
+          <p>Six feed surfaces — Reels, Explore and Stories, Shorts, a home feed and a Stories tray — each one tested on a real phone. It leaves the app itself open, so messages and search still work. It is labelled experimental in the app because a feed is somebody else’s screen and they change it whenever they like; when Ruk stops recognising one, it tells you instead of pretending.</p>
+        </details>
+        <details>
+          <summary>Is my data sent anywhere?</summary>
+          <p>No. Ruk opens no connection of its own and sends nothing. There is no server, no analytics and no crash reporting, and everything it records lives in this phone’s app-private storage.</p>
+        </details>
+        <details>
+          <summary>Is Pro a subscription?</summary>
+          <p>No — one payment through Google Play, once. Anything you configure before buying is kept, and unlocking turns it on with nothing to set up again.</p>
+        </details>
+        <details>
+          <summary>Is there an iPhone version?</summary>
+          <p>Not today. Ruk is Android only.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>A few seconds, before the feed.</h2>
+      <p>Choose the apps that take your day, and let Ruk get there first.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.crackoncloud.ruk" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.8a1.5 1.5 0 0 0-.5 1.1v18.2c0 .45.19.86.5 1.1l10-10.2-10-10.2Zm11.1 9.1 2.9-2.9-11-6.2 8.1 9.1Zm0 2.2-8.1 9.1 11-6.2-2.9-2.9Zm4.3-3.9-2.4 2.4 2.4 2.4 2.5-1.4c.9-.5.9-1.9 0-2.4l-2.5-1Z"/></svg>
+          Get it on Google Play
+        </a>
+        <a class="btn" href="mailto:support@crackoncloud.com">Contact support</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© <span id="year">2026</span> crackoncloud</span>
+    <nav>
+      <a href="/">crackoncloud</a>
+      <a href="/ruk/privacy-policy/">Privacy policy</a>
+      <a href="mailto:support@crackoncloud.com">support@crackoncloud.com</a>
+      <a href="https://play.google.com/store/apps/details?id=com.crackoncloud.ruk" target="_blank" rel="noopener">Google Play</a>
+    </nav>
+  </div>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
