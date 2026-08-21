@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>crackoncloud — Cloud &amp; offline media apps for Android and iOS</title>
-<meta name="description" content="crackoncloud builds apps for Android and iOS: Spiral Player for music, Vot Player for video, and Ruk, an app blocker and screen time app.">
+<meta name="description" content="crackoncloud builds apps for Android and iOS: Spiral Player for music, Vot Player for video, Shadow Reader for books, and Ruk, an app blocker and screen time app.">
 <meta name="theme-color" content="#0b0d12">
 <link rel="canonical" href="https://crackoncloud.com/">
 <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
@@ -188,10 +188,40 @@ footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--muted);f
     <div class="wrap">
       <div class="section-head">
         <h2>Apps</h2>
-        <p>Two media players and a screen time app, built for the phone you already have.</p>
+        <p>Two media players, an e-reader and a screen time app, built for the phone you already have.</p>
       </div>
 
       <div class="apps">
+
+        <article class="app">
+          <img class="app-icon" src="assets/reader/icon-256.png" alt="Shadow Reader app icon" width="256" height="256" loading="lazy">
+          <div>
+            <h3>Shadow Reader</h3>
+            <p class="kicker">E-reader with read-aloud · Android</p>
+            <p class="desc">
+              Every book you own, read or listened to. EPUB, PDF, comics and office documents
+              from folders you already have, with a voice that follows the words and your place
+              kept on every device.
+            </p>
+            <ul class="features">
+              <li>EPUB, PDF, CBZ, MOBI, FB2, DOCX, ODT and more</li>
+              <li>Sentence-synced read-aloud, free for everybody</li>
+              <li>Background playback and sleep timer</li>
+              <li>Highlights, notes and bookmarks that export</li>
+              <li>Fonts, themes, e-ink mode and gestures</li>
+              <li>OPDS catalogues and watched folders</li>
+              <li>Cloud sources and sync through your own storage (Pro)</li>
+              <li>No account, no ads, one-time Pro unlock</li>
+            </ul>
+            <div class="links">
+              <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.crackoncloud.reader" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.8a1.5 1.5 0 0 0-.5 1.1v18.2c0 .45.19.86.5 1.1l10-10.2-10-10.2Zm11.1 9.1 2.9-2.9-11-6.2 8.1 9.1Zm0 2.2-8.1 9.1 11-6.2-2.9-2.9Zm4.3-3.9-2.4 2.4 2.4 2.4 2.5-1.4c.9-.5.9-1.9 0-2.4l-2.5-1Z"/></svg>
+                Google Play
+              </a>
+              <a class="btn" href="/reader/">Website</a>
+            </div>
+          </div>
+        </article>
 
         <article class="app">
           <img class="app-icon" src="assets/ruk/icon-256.png" alt="Ruk app icon" width="256" height="256" loading="lazy">
@@ -339,6 +369,7 @@ footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--muted);f
     <nav>
       <a href="https://spiralplayer.com/privacy_policy.html" target="_blank" rel="noopener">Spiral Player privacy</a>
       <a href="https://www.votplayer.com/privacy_policy.html" target="_blank" rel="noopener">Vot Player privacy</a>
+      <a href="/reader/privacy-policy/">Shadow Reader privacy</a>
       <a href="/ruk/privacy-policy/">Ruk privacy</a>
       <a href="app-ads.txt">app-ads.txt</a>
     </nav>
