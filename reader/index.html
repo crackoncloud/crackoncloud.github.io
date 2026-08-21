@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shadow Reader — E-reader with read-aloud for Android · crackoncloud</title>
+<meta name="description" content="Shadow Reader is an Android e-reader for EPUB, PDF, comics and office documents, with sentence-synced read-aloud, annotations that export, and sync through your own cloud. No account.">
+<meta name="theme-color" content="#3B2A8E">
+<link rel="canonical" href="https://crackoncloud.com/reader/">
+<link rel="icon" href="/assets/reader/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/reader/icon-256.png" sizes="256x256" type="image/png">
+<link rel="apple-touch-icon" href="/assets/reader/icon-256.png">
+<meta name="robots" content="index,follow">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://crackoncloud.com/reader/">
+<meta property="og:site_name" content="crackoncloud">
+<meta property="og:title" content="Shadow Reader — every book you own, read or listened to">
+<meta property="og:description" content="An Android e-reader for EPUB, PDF, comics and office documents, with sentence-synced read-aloud and sync through your own cloud. No account.">
+<meta property="og:image" content="https://crackoncloud.com/assets/reader/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Shadow Reader",
+  "operatingSystem": "Android",
+  "applicationCategory": "BookApplication",
+  "url": "https://crackoncloud.com/reader/",
+  "downloadUrl": "https://play.google.com/store/apps/details?id=com.crackoncloud.reader",
+  "installUrl": "https://play.google.com/store/apps/details?id=com.crackoncloud.reader",
+  "image": "https://crackoncloud.com/assets/reader/icon-256.png",
+  "description": "Android e-reader for EPUB, PDF, comics and office documents, with sentence-synced read-aloud, background playback, annotations that export, and sync through the reader's own cloud storage.",
+  "author": { "@type": "Organization", "name": "crackoncloud", "url": "https://crackoncloud.com/" },
+  "offers": [
+    { "@type": "Offer", "price": "0", "priceCurrency": "USD", "name": "Free" }
+  ],
+  "privacyPolicy": "https://crackoncloud.com/reader/privacy-policy/"
+}
+</script>
+
+<style>
+:root{
+  --bg:#0b0d12;
+  --bg-soft:#11141c;
+  --card:#141824;
+  --line:#232838;
+  --text:#e8ecf5;
+  --muted:#98a2b8;
+  --accent:#7C61EB;
+  --accent-2:#C3B8E8;
+  --cream:#FDF8F2;
+  --radius:16px;
+  --maxw:1080px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+img{max-width:100%;display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+header{
+  position:sticky;top:0;z-index:20;
+  background:rgba(11,13,18,.82);
+  backdrop-filter:saturate(160%) blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em;text-decoration:none}
+.brand .mark{width:30px;height:30px;flex:none;border-radius:8px}
+.brand .sep{color:var(--line)}
+.brand .sub{color:var(--muted);font-weight:500}
+.nav nav{display:flex;gap:22px;font-size:14px;color:var(--muted);align-items:center}
+.nav nav a{text-decoration:none}
+.nav nav a:hover{color:var(--text)}
+@media(max-width:820px){.nav nav a:not(.btn-sm){display:none}}
+.btn-sm{
+  padding:8px 14px;border-radius:10px;border:1px solid #6B4FD8;
+  background:linear-gradient(180deg,#7C61EB,#6B4FD8);color:#fff;font-weight:600;
+}
+.btn-sm:hover{color:#fff}
+
+.hero{padding:80px 0 64px;position:relative;overflow:hidden}
+.hero::before{
+  content:"";position:absolute;inset:-240px 0 auto 50%;
+  width:1000px;height:620px;transform:translateX(-50%);
+  background:radial-gradient(closest-side,rgba(124,97,235,.35),transparent 70%);
+  pointer-events:none;
+}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:40px}}
+.eyebrow{
+  display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent-2);border:1px solid var(--line);border-radius:999px;
+  padding:6px 12px;background:var(--bg-soft);
+}
+h1{
+  font-size:clamp(34px,6vw,56px);line-height:1.07;letter-spacing:-.03em;
+  margin:20px 0 16px;max-width:15ch;
+}
+h1 .alt{color:var(--accent-2)}
+.lede{color:var(--muted);font-size:clamp(16px,2.2vw,19px);max-width:54ch;margin:0}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hero-note{color:var(--muted);font-size:13.5px;margin:16px 0 0}
+
+.btn{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:11px 18px;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px;
+  border:1px solid var(--line);background:var(--card);color:var(--text);
+  transition:transform .15s ease,border-color .15s ease,background .15s ease;
+}
+.btn:hover{transform:translateY(-1px);border-color:#39415c}
+.btn-primary{background:linear-gradient(180deg,#7C61EB,#6B4FD8);border-color:#6B4FD8;color:#fff}
+.btn-primary:hover{border-color:#9B85F2}
+.btn svg{width:16px;height:16px;flex:none;fill:currentColor}
+
+.shot{
+  border-radius:26px;border:1px solid var(--line);
+  background:var(--bg-soft);
+  box-shadow:0 24px 60px rgba(0,0,0,.55);
+  overflow:hidden;
+}
+.hero-shot{max-width:300px;margin:0 auto}
+
+section{padding:64px 0;border-top:1px solid var(--line)}
+.section-head h2{font-size:clamp(24px,3.4vw,32px);letter-spacing:-.02em;margin:0 0 8px}
+.section-head p{color:var(--muted);margin:0 0 32px;max-width:62ch}
+
+.split{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:center}
+.split.flip{grid-template-columns:1.15fr .85fr}
+@media(max-width:860px){.split,.split.flip{grid-template-columns:1fr;gap:32px}}
+.split .shot{max-width:280px}
+.split.flip .shot{order:2}
+@media(max-width:860px){.split.flip .shot{order:0}}
+
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.tile{background:linear-gradient(180deg,var(--card),var(--bg-soft));border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+.tile h3{margin:0 0 8px;font-size:17px;letter-spacing:-.01em}
+.tile p{margin:0;color:var(--muted);font-size:14.5px}
+.badge{
+  display:inline-block;margin-left:8px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:#1b1440;background:var(--accent-2);border-radius:999px;padding:2px 8px;font-weight:700;vertical-align:2px;
+}
+
+.formats{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 8px}
+.formats span{
+  border:1px solid var(--line);background:var(--bg-soft);border-radius:10px;
+  padding:8px 14px;font-size:14px;font-weight:600;letter-spacing:.02em;color:#cdd5e6;
+}
+.formats span em{font-style:normal;color:var(--muted);font-weight:500}
+
+.facts{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.facts li{position:relative;padding-left:24px;color:#c6cde0;font-size:15.5px}
+.facts li::before{
+  content:"";position:absolute;left:0;top:.6em;width:9px;height:9px;border-radius:3px;
+  background:linear-gradient(135deg,var(--cream),var(--accent-2));
+}
+
+.gallery{display:flex;gap:20px;overflow-x:auto;padding:4px 0 18px;scroll-snap-type:x mandatory}
+.gallery figure{margin:0;flex:0 0 232px;scroll-snap-align:start}
+.gallery figcaption{color:var(--muted);font-size:13.5px;margin-top:12px}
+.gallery figcaption b{display:block;color:var(--text);font-size:14.5px;font-weight:600;margin-bottom:2px}
+
+.plans{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.plan{background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--radius);padding:26px;display:flex;flex-direction:column}
+.plan.pro{border-color:#39415c;background:linear-gradient(180deg,var(--card),var(--bg-soft))}
+.plan h3{margin:0;font-size:20px;letter-spacing:-.02em}
+.plan .price{color:var(--accent-2);font-size:14px;font-weight:600;margin:6px 0 16px}
+.plan ul{list-style:none;padding:0;margin:0 0 20px;display:grid;gap:9px;font-size:14.5px;color:#c6cde0}
+.plan li{position:relative;padding-left:22px}
+.plan li::before{content:"";position:absolute;left:0;top:.55em;width:8px;height:8px;border-radius:3px;background:linear-gradient(135deg,var(--accent),var(--accent-2))}
+.plan .foot{margin-top:auto;color:var(--muted);font-size:13.5px}
+
+.faq{display:grid;gap:0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line);padding:18px 0}
+.faq summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--accent-2);font-weight:700}
+.faq details[open] summary::after{content:"–"}
+.faq p{color:var(--muted);margin:12px 0 0;font-size:15px;max-width:70ch}
+
+.band{text-align:center}
+.band h2{font-size:clamp(24px,3.6vw,34px);letter-spacing:-.02em;margin:0 0 10px}
+.band p{color:var(--muted);margin:0 auto 26px;max-width:52ch}
+.band .hero-cta{justify-content:center}
+
+footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--muted);font-size:14px}
+.foot{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center}
+.foot nav{display:flex;flex-wrap:wrap;gap:18px}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--text)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <img class="mark" src="/assets/reader/icon.svg" alt="" width="30" height="30">
+      Shadow Reader <span class="sep">·</span> <span class="sub">crackoncloud</span>
+    </a>
+    <nav>
+      <a href="#formats">Formats</a>
+      <a href="#aloud">Read aloud</a>
+      <a href="#library">Library</a>
+      <a href="#pricing">Pricing</a>
+      <a class="btn-sm" href="https://play.google.com/store/apps/details?id=com.crackoncloud.reader" target="_blank" rel="noopener">Get the app</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Android e-reader</span>
+        <h1>Every book you own, <span class="alt">read or listened to.</span></h1>
+        <p class="lede">
+          Shadow Reader opens EPUB, PDF, comics and office documents from folders you
+          already have, reads them aloud in a voice that follows the words, and keeps your
+          place on every device — through your own cloud, with no account to make.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.crackoncloud.reader" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.8a1.5 1.5 0 0 0-.5 1.1v18.2c0 .45.19.86.5 1.1l10-10.2-10-10.2Zm11.1 9.1 2.9-2.9-11-6.2 8.1 9.1Zm0 2.2-8.1 9.1 11-6.2-2.9-2.9Zm4.3-3.9-2.4 2.4 2.4 2.4 2.5-1.4c.9-.5.9-1.9 0-2.4l-2.5-1Z"/></svg>
+            Get it on Google Play
+          </a>
+          <a class="btn" href="#formats">What it opens</a>
+        </div>
+        <p class="hero-note">Free to use, with a one-time Pro unlock. No subscription, no ads, no sign-up.</p>
+      </div>
+      <div class="hero-shot shot">
+        <img src="/assets/reader/library.png" alt="The Shadow Reader library, a grid of book covers" width="324" height="720">
+      </div>
+    </div>
+  </div>
+
+  <section id="formats">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Opens what you already have</h2>
+        <p>Point it at a folder. Everything in it that is a book becomes one, with the cover, the author and the series pulled out of the file.</p>
+      </div>
+      <div class="formats">
+        <span>EPUB</span>
+        <span>PDF</span>
+        <span>CBZ <em>/ CB7</em></span>
+        <span>MOBI <em>/ AZW / AZW3</em></span>
+        <span>FB2</span>
+        <span>DOCX</span>
+        <span>ODT</span>
+        <span>RTF</span>
+        <span>TXT</span>
+        <span>Markdown</span>
+        <span>HTML</span>
+      </div>
+      <p class="hero-note" style="margin-top:18px">
+        A scan with no text layer goes through text recognition first, so search, selection and the
+        voice work on it too. DRM-protected files are detected and named as such — never opened by
+        force.
+      </p>
+    </div>
+  </section>
+
+  <section id="reading">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>A page you can actually set up</h2>
+        <p>Typography that is yours, not a preset with two sliders.</p>
+      </div>
+      <div class="split">
+        <div class="shot">
+          <img src="/assets/reader/typography.png" alt="Text settings: font choices including OpenDyslexic, text size and line spacing" width="324" height="720" loading="lazy">
+        </div>
+        <ul class="facts">
+          <li>Book, serif, sans, mono, Merriweather, Roboto and OpenDyslexic — or import a font of your own.</li>
+          <li>Text size, line spacing, margins, alignment and hyphenation.</li>
+          <li>Light, dark, sepia and e-ink themes, with page colours you can set yourself.</li>
+          <li>A brightness slider that belongs to the reader and hands the screen back to the system when you leave.</li>
+          <li>Tap zones and gestures you can remap, and an auto-scroll for when you would rather not touch the screen.</li>
+          <li>Contents, search, bookmarks and notes in one sheet, a tap away from the page.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="aloud">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Read aloud, and it keeps the place</h2>
+        <p>Playback is free for everybody — background, screen off, headphones, sleep timer and all.</p>
+      </div>
+      <div class="split flip">
+        <div class="shot">
+          <img src="/assets/reader/tts.png" alt="A book being read aloud, with playback controls floating over the page" width="324" height="720" loading="lazy">
+        </div>
+        <ul class="facts">
+          <li>The sentence being spoken is highlighted, and the page follows the voice.</li>
+          <li>Carries on with the screen off, with a media notification and headset controls.</li>
+          <li>Sleep timer, speed, pitch and a per-book voice.</li>
+          <li>A pronunciation list, for the names every engine gets wrong.</li>
+          <li><strong>A cast of voices</strong> — one for the narrator, another for the dialogue, and a named voice for up to twelve characters. <span class="badge">Pro</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="notes">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Marks that leave with you</h2>
+        <p>Highlight, underline, annotate, look up, translate — then take the lot out in one file.</p>
+      </div>
+      <div class="split">
+        <div class="shot">
+          <img src="/assets/reader/select.png" alt="Selected text with highlight colours, underline, note, copy, look up and translate" width="324" height="720" loading="lazy">
+        </div>
+        <ul class="facts">
+          <li>Seven highlight colours, underline, and a note attached to any passage.</li>
+          <li>Bookmarks, and a hub that gathers every mark across every book.</li>
+          <li>Search your own notes, filter to highlights, jump back to the page.</li>
+          <li>Export everything — free, on every plan, because losing your notes to an app is the whole fear.</li>
+          <li>Translate a passage on the device itself, with nothing sent anywhere. <span class="badge">Pro</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="library">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>A library that keeps itself</h2>
+        <p>Watched folders, indexed in place. Nothing is copied unless you ask for it.</p>
+      </div>
+      <div class="grid">
+        <div class="tile">
+          <h3>Shelves and search</h3>
+          <p>Collections, tags, series, favourites and archive, plus smart shelves for reading now, finished, unread and recently added.</p>
+        </div>
+        <div class="tile">
+          <h3>Nothing disappears quietly</h3>
+          <p>Files that could not be imported are listed with the reason — not a format we read, DRM, unreadable, damaged — instead of vanishing from the count.</p>
+        </div>
+        <div class="tile">
+          <h3>Catalogues</h3>
+          <p>OPDS 1.2 and 2.0: browse, search and download straight into the library from any catalogue you point it at.</p>
+        </div>
+        <div class="tile">
+          <h3>Cloud storage <span class="badge">Pro</span></h3>
+          <p>Open books straight out of Google Drive, OneDrive, Box or your own WebDAV server. Read-only: Shadow Reader cannot change, rename or delete anything in your cloud.</p>
+        </div>
+        <div class="tile">
+          <h3>Sync <span class="badge">Pro</span></h3>
+          <p>Positions, highlights and notes across your devices — through your own Drive, WebDAV or a folder you choose. No account of ours, and no server of ours.</p>
+        </div>
+        <div class="tile">
+          <h3>Reading stats</h3>
+          <p>Time read and time listened, per book and per day, with a thirty-day chart, a streak and a daily goal if you want one.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="screens">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Inside the app</h2>
+        <p>Screens straight off a phone.</p>
+      </div>
+      <div class="gallery">
+        <figure>
+          <div class="shot"><img src="/assets/reader/library.png" alt="Library grid of covers" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Your shelf, indexed in place</b>Covers, authors and progress, from folders you already keep.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/reader/reader.png" alt="A page of Moby-Dick in the reader" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>The page</b>Justified, hyphenated, and set the way you like it.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/reader/typography.png" alt="Typography settings" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Type, theme, gestures</b>Down to importing a font of your own.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/reader/tts.png" alt="Read-aloud controls over the page" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Read aloud</b>Background playback, sleep timer, and the page follows the voice.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/reader/select.png" alt="Selection toolbar with highlight colours" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Highlight, note, look up</b>Seven colours, and translation on the device.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/reader/notes.png" alt="The notes hub across books" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Every mark in one place</b>Across books, searchable, and exportable for free.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/reader/pro.png" alt="The Shadow Reader Pro screen" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Pro, bought once</b>Six additions, one payment, nothing to renew.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Your books are your business</h2>
+        <p>No account, no library of ours, and no copy of what you read.</p>
+      </div>
+      <div class="grid">
+        <div class="tile">
+          <h3>Books stay put</h3>
+          <p>Nothing you read is uploaded. A book only ever moves if you switch on sync or open it from your own cloud — and even then it goes to your storage, never to us.</p>
+        </div>
+        <div class="tile">
+          <h3>No sign-up, ever</h3>
+          <p>There is no Shadow Reader account. Sync rides on a folder in your own Drive or WebDAV server, which we hold no keys to and cannot read.</p>
+        </div>
+        <div class="tile">
+          <h3>Reports you control</h3>
+          <p>Crash reports are on so a crash can be fixed, and usage statistics stay off until you switch them on. Both live in Settings › Privacy, and neither carries a book title, a file path or a passage.</p>
+        </div>
+      </div>
+      <p class="hero-note" style="margin-top:22px">
+        The whole account is in the <a href="/reader/privacy-policy/" style="color:var(--accent-2)">privacy policy</a>.
+      </p>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Free, and what Pro adds</h2>
+        <p>One payment, once — no subscription, nothing to renew, and no licence check to fail on a plane.</p>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <h3>Free</h3>
+          <p class="price">The whole reader</p>
+          <ul>
+            <li>Every format, every book, no cap</li>
+            <li>Read aloud with the screen off, sleep timer and media controls</li>
+            <li>Highlights, notes, bookmarks — and exporting them</li>
+            <li>Fonts, margins, colours, e-ink mode, gestures, reading limits</li>
+            <li>OPDS catalogues, reading stats and manual backup</li>
+          </ul>
+          <p class="foot">No ads. Nothing here is a trial.</p>
+        </div>
+        <div class="plan pro">
+          <h3>Shadow Reader Pro</h3>
+          <p class="price">One payment through Google Play</p>
+          <ul>
+            <li>Sync across devices — your place, notes and shelves</li>
+            <li>Cloud storage: Google Drive, OneDrive, Box, WebDAV</li>
+            <li>A cast of voices, up to twelve named characters</li>
+            <li>On-device translation</li>
+            <li>Text recognition on scanned pages</li>
+            <li>Weekly automatic backups</li>
+          </ul>
+          <p class="foot">Bought once, restored on your next phone, and it keeps working with no connection at all.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Questions</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>Does it need access to all my files?</summary>
+          <p>No. Shadow Reader uses Android's own folder picker, so it can read the folders you hand it and nothing else. It never asks for all-files access.</p>
+        </details>
+        <details>
+          <summary>Can it open DRM-protected books?</summary>
+          <p>No, and it does not try. A file with Kindle or Adobe DRM is recognised and named as such, so you know why it will not open rather than being told the file is broken.</p>
+        </details>
+        <details>
+          <summary>How does sync work without an account?</summary>
+          <p>It writes to a folder only the app can see in your own Google Drive, or to a WebDAV server or local folder you choose. Your devices read each other's changes from there. There is no server of ours in the path, and nothing of yours to sign into.</p>
+        </details>
+        <details>
+          <summary>Is read-aloud a paid feature?</summary>
+          <p>No. Playback — background, screen off, media notification, sleep timer, speed and voice — is free for everybody. Pro adds the cast: a separate voice for the narrator, the dialogue and up to twelve named characters.</p>
+        </details>
+        <details>
+          <summary>Is Pro a subscription?</summary>
+          <p>No — a single payment through Google Play, bought once. There is no online licence check, so it keeps working offline, after a reinstall and on your next phone.</p>
+        </details>
+        <details>
+          <summary>Is there an iPhone version?</summary>
+          <p>Not today. Shadow Reader is Android only.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>Point it at a folder and start.</h2>
+      <p>Your books, your place in them, and a voice to carry on when you cannot look at the page.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.crackoncloud.reader" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.8a1.5 1.5 0 0 0-.5 1.1v18.2c0 .45.19.86.5 1.1l10-10.2-10-10.2Zm11.1 9.1 2.9-2.9-11-6.2 8.1 9.1Zm0 2.2-8.1 9.1 11-6.2-2.9-2.9Zm4.3-3.9-2.4 2.4 2.4 2.4 2.5-1.4c.9-.5.9-1.9 0-2.4l-2.5-1Z"/></svg>
+          Get it on Google Play
+        </a>
+        <a class="btn" href="mailto:support@crackoncloud.com">Contact support</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© <span id="year">2026</span> crackoncloud</span>
+    <nav>
+      <a href="/">crackoncloud</a>
+      <a href="/reader/privacy-policy/">Privacy policy</a>
+      <a href="mailto:support@crackoncloud.com">support@crackoncloud.com</a>
+      <a href="https://play.google.com/store/apps/details?id=com.crackoncloud.reader" target="_blank" rel="noopener">Google Play</a>
+    </nav>
+  </div>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
