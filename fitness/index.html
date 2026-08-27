@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AtomFit — Gym log and workout tracker for Android · crackoncloud</title>
+<meta name="description" content="AtomFit is an offline-first gym log for Android: one-tap set logging, rest timers, 962 exercises, multi-week programs, records and charts. No account, no ads, no subscription.">
+<meta name="application-name" content="AtomFit">
+<meta name="apple-mobile-web-app-title" content="AtomFit">
+<meta name="theme-color" content="#03412B">
+<link rel="canonical" href="https://crackoncloud.com/fitness/">
+<link rel="icon" href="/assets/fitness/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/fitness/icon-256.png" sizes="256x256" type="image/png">
+<link rel="apple-touch-icon" href="/assets/fitness/icon-256.png">
+<meta name="robots" content="index,follow">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://crackoncloud.com/fitness/">
+<meta property="og:site_name" content="crackoncloud">
+<meta property="og:title" content="AtomFit — a gym log for people who lift">
+<meta property="og:description" content="Offline-first workout tracker for Android. One-tap logging, rest timers, programs, records and charts — with no account, no ads and no subscription.">
+<meta property="og:image" content="https://crackoncloud.com/assets/fitness/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "AtomFit",
+  "operatingSystem": "Android",
+  "applicationCategory": "HealthApplication",
+  "url": "https://crackoncloud.com/fitness/",
+  "image": "https://crackoncloud.com/assets/fitness/icon-256.png",
+  "description": "Offline-first Android gym log and workout tracker: one-tap set logging, rest and interval timers, 962 exercises, multi-week programs with progression, personal records, charts, and cross-device sync through the user's own Google Drive. No account, no ads, no subscription.",
+  "author": { "@type": "Organization", "name": "crackoncloud", "url": "https://crackoncloud.com/" },
+  "offers": [
+    { "@type": "Offer", "price": "0", "priceCurrency": "USD", "name": "Free" }
+  ],
+  "privacyPolicy": "https://crackoncloud.com/fitness/privacy-policy/"
+}
+</script>
+
+<style>
+:root{
+  --bg:#0b0d12;
+  --bg-soft:#11141c;
+  --card:#141824;
+  --line:#232838;
+  --text:#e8ecf5;
+  --muted:#98a2b8;
+  --accent:#13B87A;
+  --accent-2:#7FE7B4;
+  --deep:#03412B;
+  --radius:16px;
+  --maxw:1080px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+img{max-width:100%;height:auto;display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+header{
+  position:sticky;top:0;z-index:20;
+  background:rgba(11,13,18,.82);
+  backdrop-filter:saturate(160%) blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em;text-decoration:none}
+.brand .mark{width:30px;height:30px;flex:none;border-radius:8px}
+.brand .sep{color:var(--line)}
+.brand .sub{color:var(--muted);font-weight:500}
+.nav nav{display:flex;gap:22px;font-size:14px;color:var(--muted);align-items:center}
+.nav nav a{text-decoration:none}
+.nav nav a:hover{color:var(--text)}
+@media(max-width:820px){.nav nav a:not(.btn-sm){display:none}}
+.btn-sm{
+  padding:8px 14px;border-radius:10px;border:1px solid #0A8659;
+  background:linear-gradient(180deg,#13B87A,#0A8659);color:#04241a;font-weight:700;
+}
+.btn-sm:hover{color:#04241a}
+
+.hero{padding:80px 0 64px;position:relative;overflow:hidden}
+.hero::before{
+  content:"";position:absolute;inset:-240px 0 auto 50%;
+  width:1000px;height:620px;transform:translateX(-50%);
+  background:radial-gradient(closest-side,rgba(19,184,122,.30),transparent 70%);
+  pointer-events:none;
+}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:40px}}
+.eyebrow{
+  display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent-2);border:1px solid var(--line);border-radius:999px;
+  padding:6px 12px;background:var(--bg-soft);
+}
+h1{
+  font-size:clamp(34px,6vw,56px);line-height:1.07;letter-spacing:-.03em;
+  margin:20px 0 0;max-width:15ch;
+}
+.tagline{
+  font-size:clamp(22px,3.4vw,32px);line-height:1.15;letter-spacing:-.02em;
+  font-weight:650;margin:12px 0 16px;max-width:20ch;color:var(--text)
+}
+.tagline .alt{color:var(--accent-2)}
+.lede{color:var(--muted);font-size:clamp(16px,2.2vw,19px);max-width:54ch;margin:0}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hero-note{color:var(--muted);font-size:13.5px;margin:16px 0 0}
+
+.btn{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:11px 18px;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px;
+  border:1px solid var(--line);background:var(--card);color:var(--text);
+  transition:transform .15s ease,border-color .15s ease,background .15s ease;
+}
+.btn:hover{transform:translateY(-1px);border-color:#39415c}
+.btn-primary{background:linear-gradient(180deg,#13B87A,#0A8659);border-color:#0A8659;color:#04241a}
+.btn-primary:hover{border-color:#3fd79a}
+.btn svg{width:16px;height:16px;flex:none;fill:currentColor}
+.btn-static{cursor:default}
+.btn-static:hover{transform:none}
+
+.shot{
+  border-radius:26px;border:1px solid var(--line);
+  background:var(--bg-soft);
+  box-shadow:0 24px 60px rgba(0,0,0,.55);
+  overflow:hidden;
+}
+.hero-shot{max-width:300px;margin:0 auto}
+
+section{padding:64px 0;border-top:1px solid var(--line)}
+.section-head h2{font-size:clamp(24px,3.4vw,32px);letter-spacing:-.02em;margin:0 0 8px}
+.section-head p{color:var(--muted);margin:0 0 32px;max-width:62ch}
+
+.split{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:center}
+.split.flip{grid-template-columns:1.15fr .85fr}
+@media(max-width:860px){.split,.split.flip{grid-template-columns:1fr;gap:32px}}
+.split .shot{max-width:280px}
+.split.flip .shot{order:2}
+@media(max-width:860px){.split.flip .shot{order:0}}
+
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.tile{background:linear-gradient(180deg,var(--card),var(--bg-soft));border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+.tile h3{margin:0 0 8px;font-size:17px;letter-spacing:-.01em}
+.tile p{margin:0;color:var(--muted);font-size:14.5px}
+.badge{
+  display:inline-block;margin-left:8px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:#04241a;background:var(--accent-2);border-radius:999px;padding:2px 8px;font-weight:700;vertical-align:2px;
+}
+
+.stats{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin:0 0 8px}
+.stat{border:1px solid var(--line);background:var(--bg-soft);border-radius:var(--radius);padding:20px}
+.stat b{display:block;font-size:26px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:14px}
+
+.facts{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.facts li{position:relative;padding-left:24px;color:#c6cde0;font-size:15.5px}
+.facts li::before{
+  content:"";position:absolute;left:0;top:.6em;width:9px;height:9px;border-radius:3px;
+  background:linear-gradient(135deg,var(--accent-2),var(--accent));
+}
+
+.gallery{display:flex;gap:20px;overflow-x:auto;padding:4px 0 18px;scroll-snap-type:x mandatory}
+.gallery figure{margin:0;flex:0 0 232px;scroll-snap-align:start}
+.gallery figcaption{color:var(--muted);font-size:13.5px;margin-top:12px}
+.gallery figcaption b{display:block;color:var(--text);font-size:14.5px;font-weight:600;margin-bottom:2px}
+
+.plans{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.plan{background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--radius);padding:26px;display:flex;flex-direction:column}
+.plan.pro{border-color:#39415c;background:linear-gradient(180deg,var(--card),var(--bg-soft))}
+.plan h3{margin:0;font-size:20px;letter-spacing:-.02em}
+.plan .price{color:var(--accent-2);font-size:14px;font-weight:600;margin:6px 0 16px}
+.plan ul{list-style:none;padding:0;margin:0 0 20px;display:grid;gap:9px;font-size:14.5px;color:#c6cde0}
+.plan li{position:relative;padding-left:22px}
+.plan li::before{content:"";position:absolute;left:0;top:.55em;width:8px;height:8px;border-radius:3px;background:linear-gradient(135deg,var(--accent),var(--accent-2))}
+.plan .foot{margin-top:auto;color:var(--muted);font-size:13.5px}
+
+.never{list-style:none;padding:0;margin:0;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.never li{border:1px solid var(--line);background:var(--bg-soft);border-radius:var(--radius);padding:18px 20px;font-size:15px;color:#c6cde0}
+.never li b{display:block;color:var(--text);margin-bottom:4px}
+
+.faq{display:grid;gap:0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line);padding:18px 0}
+.faq summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--accent-2);font-weight:700}
+.faq details[open] summary::after{content:"–"}
+.faq p{color:var(--muted);margin:12px 0 0;font-size:15px;max-width:70ch}
+
+.band{text-align:center}
+.band h2{font-size:clamp(24px,3.6vw,34px);letter-spacing:-.02em;margin:0 0 10px}
+.band p{color:var(--muted);margin:0 auto 26px;max-width:52ch}
+.band .hero-cta{justify-content:center}
+
+footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--muted);font-size:14px}
+.foot{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center}
+.foot nav{display:flex;flex-wrap:wrap;gap:18px}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--text)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <img class="mark" src="/assets/fitness/icon.svg" alt="" width="30" height="30">
+      AtomFit <span class="sep">·</span> <span class="sub">crackoncloud</span>
+    </a>
+    <nav>
+      <a href="#logging">Logging</a>
+      <a href="#programs">Programs</a>
+      <a href="#progress">Progress</a>
+      <a href="#pricing">Pricing</a>
+      <a class="btn-sm" href="#screens">See the app</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Android gym log</span>
+        <h1>AtomFit</h1>
+        <p class="tagline">A gym log for <span class="alt">people who lift.</span></p>
+        <p class="lede">
+          AtomFit logs sets in one tap, works in a basement with no signal, asks for no
+          account, and caps nothing you make. A numeric keypad instead of a scroll wheel,
+          last session's real numbers already in the row, and a rest timer that keeps
+          running with the screen off.
+        </p>
+        <div class="hero-cta">
+          <span class="btn btn-primary btn-static">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.8a1.5 1.5 0 0 0-.5 1.1v18.2c0 .45.19.86.5 1.1l10-10.2-10-10.2Zm11.1 9.1 2.9-2.9-11-6.2 8.1 9.1Zm0 2.2-8.1 9.1 11-6.2-2.9-2.9Zm4.3-3.9-2.4 2.4 2.4 2.4 2.5-1.4c.9-.5.9-1.9 0-2.4l-2.5-1Z"/></svg>
+            Coming soon to Google Play
+          </span>
+          <a class="btn" href="#screens">See the app</a>
+        </div>
+        <p class="hero-note">Free to use, with a one-time Pro unlock. No subscription, no ads, no sign-up.</p>
+      </div>
+      <div class="hero-shot shot">
+        <img src="/assets/fitness/log.png" alt="The AtomFit logging screen: six sets of bench press, previous numbers prefilled, a rest timer running and a numeric keypad open" width="324" height="720">
+      </div>
+    </div>
+  </div>
+
+  <section id="logging">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>The logging screen is the app</h2>
+        <p>Everything else is downstream of how fast a set goes in between two working sets.</p>
+      </div>
+      <div class="split">
+        <div class="shot">
+          <img src="/assets/fitness/rest.png" alt="A live workout with the rest timer counting down at the bottom of the screen" width="324" height="720" loading="lazy">
+        </div>
+        <ul class="facts">
+          <li>A numeric keypad, never a scroll wheel — and the row is prefilled with what you lifted last time, not what a template hoped for.</li>
+          <li>A rest timer that runs with the screen off and survives the app being killed. Rest per set, shorter rest after warm-ups, superset rest that waits for the block.</li>
+          <li>A set timer for planks and carries, and intervals for EMOM, Tabata, AMRAP and circuits.</li>
+          <li>Warm-up sets generated from your working weight, and plate maths for the bar in front of you.</li>
+          <li>Machine taken? Swap in an alternative for the same muscle with the equipment you have.</li>
+          <li>Drag to reorder, undo anything, and log left and right sides separately.</li>
+          <li>Seven ways to track a movement — weight and reps, assisted bodyweight, duration and the rest.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="library">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>962 exercises, and room for yours</h2>
+        <p>Search by the name you actually use. Aliases are built in, so "OHP" and "military press" land on the same movement.</p>
+      </div>
+      <div class="split flip">
+        <div class="shot">
+          <img src="/assets/fitness/library.png" alt="The exercise library: a search field, filters, favourites and a list of 962 exercises" width="324" height="720" loading="lazy">
+        </div>
+        <ul class="facts">
+          <li>Filter by muscle, equipment or category, with favourites and recents first.</li>
+          <li>Grip, angle and attachment are variants — close-grip bench stays inside bench press's history.</li>
+          <li>Custom exercises, with a photo of the machine you took yourself.</li>
+          <li>Per-exercise weight unit, machine base weight, and bands logged by name.</li>
+          <li>Gym profiles for the equipment each place you train actually has. <span class="badge">Pro</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="programs">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Routines, and real programs behind them</h2>
+        <p>A routine is a session. A program is weeks of them, with a cursor that knows what comes next.</p>
+      </div>
+      <div class="split">
+        <div class="shot">
+          <img src="/assets/fitness/programs.png" alt="Bundled programs: Novice Linear Progression, GZCLP, PHUL and 5/3/1 Boring But Big, each with an Add button" width="324" height="720" loading="lazy">
+        </div>
+        <ul class="facts">
+          <li>Routines, folders, supersets and circuits, in any number.</li>
+          <li>Nine templates to start from, including StrongLifts 5×5, nSuns 5/3/1 LP, GZCLP and PHUL.</li>
+          <li>Copying a bundled program writes its routines, weeks and training maxes into your own — nothing here is a read-only reference.</li>
+          <li>Multi-week schedules with deload weeks, and progression rules that raise the weight for you and back it off when you stall. <span class="badge">Pro</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="progress">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>The numbers you train by</h2>
+        <p>It reports what happened — 69 workouts, an 18-week streak, +18.8 kg on the bench — and leaves the motivating to you.</p>
+      </div>
+      <div class="split flip">
+        <div class="shot">
+          <img src="/assets/fitness/progress.png" alt="The progress screen: workouts, volume, streak, this week's sets per muscle against a target, and a weekly volume chart" width="324" height="720" loading="lazy">
+        </div>
+        <ul class="facts">
+          <li>Calendar, session detail, and a full edit of any past session with records recomputed.</li>
+          <li>Records per rep count, heaviest weight, best set, best volume and estimated 1RM — and strike out one you know is wrong.</li>
+          <li>Weekly sets per muscle group against a target you set. <span class="badge">Pro</span></li>
+          <li>Per-exercise charts for heaviest weight, estimated 1RM and session volume, over any range. <span class="badge">Pro</span></li>
+          <li>Body weight, body fat and limb measurements, with BMI, lean mass and symmetry — plus progress photos side by side.</li>
+          <li>Muscle recovery, monthly and yearly reports, goals and a calorie estimate per session. <span class="badge">Pro</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="platform">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>The rest of your phone</h2>
+        <p>And your wrist, and your strap, and whatever you had your training in before this.</p>
+      </div>
+      <div class="grid">
+        <div class="tile">
+          <h3>Wear OS</h3>
+          <p>Start a session, tick sets off and read heart rate from your wrist, on a watch app that pairs with the phone by being the same app.</p>
+        </div>
+        <div class="tile">
+          <h3>Widgets and a tile</h3>
+          <p>Home-screen and lock-screen widgets, and a quick settings tile that starts a workout.</p>
+        </div>
+        <div class="tile">
+          <h3>Health Connect and straps</h3>
+          <p>Write sessions to Health Connect, read weight and heart rate back from it, and connect a Bluetooth heart-rate strap.</p>
+        </div>
+        <div class="tile">
+          <h3>Import what you already have</h3>
+          <p>Strong, Hevy, FitNotes and Jefit exports come in whole, with a restore preview and an integrity check before anything lands.</p>
+        </div>
+        <div class="tile">
+          <h3>Export, always</h3>
+          <p>Full-fidelity JSON, and a session or a month as PDF, CSV or TCX. Share a session as an image, or a routine or program as a file or a QR code.</p>
+        </div>
+        <div class="tile">
+          <h3>Themes and languages</h3>
+          <p>Dark and AMOLED-black, Material You colour, an app lock behind your device's own, and 22 languages.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="screens">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Inside the app</h2>
+        <p>Screens straight off a phone, from a real imported history. The numbers in them add up.</p>
+      </div>
+      <div class="gallery">
+        <figure>
+          <div class="shot"><img src="/assets/fitness/log.png" alt="Logging a set with the numeric keypad" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>One tap per set</b>Keypad, previous numbers, and the timer already counting.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/fitness/rest.png" alt="The rest timer at the foot of a live workout" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Rest that keeps time</b>Screen off, app killed — it is still counting when you come back.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/fitness/history.png" alt="The history calendar with a month of sessions and totals" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Every session</b>A month at a glance, then the sets, then an edit if you got one wrong.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/fitness/progress.png" alt="Progress totals and weekly sets per muscle" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Weekly sets per muscle</b>Against a target you set, and the volume behind it.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/fitness/chart.png" alt="A per-exercise chart of heaviest weight over time" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>One lift, over months</b>Heaviest weight, estimated 1RM or volume — tap a point for the session.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/fitness/records.png" alt="Personal records per exercise" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Records that mean something</b>Per rep count, per exercise, and correctable.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/fitness/recovery.png" alt="Muscle recovery estimates per muscle group" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Muscle recovery</b>An estimate, and the app says so. Your own soreness is the better guide.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/fitness/library.png" alt="The exercise library with search and filters" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>962 exercises</b>Searchable by the name you use, plus every one you add.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/fitness/programs.png" alt="Bundled multi-week programs" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Programs you can edit</b>Copied into your own, training maxes and all.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>No account, and no server of ours</h2>
+        <p>Your training is a database on your phone. Sync, if you turn it on, is a file in your own Google Drive.</p>
+      </div>
+      <div class="grid">
+        <div class="tile">
+          <h3>Offline at every moment</h3>
+          <p>Not "offline-capable". Every feature that matters mid-session works with the phone in aeroplane mode, because nothing waits on a network.</p>
+        </div>
+        <div class="tile">
+          <h3>Sync through your Drive <span class="badge">Pro</span></h3>
+          <p>The hidden app-data space only this app can read, in your own Google account. There is no AtomFit server, and there never will be.</p>
+        </div>
+        <div class="tile">
+          <h3>Reports you control</h3>
+          <p>Crash reports are on so a crash can be fixed; usage statistics stay off until you switch them on. Both live in Settings › Privacy, and neither carries a workout, a measurement or an exercise you typed.</p>
+        </div>
+      </div>
+      <p class="hero-note" style="margin-top:22px">
+        The whole account is in the <a href="/fitness/privacy-policy/" style="color:var(--accent-2)">privacy policy</a>.
+      </p>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Free, and what Pro adds</h2>
+        <p>One payment through Google Play, once. Not a subscription, and nothing that shipped free ever moves behind it.</p>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <h3>Free</h3>
+          <p class="price">The whole log</p>
+          <ul>
+            <li>Unlimited routines, exercises, history and measurements</li>
+            <li>The logging screen entire — keypad, rest and set timers, intervals, warm-ups, plate maths</li>
+            <li>962 exercises, custom exercises, folders, supersets and circuits</li>
+            <li>History, calendar, session editing and personal records</li>
+            <li>Body metrics, progress photos, widgets, Wear OS and Health Connect</li>
+            <li>Backups, competitor imports and full-fidelity export</li>
+          </ul>
+          <p class="foot">No ads. Nothing here is a trial.</p>
+        </div>
+        <div class="plan pro">
+          <h3>AtomFit Pro</h3>
+          <p class="price">One payment through Google Play</p>
+          <ul>
+            <li>Sync across devices through your own Google Drive</li>
+            <li>Programs and progression rules</li>
+            <li>Per-exercise charts, and goals</li>
+            <li>Weekly muscle targets and muscle recovery</li>
+            <li>Monthly and yearly reports</li>
+            <li>The full rep-max table, out to thirty reps</li>
+            <li>Gym profiles</li>
+          </ul>
+          <p class="foot">Bought once, held by your Google Play account across devices and reinstalls.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="never">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What this app will never do</h2>
+        <p>Six promises, and they are the reason the app exists rather than decoration on it.</p>
+      </div>
+      <ul class="never">
+        <li><b>No account, ever</b>The only sign-in is Google, it is optional, and it buys one thing: the same data on another device.</li>
+        <li><b>No network needed</b>Works with no connection, at every moment of use.</li>
+        <li><b>No caps</b>On routines, programs, custom exercises, history, measurements or how far back the analytics look.</li>
+        <li><b>No ads, no subscription</b>One optional purchase, and no advertising SDK in the build.</li>
+        <li><b>Nothing taken away</b>Nothing that has ever shipped free moves behind the price.</li>
+        <li><b>Your data leaves whenever</b>Full-fidelity export, one tap, no account.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Questions</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>Do I have to make an account?</summary>
+          <p>No, and there is nothing to make one with. AtomFit has no user accounts and no server. The only sign-in anywhere in the app is an optional Google sign-in, and it exists solely to reach the private folder in your own Drive that sync uses.</p>
+        </details>
+        <details>
+          <summary>How does sync work with no backend?</summary>
+          <p>Each device writes its changes into the <code>appDataFolder</code> of your own Google Drive — a hidden space only this app can read — and reads the other devices' changes back out. The merge happens on the phone. We never see the file, and deleting it in your Drive ends the whole thing without asking us.</p>
+        </details>
+        <details>
+          <summary>Does it work offline?</summary>
+          <p>Entirely. The database is on the device, and every screen reads from it. Sync is the only feature that ever wants a connection, and it waits until there is one.</p>
+        </details>
+        <details>
+          <summary>Is Pro a subscription?</summary>
+          <p>No — one payment through Google Play, bought once and restored on your next phone. The entitlement is cached on the device, so it keeps working with no connection.</p>
+        </details>
+        <details>
+          <summary>Can I bring my history from another app?</summary>
+          <p>Yes. AtomFit imports Strong, Hevy, FitNotes and Jefit exports, and shows you a preview with an integrity check before anything is written.</p>
+        </details>
+        <details>
+          <summary>Can I get my data back out?</summary>
+          <p>Full-fidelity JSON export in one tap, with no account and no upgrade. A session or a month can also leave as PDF, CSV or TCX, and automatic rolling backups go to a folder you choose.</p>
+        </details>
+        <details>
+          <summary>Is there an iPhone version?</summary>
+          <p>Not today. AtomFit is Android, with a Wear OS watch app alongside it.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>Open it, and start the set.</h2>
+      <p>A gym log that opens on your training, keeps time while you rest, and asks you for nothing.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="mailto:support@crackoncloud.com">Contact support</a>
+        <a class="btn" href="/fitness/privacy-policy/">Privacy policy</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© <span id="year">2026</span> crackoncloud</span>
+    <nav>
+      <a href="/">crackoncloud</a>
+      <a href="/fitness/privacy-policy/">Privacy policy</a>
+      <a href="mailto:support@crackoncloud.com">support@crackoncloud.com</a>
+    </nav>
+  </div>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

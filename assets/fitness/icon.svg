@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 108 108">
+  <!--
+    Play Store icon, 512x512.
+
+    The same artwork as the adaptive launcher icon
+    (app/src/main/res/drawable/ic_launcher_foreground.xml and _background.xml): a barbell as the
+    nucleus of an atom, one tilted orbit, one electron, all on the same -30 degree axis.
+
+    The foreground is scaled about the centre, because rendering the drawable flat would show the
+    mark smaller here than on the device it is advertising — a launcher masks an adaptive icon
+    down to the inner 72 of its 108 viewport, which is a factor of 1.5. This uses **1.35**, not
+    1.5: the electron is the outermost thing in the mark and sits 32.5 from centre, so at 1.5 it
+    would finish about 16 px from the edge of the 512 and read as cropped. At 1.35 it keeps a
+    margin of roughly 40 px and the mark still fills the tile.
+
+    Full bleed and square on purpose — Play applies its own mask and shadow, and an icon that
+    arrives pre-rounded is rounded twice.
+  -->
+  <defs>
+    <linearGradient id="bg" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="108" y2="108">
+      <stop offset="0" stop-color="#13B87A"/>
+      <stop offset="0.45" stop-color="#0A8659"/>
+      <stop offset="1" stop-color="#03412B"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="108" height="108" fill="url(#bg)"/>
+  <g transform="translate(-18.9,-18.9) scale(1.35)">
+    <g transform="rotate(-30 54 54)">
+      <!-- Orbit. -->
+      <path d="M27,54 A27,18 0 1 1 81,54 A27,18 0 1 1 27,54 Z"
+            fill="none" stroke="#FFFFFF" stroke-width="5"/>
+      <!-- Electron, at the orbit's major-axis tip. -->
+      <path fill="#FFFFFF" d="M75.5,54 A5.5,5.5 0 1 1 86.5,54 A5.5,5.5 0 1 1 75.5,54 Z"/>
+      <!-- Nucleus: barbell. Bar first, then the two plates; they overlap, and nonZero fill
+           welds them into one shape. -->
+      <path fill="#FFFFFF" fill-rule="nonzero"
+            d="M46.7,51.9 H61.3 A2.1,2.1 0 0 1 61.3,56.1 H46.7 A2.1,2.1 0 0 1 46.7,51.9 Z
+               M42.6,46.4 H43.3 A2.2,2.2 0 0 1 45.5,48.6 V59.4 A2.2,2.2 0 0 1 43.3,61.6 H42.6 A2.2,2.2 0 0 1 40.4,59.4 V48.6 A2.2,2.2 0 0 1 42.6,46.4 Z
+               M64.7,46.4 H65.4 A2.2,2.2 0 0 1 67.6,48.6 V59.4 A2.2,2.2 0 0 1 65.4,61.6 H64.7 A2.2,2.2 0 0 1 62.5,59.4 V48.6 A2.2,2.2 0 0 1 64.7,46.4 Z"/>
+    </g>
+  </g>
+</svg>
