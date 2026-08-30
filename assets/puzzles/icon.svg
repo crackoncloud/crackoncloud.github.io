@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    The Slatework mark: a closed loop drawn across a grid.
+
+    The same geometry as composeApp/src/androidMain/res/drawable/ic_launcher_foreground.xml, in a
+    form that renders without Android tooling. Those drawables are the source of truth; if one
+    changes, this changes in the same commit.
+
+    The mark here is scaled 1.25x about the centre of the 108 viewport relative to the adaptive
+    foreground, because this file is rendered flat. A launcher masks an adaptive icon to the inner
+    72 of its 108, so a flat render at 1.0 looks smaller in a store grid than the same icon looks on
+    a phone. Past about 1.35 the loop's corners read as cropped - unlike a round mark, this one has
+    its extremes at four corners. See docs/brand/BRAND.md section 8.
+
+    Grid  24..84 step 12, scaled: 16.5..91.5 step 15.        Stroke 1.5, #C6C0B3
+    Loop  36,36 72,36 72,60 60,60 60,72 36,72, scaled.        Stroke 6.25, #2F5FD0
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="108" height="108" viewBox="0 0 108 108">
+
+  <!-- Paper. Warm, not white: #FAF8F4 is the app's own background in the Paper theme. -->
+  <rect x="0" y="0" width="108" height="108" fill="#FAF8F4"/>
+
+  <!-- The grid: six lines each way over five cells, a texture rather than a subject. -->
+  <g stroke="#C6C0B3" stroke-width="1.5" fill="none">
+    <path d="M16.5,16.5 H91.5 M16.5,31.5 H91.5 M16.5,46.5 H91.5 M16.5,61.5 H91.5 M16.5,76.5 H91.5 M16.5,91.5 H91.5"/>
+    <path d="M16.5,16.5 V91.5 M31.5,16.5 V91.5 M46.5,16.5 V91.5 M61.5,16.5 V91.5 M76.5,16.5 V91.5 M91.5,16.5 V91.5"/>
+  </g>
+
+  <!-- The loop. Closed, never crossing itself, drawn along the lines rather than through the
+       cells - which is what makes it a Slitherlink loop rather than a Masyu one - and kept off the
+       outer border, so the grid is something it runs across rather than a frame around it. -->
+  <path d="M31.5,31.5 L76.5,31.5 L76.5,61.5 L61.5,61.5 L61.5,76.5 L31.5,76.5 Z"
+        fill="none" stroke="#2F5FD0" stroke-width="6.25"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

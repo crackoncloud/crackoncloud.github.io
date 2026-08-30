@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slatework — 13 logic puzzles for Android and iOS · crackoncloud</title>
+<meta name="description" content="Slatework is a collection of 13 classic logic puzzles — Killer Sudoku, Kakuro, Slitherlink, Hashi and 9 more. Every board is generated on your device, has exactly one answer, and is solvable without guessing. No ads, no subscription, no account.">
+<meta name="application-name" content="Slatework">
+<meta name="apple-mobile-web-app-title" content="Slatework">
+<meta name="theme-color" content="#FAF8F4">
+<link rel="canonical" href="https://crackoncloud.com/puzzles/">
+<link rel="icon" href="/assets/puzzles/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/puzzles/icon-256.png" sizes="256x256" type="image/png">
+<link rel="apple-touch-icon" href="/assets/puzzles/icon-256.png">
+<meta name="robots" content="index,follow">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://crackoncloud.com/puzzles/">
+<meta property="og:site_name" content="crackoncloud">
+<meta property="og:title" content="Slatework — 13 logic puzzles, generated on your phone">
+<meta property="og:description" content="Killer Sudoku, Kakuro, Slitherlink, Hashi and 9 more. Unlimited boards, one answer each, reachable by logic alone. No ads, no subscription, no account.">
+<meta property="og:image" content="https://crackoncloud.com/assets/puzzles/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Slatework",
+  "operatingSystem": "Android, iOS",
+  "applicationCategory": "GameApplication",
+  "applicationSubCategory": "Puzzle",
+  "url": "https://crackoncloud.com/puzzles/",
+  "downloadUrl": "https://play.google.com/store/apps/details?id=com.crackoncloud.puzzles",
+  "installUrl": "https://play.google.com/store/apps/details?id=com.crackoncloud.puzzles",
+  "image": "https://crackoncloud.com/assets/puzzles/icon-256.png",
+  "description": "A collection of 13 classic logic puzzles for Android and iOS: Killer Sudoku, Kakuro, Hashi, Slitherlink, Futoshiki, Binairo, Nurikabe, Shikaku, Akari, Masyu, Norinori, Heyawake and Yajilin. Every board is generated on the device, has exactly one solution, and is solvable by logic alone at every difficulty. No ads, no subscription, no account, and no server.",
+  "author": { "@type": "Organization", "name": "crackoncloud", "url": "https://crackoncloud.com/" },
+  "privacyPolicy": "https://crackoncloud.com/puzzles/privacy-policy/"
+}
+</script>
+
+<style>
+:root{
+  --paper:#FAF8F4;
+  --paper-2:#F3F0E9;
+  --card:#FFFFFF;
+  --line:#DFD9CD;
+  --rule:#C6C0B3;
+  --ink:#1B1D22;
+  --quiet:#4A4E57;
+  --blue:#2F5FD0;
+  --blue-deep:#254CA8;
+  --blue-wash:#E7EDFB;
+  --radius:16px;
+  --maxw:1080px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  font-variant-numeric:tabular-nums;
+}
+a{color:inherit}
+img{max-width:100%;height:auto;display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+header{
+  position:sticky;top:0;z-index:20;
+  background:rgba(250,248,244,.86);
+  backdrop-filter:saturate(160%) blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em;text-decoration:none}
+.brand .mark{width:30px;height:30px;flex:none;border-radius:8px;border:1px solid var(--line)}
+.brand .sep{color:var(--rule)}
+.brand .sub{color:var(--quiet);font-weight:500}
+.nav nav{display:flex;gap:22px;font-size:14px;color:var(--quiet);align-items:center}
+.nav nav a{text-decoration:none}
+.nav nav a:hover{color:var(--ink)}
+@media(max-width:820px){.nav nav a:not(.btn-sm){display:none}}
+.btn-sm{
+  padding:8px 14px;border-radius:10px;border:1px solid var(--blue-deep);
+  background:var(--blue);color:#fff;font-weight:600;
+}
+.btn-sm:hover{color:#fff;background:var(--blue-deep)}
+
+.hero{padding:80px 0 64px;position:relative;overflow:hidden}
+.hero::before{
+  content:"";position:absolute;inset:-260px 0 auto 50%;
+  width:1000px;height:640px;transform:translateX(-50%);
+  background:radial-gradient(closest-side,rgba(47,95,208,.13),transparent 70%);
+  pointer-events:none;
+}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:40px}}
+.eyebrow{
+  display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--blue);border:1px solid var(--line);border-radius:999px;
+  padding:6px 12px;background:var(--card);
+}
+h1{
+  font-size:clamp(34px,6vw,56px);line-height:1.07;letter-spacing:-.03em;
+  margin:20px 0 0;max-width:15ch;
+}
+.tagline{
+  font-size:clamp(22px,3.4vw,32px);line-height:1.15;letter-spacing:-.02em;
+  font-weight:650;margin:12px 0 16px;max-width:22ch;
+}
+.tagline .alt{color:var(--blue)}
+.lede{color:var(--quiet);font-size:clamp(16px,2.2vw,19px);max-width:56ch;margin:0}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hero-note{color:var(--quiet);font-size:13.5px;margin:16px 0 0}
+
+.btn{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:11px 18px;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px;
+  border:1px solid var(--line);background:var(--card);color:var(--ink);
+  transition:transform .15s ease,border-color .15s ease,background .15s ease;
+}
+.btn:hover{transform:translateY(-1px);border-color:var(--rule)}
+.btn-primary{background:var(--blue);border-color:var(--blue-deep);color:#fff}
+.btn-primary:hover{background:var(--blue-deep);border-color:var(--blue-deep)}
+.btn svg{width:16px;height:16px;flex:none;fill:currentColor}
+.btn-soon{color:var(--quiet);background:var(--paper-2);cursor:default}
+.btn-soon:hover{transform:none;border-color:var(--line)}
+
+.shot{
+  border-radius:26px;border:1px solid var(--line);
+  background:var(--card);
+  box-shadow:0 18px 44px rgba(27,29,34,.12);
+  overflow:hidden;
+}
+.hero-shot{max-width:300px;margin:0 auto}
+
+section{padding:64px 0;border-top:1px solid var(--line)}
+.section-head h2{font-size:clamp(24px,3.4vw,32px);letter-spacing:-.02em;margin:0 0 8px}
+.section-head p{color:var(--quiet);margin:0 0 32px;max-width:64ch}
+
+.split{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:center}
+.split.flip{grid-template-columns:1.15fr .85fr}
+@media(max-width:860px){.split,.split.flip{grid-template-columns:1fr;gap:32px}}
+.split .shot{max-width:280px}
+.split.flip .shot{order:2}
+@media(max-width:860px){.split.flip .shot{order:0}}
+
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+.tile h3{margin:0 0 8px;font-size:17px;letter-spacing:-.01em}
+.tile p{margin:0;color:var(--quiet);font-size:14.5px}
+.badge{
+  display:inline-block;margin-left:8px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:#fff;background:var(--blue);border-radius:999px;padding:2px 8px;font-weight:700;vertical-align:2px;
+}
+
+.types{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.type{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:16px 18px;display:flex;gap:14px;align-items:flex-start;
+}
+.type .dot{width:12px;height:12px;border-radius:4px;flex:none;margin-top:6px;border:1px solid rgba(27,29,34,.14)}
+.type b{display:block;font-size:15.5px;letter-spacing:-.01em}
+.type span{display:block;color:var(--quiet);font-size:14px}
+.type .alias{color:var(--rule);font-weight:500;font-size:13px}
+
+.stats{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin:0}
+.stat{border:1px solid var(--line);background:var(--card);border-radius:var(--radius);padding:20px}
+.stat b{display:block;font-size:26px;letter-spacing:-.02em}
+.stat span{color:var(--quiet);font-size:14px}
+
+.facts{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.facts li{position:relative;padding-left:24px;color:#33373F;font-size:15.5px}
+.facts li::before{
+  content:"";position:absolute;left:0;top:.6em;width:9px;height:9px;border-radius:3px;
+  background:var(--blue);
+}
+
+.gallery{display:flex;gap:20px;overflow-x:auto;padding:4px 0 18px;scroll-snap-type:x mandatory}
+.gallery figure{margin:0;flex:0 0 232px;scroll-snap-align:start}
+.gallery figcaption{color:var(--quiet);font-size:13.5px;margin-top:12px}
+.gallery figcaption b{display:block;color:var(--ink);font-size:14.5px;font-weight:600;margin-bottom:2px}
+
+.plans{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;display:flex;flex-direction:column}
+.plan.pro{border-color:var(--blue);box-shadow:0 12px 30px rgba(47,95,208,.10)}
+.plan h3{margin:0;font-size:20px;letter-spacing:-.02em}
+.plan .price{color:var(--blue);font-size:14px;font-weight:600;margin:6px 0 16px}
+.plan ul{list-style:none;padding:0;margin:0 0 20px;display:grid;gap:9px;font-size:14.5px;color:#33373F}
+.plan li{position:relative;padding-left:22px}
+.plan li::before{content:"";position:absolute;left:0;top:.55em;width:8px;height:8px;border-radius:3px;background:var(--blue)}
+.plan .foot{margin-top:auto;color:var(--quiet);font-size:13.5px}
+
+.never{list-style:none;padding:0;margin:0;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.never li{border:1px solid var(--line);background:var(--card);border-radius:var(--radius);padding:18px 20px;font-size:15px;color:#33373F}
+.never li b{display:block;color:var(--ink);margin-bottom:4px}
+
+.faq{display:grid;gap:0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line);padding:18px 0}
+.faq summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--blue);font-weight:700}
+.faq details[open] summary::after{content:"–"}
+.faq p{color:var(--quiet);margin:12px 0 0;font-size:15px;max-width:72ch}
+
+.band{text-align:center}
+.band h2{font-size:clamp(24px,3.6vw,34px);letter-spacing:-.02em;margin:0 0 10px}
+.band p{color:var(--quiet);margin:0 auto 26px;max-width:54ch}
+.band .hero-cta{justify-content:center}
+
+footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--quiet);font-size:14px}
+.foot{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center}
+.foot nav{display:flex;flex-wrap:wrap;gap:18px}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <img class="mark" src="/assets/puzzles/icon.svg" alt="" width="30" height="30">
+      Slatework <span class="sep">·</span> <span class="sub">crackoncloud</span>
+    </a>
+    <nav>
+      <a href="#types">Puzzles</a>
+      <a href="#board">The board</a>
+      <a href="#hints">Hints</a>
+      <a href="#daily">Daily</a>
+      <a href="#pricing">Pricing</a>
+      <a class="btn-sm" href="https://play.google.com/store/apps/details?id=com.crackoncloud.puzzles" target="_blank" rel="noopener">Get the app</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Logic puzzles · Android and iOS</span>
+        <h1>Slatework</h1>
+        <p class="tagline">13 classic logic puzzles, <span class="alt">made on your phone.</span></p>
+        <p class="lede">
+          Every board is generated on the device the moment you ask for it, and checked by a
+          solver before you see it: exactly one answer, reachable by logic alone, at every
+          difficulty. Nothing to run out of, no account to make, and no network to wait for.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.crackoncloud.puzzles" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.8a1.5 1.5 0 0 0-.5 1.1v18.2c0 .45.19.86.5 1.1l10-10.2-10-10.2Zm11.1 9.1 2.9-2.9-11-6.2 8.1 9.1Zm0 2.2-8.1 9.1 11-6.2-2.9-2.9Zm4.3-3.9-2.4 2.4 2.4 2.4 2.5-1.4c.9-.5.9-1.9 0-2.4l-2.5-1Z"/></svg>
+            Get it on Google Play
+          </a>
+          <span class="btn btn-soon" aria-disabled="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.9-1.4-.15-2.8.85-3.5.85-.72 0-1.86-.83-3.06-.81-1.57.02-3.02.91-3.83 2.32-1.63 2.83-.42 7 1.17 9.3.78 1.12 1.7 2.38 2.92 2.34 1.17-.05 1.61-.76 3.03-.76 1.42 0 1.82.76 3.06.73 1.26-.02 2.06-1.14 2.83-2.27.89-1.3 1.26-2.56 1.28-2.63-.03-.01-2.46-.94-2.49-3.72ZM14.1 5.8c.64-.78 1.07-1.86.95-2.94-.92.04-2.03.61-2.69 1.38-.59.69-1.11 1.79-.97 2.85 1.02.08 2.07-.52 2.71-1.29Z"/></svg>
+            App Store — coming soon
+          </span>
+        </div>
+        <p class="hero-note">On Google Play now. The iOS version is in preparation for the App Store. No ads, no subscription, one purchase.</p>
+      </div>
+      <div class="hero-shot shot">
+        <img src="/assets/puzzles/home.png" alt="The Slatework home screen: a daily puzzle card with a streak of 10, and a grid of 13 puzzle types" width="324" height="720">
+      </div>
+    </div>
+  </div>
+
+  <section id="types">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Thirteen types, all in one app</h2>
+        <p>The pencil puzzles a newspaper prints, each with its own board, its own rules card and its own walkthrough. No packs, no levels, and no type held back for a later release.</p>
+      </div>
+      <div class="types">
+        <div class="type"><span class="dot" style="background:#A8633F"></span><div><b>Killer Sudoku</b><span>Sudoku with cages that have to add up.</span></div></div>
+        <div class="type"><span class="dot" style="background:#7B2A94"></span><div><b>Kakuro <span class="alias">Cross Sums</span></b><span>A crossword written in numbers.</span></div></div>
+        <div class="type"><span class="dot" style="background:#008BB0"></span><div><b>Hashi <span class="alias">Bridges</span></b><span>Join the islands into one network.</span></div></div>
+        <div class="type"><span class="dot" style="background:#2899B2"></span><div><b>Slitherlink <span class="alias">Loop the Loop</span></b><span>One closed loop, drawn from the clues.</span></div></div>
+        <div class="type"><span class="dot" style="background:#2397D8"></span><div><b>Futoshiki</b><span>A Latin square with greater-than signs across it.</span></div></div>
+        <div class="type"><span class="dot" style="background:#7052E5"></span><div><b>Binairo <span class="alias">Takuzu</span></b><span>Zeros and ones, never three in a row.</span></div></div>
+        <div class="type"><span class="dot" style="background:#0C8840"></span><div><b>Nurikabe <span class="alias">Islands and Walls</span></b><span>Islands of the right size, in one sea.</span></div></div>
+        <div class="type"><span class="dot" style="background:#A92A80"></span><div><b>Shikaku <span class="alias">Rectangles</span></b><span>Cut the grid into rectangles that match a number.</span></div></div>
+        <div class="type"><span class="dot" style="background:#B08600"></span><div><b>Akari <span class="alias">Light Up</span></b><span>Light every square, and no lamp in another lamp's line.</span></div></div>
+        <div class="type"><span class="dot" style="background:#565FB1"></span><div><b>Masyu <span class="alias">Pearls</span></b><span>A loop that turns on black pearls and runs through white ones.</span></div></div>
+        <div class="type"><span class="dot" style="background:#9D920A"></span><div><b>Norinori</b><span>One domino in every room.</span></div></div>
+        <div class="type"><span class="dot" style="background:#BD4F1E"></span><div><b>Heyawake</b><span>Shaded rooms, and no white line running through more than two.</span></div></div>
+        <div class="type"><span class="dot" style="background:#8F2A5F"></span><div><b>Yajilin</b><span>A loop and a shading on the same board.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="generated">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>One answer, and no guessing to reach it</h2>
+        <p>A difficulty here is the hardest technique the solver needed to finish the board, not a count of clues. That is the difference between a puzzle that is hard and one that is only a coin toss.</p>
+      </div>
+      <div class="split">
+        <div class="shot">
+          <img src="/assets/puzzles/killer.png" alt="A part-solved Killer Sudoku: cages, entered digits, pencil marks in one region and the keypad up" width="324" height="720" loading="lazy">
+        </div>
+        <ul class="facts">
+          <li>Every board is generated on your device and proved unique by a solver before it is drawn. There is no pack of a few hundred puzzles to exhaust.</li>
+          <li>Easy and Medium ask for the rules of the type. Hard adds the reasoning a solver names. Nothing below Expert ever needs a hypothesis held and refuted.</li>
+          <li>Grids from 4×4 to 20×20, each type at the sizes its own rules can carry.</li>
+          <li>Two boards are built in the background for the sizes and tiers you have been playing, so the next one opens as fast as the screen can draw it.</li>
+          <li>A completed board reports your time and your previous best, and then stops. No coins, no lives, no confetti.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="board">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>The board is the app</h2>
+        <p>Most of the one-star reviews these puzzles collect elsewhere are about input rather than logic. So a line is drawn by dragging, and the whole drag is one move and one undo.</p>
+      </div>
+      <div class="split flip">
+        <div class="shot">
+          <img src="/assets/puzzles/slitherlink.png" alt="A Slitherlink board with a drag in progress, the line half drawn" width="324" height="720" loading="lazy">
+        </div>
+        <ul class="facts">
+          <li>Drag to draw a loop, drag to paint a run of shading — never one tap per segment. A drag that starts on a line erases instead, so a wrong turn is taken back without letting go.</li>
+          <li>Pencil marks in the fixed three-by-three you would use on paper, cleared from the row and column for you if you want that.</li>
+          <li>Undo and redo as far back as you like, and every move saved as you make it. A board survives the app being killed.</li>
+          <li>Mistakes your way: off, on Check, or marked as you make them. Nothing ever ends a puzzle.</li>
+          <li>Pinch and double-tap to zoom on the big grids. Above 600 dp the pad sits beside the board, either way round for a left-handed player.</li>
+          <li>A colour-blind palette over every theme, one screen-reader node per cell, and a full keyboard map.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="hints">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>A hint is the next real deduction</h2>
+        <p>Not a revealed cell. The solver's own next step, written out in a sentence, with the squares it is about lit up — so the hint teaches the technique that found it.</p>
+      </div>
+      <div class="split">
+        <div class="shot">
+          <img src="/assets/puzzles/hint.png" alt="A hint open on a Kakuro board: one sentence of reasoning, with the run it is about highlighted" width="324" height="720" loading="lazy">
+        </div>
+        <ul class="facts">
+          <li>Look, then the reason, then the move. Three presses, and you can stop after any of them.</li>
+          <li>A board carrying a wrong entry is told so, rather than being deduced from — the hint points at the mistake first.</li>
+          <li>Every type has a rules card you can open mid-board, with the drawn figures and the controls under them.</li>
+          <li>Every type also has a walkthrough: the real play screen with the clock taken off and a card under it, so what you learn is what you will do in a game.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="daily">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>A puzzle a day, in every type</h2>
+        <p>Derived from the date rather than downloaded, so every device generates the same board offline. Same date, same seed, same puzzle, with nothing to fetch.</p>
+      </div>
+      <div class="split flip">
+        <div class="shot">
+          <img src="/assets/puzzles/daily.png" alt="The daily screen: a week strip, a streak, and the day's thirteen puzzles as rows" width="324" height="720" loading="lazy">
+        </div>
+        <ul class="facts">
+          <li>One daily puzzle per type per day, at every difficulty, free.</li>
+          <li>A streak counted quietly and never nagged about.</li>
+          <li>An optional reminder at a time you choose. It is an alarm on your own phone; nothing leaves the device to make it happen.</li>
+          <li>A month view of everything you have solved, filterable by type, and ten achievements derived from statistics you already have.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="craft">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Measured on a cheap phone</h2>
+        <p>Every number here is off a Redmi 9 running the shipping build — the phone this app has to be pleasant on, rather than the one it is developed on.</p>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>2.1 MB</b><span>The whole app</span></div>
+        <div class="stat"><b>459 ms</b><span>Cold start, median of ten</span></div>
+        <div class="stat"><b>16.7 ms</b><span>Median frame, 20×20 panned and zoomed</span></div>
+        <div class="stat"><b>13</b><span>Types, all in the first release</span></div>
+      </div>
+      <div class="grid" style="margin-top:20px">
+        <div class="tile">
+          <h3>Six board palettes</h3>
+          <p>Paper, Ink, Sepia, Slate, Forest and full-contrast black on white. Match device resolves to Paper or Ink, and never overrules a theme you picked.</p>
+        </div>
+        <div class="tile">
+          <h3>Drawn, not shipped as pictures</h3>
+          <p>Twenty-nine drawings, thirteen type marks, six board palettes and four empty states cost 80 KiB between them, because every one is a vector path.</p>
+        </div>
+        <div class="tile">
+          <h3>Phone and tablet</h3>
+          <p>Portrait and landscape, and a two-pane layout on a wide window with the board beside the pad rather than above it.</p>
+        </div>
+        <div class="tile">
+          <h3>22 languages</h3>
+          <p>The app and its rules cards, in the languages the store listing is written in.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="screens">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Inside the app</h2>
+        <p>Screens off a real device, nothing redrawn.</p>
+      </div>
+      <div class="gallery">
+        <figure>
+          <div class="shot"><img src="/assets/puzzles/home.png" alt="The home screen with all 13 puzzle types" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Thirteen types</b>And the day's puzzles at the top of them.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/puzzles/killer.png" alt="A Killer Sudoku part solved" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Killer Sudoku</b>Cages, pencil marks, and the combination helper under the board.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/puzzles/kakuro.png" alt="A Kakuro mid-solve with a clue cell selected" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Kakuro</b>Tap a clue and the run it governs lights up, with the arrangements already ruled out struck through.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/puzzles/slitherlink.png" alt="A Slitherlink with a drag in progress" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Slitherlink</b>One drag, one move, one undo.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/puzzles/hint.png" alt="A hint open on a board" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>A hint that reasons</b>The sentence, and the cells it is about.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/puzzles/daily.png" alt="The daily puzzles screen" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>The day's thirteen</b>Generated from the date, offline, everywhere.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/puzzles/rules.png" alt="A rules sheet with drawn figures and a controls list" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Rules, and controls</b>The figures, then how the board is actually played.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/puzzles/themes.png" alt="The theme picker showing seven boards as swatches" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Six palettes</b>Each one a real board, drawn as its own swatch.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/puzzles/settings.png" alt="The foot of the settings screen: reminder, backup file and about" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Your file, your switches</b>The reminder, the backup, and the diagnostics switches.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>No account, and no server of ours</h2>
+        <p>Puzzles are generated on the device and saved to a database on it. There is nothing to sign in to, and nothing a player types.</p>
+      </div>
+      <div class="grid">
+        <div class="tile">
+          <h3>Offline at every moment</h3>
+          <p>Not offline-capable — offline. Airplane mode changes nothing except that the store cannot be reached, and an unreachable store never locks anyone out of what they bought.</p>
+        </div>
+        <div class="tile">
+          <h3>One file, yours</h3>
+          <p>A versioned backup holds every puzzle, game, statistic and setting, written through the system file picker, and reads back on any device. No account, no cloud copy.</p>
+        </div>
+        <div class="tile">
+          <h3>Two switches, both optional</h3>
+          <p>Crash reports, and usage and speed. Both are in Settings › Diagnostics, both are honoured before anything is sent, and neither can carry a puzzle, a time or anything you entered.</p>
+        </div>
+      </div>
+      <p class="hero-note" style="margin-top:22px">
+        The whole account is in the <a href="/puzzles/privacy-policy/" style="color:var(--blue)">privacy policy</a>.
+      </p>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Free, and what the unlock adds</h2>
+        <p>One purchase, once, through the store you installed from. Not a subscription, and nothing that ships free ever moves behind the price.</p>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <h3>Free</h3>
+          <p class="price">All 13 types, forever</p>
+          <ul>
+            <li>Every puzzle type, every one playable</li>
+            <li>Unlimited generated boards at the free sizes and tiers</li>
+            <li>The daily puzzle in every type, at every difficulty</li>
+            <li>Undo and redo, autosave, pencil marks and every mistake mode</li>
+            <li>Tutorials, rules cards and achievements</li>
+            <li>3 hints a day</li>
+            <li>Light and dark themes, and the backup file</li>
+          </ul>
+          <p class="foot">No ads. Nothing here is a trial.</p>
+        </div>
+        <div class="plan pro">
+          <h3>Slatework unlocked</h3>
+          <p class="price">One payment, once</p>
+          <ul>
+            <li>Every grid size, up to 20×20</li>
+            <li>The Hard and Expert tiers on every type</li>
+            <li>Unlimited hints</li>
+            <li>All six board palettes</li>
+            <li>The whole daily archive</li>
+            <li>The full statistics, and the charts behind your times</li>
+          </ul>
+          <p class="foot">Held by your store account, restored on any device you sign into, and it covers every type added later.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="never">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What this app will never do</h2>
+        <p>Eight promises. They are the product rather than decoration on it — a competitor copying them would have to give up their revenue model.</p>
+      </div>
+      <ul class="never">
+        <li><b>No ads, ever</b>Not on opening, not between boards, and not in exchange for a hint.</li>
+        <li><b>No subscription</b>No coins, no energy, no lives. One purchase, once.</li>
+        <li><b>No account, no sign-in</b>There is no server anywhere in this app to hold one.</li>
+        <li><b>No network needed</b>Every board is made on the device, and your progress never leaves it.</li>
+        <li><b>Unlimited puzzles</b>Generated as you ask for them, not a pack that runs out.</li>
+        <li><b>Exactly one answer</b>Proved by a solver before the board is ever drawn.</li>
+        <li><b>No guessing</b>At any stated difficulty. The tier is the reasoning it needs.</li>
+        <li><b>Nothing taken away</b>Nothing that has shipped free moves behind the price.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Questions</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>Where do the puzzles come from?</summary>
+          <p>From your phone. A generator builds a board, a solver grades it and proves it has exactly one answer, and only then is it drawn. Nothing is downloaded, and no two players are handed the same board unless it is the daily, which is derived from the date so that everybody's device builds the same one.</p>
+        </details>
+        <details>
+          <summary>Will I ever have to guess?</summary>
+          <p>No. The difficulty of a board is the hardest technique the solver needed to finish it, so a board is only Hard if it can be reasoned to the end using the techniques Hard names. Below Expert, nothing in this app is ever assumed and refuted.</p>
+        </details>
+        <details>
+          <summary>Does it work offline?</summary>
+          <p>Entirely. The generator, the solver, the hints and the save file are all on the device. The only things that ever want a connection are the store, the update check and the optional diagnostics.</p>
+        </details>
+        <details>
+          <summary>Do I need an account?</summary>
+          <p>There isn't one. No sign-in, no profile, no leaderboard, and no server of ours for any of them to live on.</p>
+        </details>
+        <details>
+          <summary>What does the unlock cost, and is it a subscription?</summary>
+          <p>It is one purchase, once, priced by the store in your own currency, and it is not a subscription. It is held by your store account, so a new phone or a reinstall restores it without anything to type.</p>
+        </details>
+        <details>
+          <summary>Can I move my progress to another device?</summary>
+          <p>Yes, through the backup file: one versioned file with every puzzle, game, statistic and setting in it, written and read through the system file picker. It goes where you send it, and never through us.</p>
+        </details>
+        <details>
+          <summary>Which puzzle should I start with?</summary>
+          <p>Any of them, at the smallest size, with the walkthrough. It is the real board with the clock taken off, and it teaches the type rather than the app.</p>
+        </details>
+        <details>
+          <summary>Which platforms is it on?</summary>
+          <p>Android, on <a href="https://play.google.com/store/apps/details?id=com.crackoncloud.puzzles" target="_blank" rel="noopener">Google Play</a>. The iOS build is finished and is in preparation for the App Store; this page is where it will be announced.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>Open it, and start the board.</h2>
+      <p>Thirteen classic logic puzzles, unlimited, generated on your phone, with one answer each and no guessing to reach it.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.crackoncloud.puzzles" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.8a1.5 1.5 0 0 0-.5 1.1v18.2c0 .45.19.86.5 1.1l10-10.2-10-10.2Zm11.1 9.1 2.9-2.9-11-6.2 8.1 9.1Zm0 2.2-8.1 9.1 11-6.2-2.9-2.9Zm4.3-3.9-2.4 2.4 2.4 2.4 2.5-1.4c.9-.5.9-1.9 0-2.4l-2.5-1Z"/></svg>
+          Get it on Google Play
+        </a>
+        <span class="btn btn-soon" aria-disabled="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.9-1.4-.15-2.8.85-3.5.85-.72 0-1.86-.83-3.06-.81-1.57.02-3.02.91-3.83 2.32-1.63 2.83-.42 7 1.17 9.3.78 1.12 1.7 2.38 2.92 2.34 1.17-.05 1.61-.76 3.03-.76 1.42 0 1.82.76 3.06.73 1.26-.02 2.06-1.14 2.83-2.27.89-1.3 1.26-2.56 1.28-2.63-.03-.01-2.46-.94-2.49-3.72ZM14.1 5.8c.64-.78 1.07-1.86.95-2.94-.92.04-2.03.61-2.69 1.38-.59.69-1.11 1.79-.97 2.85 1.02.08 2.07-.52 2.71-1.29Z"/></svg>
+          App Store — coming soon
+        </span>
+      </div>
+      <p class="hero-note" style="text-align:center">Questions? <a href="mailto:support@crackoncloud.com" style="color:var(--blue)">support@crackoncloud.com</a></p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© <span id="year">2026</span> crackoncloud</span>
+    <nav>
+      <a href="/">crackoncloud</a>
+      <a href="/puzzles/privacy-policy/">Privacy policy</a>
+      <a href="mailto:support@crackoncloud.com">support@crackoncloud.com</a>
+      <a href="https://play.google.com/store/apps/details?id=com.crackoncloud.puzzles" target="_blank" rel="noopener">Google Play</a>
+    </nav>
+  </div>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
