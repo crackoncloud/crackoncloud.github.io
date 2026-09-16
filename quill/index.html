@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quill — eight word puzzles, made on your phone, for Android and iOS · crackoncloud</title>
+<meta name="description" content="Quill is eight word puzzles in one app: word search, a letter wheel, word ladders, a seven-letter hive, a letter grid, fill-ins, ciphers and a daily five-letter guess. Every puzzle is generated on your phone from a tiered English lexicon. No ads, no energy, offline, one purchase.">
+<meta name="application-name" content="Quill">
+<meta name="apple-mobile-web-app-title" content="Quill">
+<meta name="theme-color" content="#E9EFFF">
+<link rel="canonical" href="https://crackoncloud.com/quill/">
+<link rel="icon" href="/assets/quill/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/quill/icon-256.png" sizes="256x256" type="image/png">
+<link rel="apple-touch-icon" href="/assets/quill/icon-256.png">
+<meta name="robots" content="index,follow">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://crackoncloud.com/quill/">
+<meta property="og:site_name" content="crackoncloud">
+<meta property="og:title" content="Quill — eight word puzzles, made fresh on your phone">
+<meta property="og:description" content="Word search, a letter wheel, ladders, a hive, a grid, fill-ins, ciphers and a daily five-letter guess. Generated on the device from a real dictionary. No ads, no energy, offline, one purchase.">
+<meta property="og:image" content="https://crackoncloud.com/assets/quill/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoGame",
+  "name": "Quill: Word Puzzles, No Ads",
+  "operatingSystem": "Android, iOS",
+  "applicationCategory": "GameApplication",
+  "applicationSubCategory": "Word",
+  "gamePlatform": ["Android", "iOS"],
+  "playMode": "SinglePlayer",
+  "url": "https://crackoncloud.com/quill/",
+  "image": "https://crackoncloud.com/assets/quill/icon-256.png",
+  "description": "Eight word puzzles for Android and iOS: word search, a letter wheel that fills a crossword, word ladders, a seven-letter hive, a letter grid, fill-in crosswords, cryptogram ciphers and a daily five-letter guess. Every puzzle is generated on the device from a tiered English lexicon and graded before it is shown. A daily Post of eight is built from the date, the same for everyone. No ads, no energy, no account, no server; one purchase, not a subscription.",
+  "author": { "@type": "Organization", "name": "crackoncloud", "url": "https://crackoncloud.com/" },
+  "privacyPolicy": "https://crackoncloud.com/quill/privacy-policy/"
+}
+</script>
+
+<style>
+:root{
+  --ground:#E9EFFF;
+  --ground-2:#DCE9FF;
+  --ground-lit:#F4F1FF;
+  --card:#FFFFFF;
+  --line:#E3E6F2;
+  --rule:#C4CBE3;
+  --ink:#1E2140;
+  --quiet:#5B6180;
+  --body:#363B58;
+  --accent:#4F86FF;
+  --accent-deep:#2B57DC;
+  --accent-lit:#DCE7FF;
+  --lilac:#7A45D6;
+  --coral:#EC4B52;
+  --radius:16px;
+  --maxw:1080px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  font-variant-numeric:tabular-nums;
+}
+a{color:inherit}
+img{max-width:100%;height:auto;display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+header{
+  position:sticky;top:0;z-index:20;
+  background:rgba(233,239,255,.86);
+  backdrop-filter:saturate(160%) blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em;text-decoration:none}
+.brand .mark{width:30px;height:30px;flex:none;border-radius:8px}
+.brand .sep{color:var(--rule)}
+.brand .sub{color:var(--quiet);font-weight:500}
+.nav nav{display:flex;gap:22px;font-size:14px;color:var(--quiet);align-items:center}
+.nav nav a{text-decoration:none}
+.nav nav a:hover{color:var(--ink)}
+@media(max-width:900px){.nav nav a:not(.btn-sm){display:none}}
+.btn-sm{
+  padding:8px 14px;border-radius:10px;border:1px solid var(--line);
+  background:var(--card);color:var(--quiet);font-weight:600;
+}
+
+.hero{padding:80px 0 64px;position:relative;overflow:hidden}
+.hero::before{
+  content:"";position:absolute;inset:-280px 0 auto 50%;
+  width:1100px;height:680px;transform:translateX(-50%);
+  background:
+    radial-gradient(closest-side at 38% 50%,rgba(79,134,255,.28),transparent 70%),
+    radial-gradient(closest-side at 68% 46%,rgba(122,69,214,.20),transparent 70%);
+  pointer-events:none;
+}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:40px}}
+.eyebrow{
+  display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent-deep);border:1px solid var(--line);border-radius:999px;
+  padding:6px 12px;background:var(--card);
+}
+h1{
+  font-size:clamp(34px,6vw,56px);line-height:1.07;letter-spacing:-.03em;
+  margin:20px 0 0;max-width:15ch;
+}
+.tagline{
+  font-size:clamp(22px,3.4vw,32px);line-height:1.15;letter-spacing:-.02em;
+  font-weight:650;margin:12px 0 16px;max-width:24ch;
+}
+.tagline .alt{color:var(--accent-deep)}
+.lede{color:var(--quiet);font-size:clamp(16px,2.2vw,19px);max-width:56ch;margin:0}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hero-note{color:var(--quiet);font-size:13.5px;margin:16px 0 0}
+
+.btn{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:11px 18px;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px;
+  border:1px solid var(--line);background:var(--card);color:var(--ink);
+  transition:transform .15s ease,border-color .15s ease,background .15s ease;
+}
+.btn:hover{transform:translateY(-1px);border-color:var(--rule)}
+.btn-primary{background:var(--accent);border-color:var(--accent-deep);color:#fff}
+.btn-primary:hover{background:var(--accent-deep);border-color:var(--accent-deep)}
+.btn svg{width:16px;height:16px;flex:none;fill:currentColor}
+.btn-soon{color:var(--quiet);background:var(--ground-lit);cursor:default}
+.btn-soon:hover{transform:none;border-color:var(--line)}
+
+.shot{
+  border-radius:26px;border:1px solid var(--line);
+  background:var(--card);
+  box-shadow:0 18px 44px rgba(30,33,64,.14);
+  overflow:hidden;
+}
+.hero-shot{max-width:300px;margin:0 auto}
+
+section{padding:64px 0;border-top:1px solid var(--line)}
+.section-head h2{font-size:clamp(24px,3.4vw,32px);letter-spacing:-.02em;margin:0 0 8px}
+.section-head p{color:var(--quiet);margin:0 0 32px;max-width:64ch}
+
+.split{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:center}
+.split.flip{grid-template-columns:1.15fr .85fr}
+@media(max-width:860px){.split,.split.flip{grid-template-columns:1fr;gap:32px}}
+.split .shot{max-width:280px}
+.split.flip .shot{order:2}
+@media(max-width:860px){.split.flip .shot{order:0}}
+
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+.tile h3{margin:0 0 8px;font-size:17px;letter-spacing:-.01em}
+.tile p{margin:0;color:var(--quiet);font-size:14.5px}
+
+.eight{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.type{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:18px 18px 16px;display:flex;gap:14px;align-items:flex-start;
+}
+.type .glyph{
+  width:40px;height:40px;flex:none;border-radius:12px;background:var(--accent-lit);
+  display:grid;place-items:center;
+}
+.type .glyph svg{width:22px;height:22px;fill:none;stroke:var(--accent-deep);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.type b{display:block;font-size:15.5px;letter-spacing:-.01em}
+.type span{display:block;color:var(--quiet);font-size:14px}
+
+.stats{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin:0}
+.stat{border:1px solid var(--line);background:var(--card);border-radius:var(--radius);padding:20px}
+.stat b{display:block;font-size:26px;letter-spacing:-.02em}
+.stat span{color:var(--quiet);font-size:14px}
+
+.facts{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.facts li{position:relative;padding-left:24px;color:var(--body);font-size:15.5px}
+.facts li::before{
+  content:"";position:absolute;left:0;top:.6em;width:9px;height:9px;border-radius:50%;
+  background:var(--accent);
+}
+
+.gallery{display:flex;gap:20px;overflow-x:auto;padding:4px 0 18px;scroll-snap-type:x mandatory}
+.gallery figure{margin:0;flex:0 0 232px;scroll-snap-align:start}
+.gallery figcaption{color:var(--quiet);font-size:13.5px;margin-top:12px}
+.gallery figcaption b{display:block;color:var(--ink);font-size:14.5px;font-weight:600;margin-bottom:2px}
+
+.plans{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;display:flex;flex-direction:column}
+.plan.pro{border-color:var(--accent);box-shadow:0 12px 30px rgba(79,134,255,.16)}
+.plan h3{margin:0;font-size:20px;letter-spacing:-.02em}
+.plan .price{color:var(--accent-deep);font-size:14px;font-weight:600;margin:6px 0 16px}
+.plan ul{list-style:none;padding:0;margin:0 0 20px;display:grid;gap:9px;font-size:14.5px;color:var(--body)}
+.plan li{position:relative;padding-left:22px}
+.plan li::before{content:"";position:absolute;left:0;top:.55em;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.plan .foot{margin-top:auto;color:var(--quiet);font-size:13.5px}
+
+.never{list-style:none;padding:0;margin:0;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.never li{border:1px solid var(--line);background:var(--card);border-radius:var(--radius);padding:18px 20px;font-size:15px;color:var(--body)}
+.never li b{display:block;color:var(--ink);margin-bottom:4px}
+
+.faq{display:grid;gap:0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line);padding:18px 0}
+.faq summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--accent-deep);font-weight:700}
+.faq details[open] summary::after{content:"–"}
+.faq p{color:var(--quiet);margin:12px 0 0;font-size:15px;max-width:72ch}
+
+.band{text-align:center}
+.band h2{font-size:clamp(24px,3.6vw,34px);letter-spacing:-.02em;margin:0 0 10px}
+.band p{color:var(--quiet);margin:0 auto 26px;max-width:54ch}
+.band .hero-cta{justify-content:center}
+
+footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--quiet);font-size:14px}
+.foot{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center}
+.foot nav{display:flex;flex-wrap:wrap;gap:18px}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <img class="mark" src="/assets/quill/icon.svg" alt="" width="30" height="30">
+      Quill <span class="sep">·</span> <span class="sub">crackoncloud</span>
+    </a>
+    <nav>
+      <a href="#eight">The eight</a>
+      <a href="#made">Made here</a>
+      <a href="#post">The Post</a>
+      <a href="#looks">Two looks</a>
+      <a href="#pricing">Pricing</a>
+      <span class="btn-sm">Coming soon</span>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Word puzzles · Android and iOS</span>
+        <h1>Quill</h1>
+        <p class="tagline">Eight word puzzles. <span class="alt">Made fresh on your phone.</span></p>
+        <p class="lede">
+          Word search, a letter wheel, word ladders, a seven-letter hive, a letter grid, fill-ins,
+          ciphers and a daily five-letter guess. Every puzzle is built on the device, from a
+          dictionary that knows the difference between a word and nonsense, and graded before you
+          see it. No ads. No energy. One purchase.
+        </p>
+        <div class="hero-cta">
+          <span class="btn btn-soon" aria-disabled="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.8a1.5 1.5 0 0 0-.5 1.1v18.2c0 .45.19.86.5 1.1l10-10.2-10-10.2Zm11.1 9.1 2.9-2.9-11-6.2 8.1 9.1Zm0 2.2-8.1 9.1 11-6.2-2.9-2.9Zm4.3-3.9-2.4 2.4 2.4 2.4 2.5-1.4c.9-.5.9-1.9 0-2.4l-2.5-1Z"/></svg>
+            Google Play — coming soon
+          </span>
+          <span class="btn btn-soon" aria-disabled="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.9-1.4-.15-2.8.85-3.5.85-.72 0-1.86-.83-3.06-.81-1.57.02-3.02.91-3.83 2.32-1.63 2.83-.42 7 1.17 9.3.78 1.12 1.7 2.38 2.92 2.34 1.17-.05 1.61-.76 3.03-.76 1.42 0 1.82.76 3.06.73 1.26-.02 2.06-1.14 2.83-2.27.89-1.3 1.26-2.56 1.28-2.63-.03-.01-2.46-.94-2.49-3.72ZM14.1 5.8c.64-.78 1.07-1.86.95-2.94-.92.04-2.03.61-2.69 1.38-.59.69-1.11 1.79-.97 2.85 1.02.08 2.07-.52 2.71-1.29Z"/></svg>
+            App Store — coming soon
+          </span>
+        </div>
+        <p class="hero-note">Android 8.0 and up, iOS 15 and up, from one build, in preparation for both stores. This page is where each listing will be announced.</p>
+      </div>
+      <div class="hero-shot shot">
+        <img src="/assets/quill/search.png" alt="A Quill word search mid-solve: a 12×12 board of letter tiles under glass, five words already struck through on the list below" width="324" height="720">
+      </div>
+    </div>
+  </div>
+
+  <section id="eight">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>The eight</h2>
+        <p>One desk, eight kinds of puzzle, and every one of them free to play. Each has its own board, its own rules sheet of four lines, and its own bests.</p>
+      </div>
+      <div class="eight">
+        <div class="type"><span class="glyph"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span><div><b>Search</b><span>Find every word on the list, in any direction, on boards from 8×8 to 16×16. Extra real words go in the jar.</span></div></div>
+        <div class="type"><span class="glyph"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="7" r="1.4"/><circle cx="16.5" cy="10.5" r="1.4"/><circle cx="14.8" cy="16" r="1.4"/><circle cx="9.2" cy="16" r="1.4"/><circle cx="7.5" cy="10.5" r="1.4"/></svg></span><div><b>Scramble</b><span>Drag through the letter wheel. The words that fit drop into a crossword; fill every slot.</span></div></div>
+        <div class="type"><span class="glyph"><svg viewBox="0 0 24 24"><path d="M8 3v18M16 3v18M8 7h8M8 12h8M8 17h8"/></svg></span><div><b>Ladder</b><span>Turn one word into another, one letter a rung. Every rung must be a word, and any valid path counts.</span></div></div>
+        <div class="type"><span class="glyph"><svg viewBox="0 0 24 24"><path d="M12 3l7.8 4.5v9L12 21l-7.8-4.5v-9Z"/><circle cx="12" cy="12" r="2.2"/></svg></span><div><b>Hive</b><span>Seven letters, one in the centre, every word you can make of four or more. Use all seven for a pangram.</span></div></div>
+        <div class="type"><span class="glyph"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9.3h16M4 14.6h16M9.3 4v16M14.6 4v16"/></svg></span><div><b>Grid</b><span>Swipe through touching tiles. Every real word counts, and there is a timed mode if you want one.</span></div></div>
+        <div class="type"><span class="glyph"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="4" rx="1"/><rect x="3" y="14" width="12" height="4" rx="1"/><path d="M18 14v4"/></svg></span><div><b>Fill-In</b><span>Every word on the list fits the grid once. Drag a word onto a slot of its length; the crossings must agree.</span></div></div>
+        <div class="type"><span class="glyph"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h13"/><path d="M17 10l3 3-3 3" /></svg></span><div><b>Cipher</b><span>A public-domain quotation in a substitution cipher. Tap a letter, type its real one, decode the whole line.</span></div></div>
+        <div class="type"><span class="glyph"><svg viewBox="0 0 24 24"><rect x="3" y="9" width="3.4" height="6" rx=".8"/><rect x="7.2" y="9" width="3.4" height="6" rx=".8"/><rect x="11.4" y="9" width="3.4" height="6" rx=".8"/><rect x="15.6" y="9" width="3.4" height="6" rx=".8"/><path d="M20.2 9.4v5.2"/></svg></span><div><b>Five</b><span>Guess the hidden word in six tries, with a hard mode, and longer words behind the unlock.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="made">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Made, not served</h2>
+        <p>Quill has no level packs to run out of. Each puzzle is generated on your phone the moment you open it, from a tiered English lexicon — common words for the answers, a wide dictionary for what you find along the way.</p>
+      </div>
+      <div class="split">
+        <div class="shot">
+          <img src="/assets/quill/desk.png" alt="The Quill desk under glass: the wordmark, a Good morning greeting, today's Post at eight of eight, and the eight puzzle cards with their bests" width="324" height="720" loading="lazy">
+        </div>
+        <ul class="facts">
+          <li>Four levels, Easy to Expert, and the level is graded before you see the board, so Easy is easy and Expert is not.</li>
+          <li>The lexicon is tiered by how common a word is: the answers come from words people use, and the wide dictionary only decides what else counts.</li>
+          <li>A word search mixes its directions and crosses its words, and every grid is a fresh one.</li>
+          <li>The same seed gives the same puzzle on every device, which is what lets the daily be built from the date rather than downloaded.</li>
+          <li>A hundred and fifty themed word search packs come along too, each generated fresh every time it is opened.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="post">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>A Post every day</h2>
+        <p>Every day brings a Post of eight, one puzzle of each kind, built from the date on your device and the same for everyone. Nothing is fetched, and Monday's is the same in every time zone.</p>
+      </div>
+      <div class="split flip">
+        <div class="shot">
+          <img src="/assets/quill/post.png" alt="The Post screen: a January 2027 calendar with a week of solved days stamped, and today's eight below it, every one checked" width="324" height="720" loading="lazy">
+        </div>
+        <ul class="facts">
+          <li>Solve any one of the eight and your streak lives. Solve all eight and you bank a freeze for a day you miss, up to three.</li>
+          <li>A freeze is spent for you, automatically, on the day it is needed. There is no way to buy one.</li>
+          <li>The streak is counted by the calendar, not the clock, so a day can only ever count once.</li>
+          <li>Today's Post is free. The calendar keeps every day, and the archive of past days opens with the unlock.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="nothing">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Nothing you can lose</h2>
+        <p>No ads. No energy, no lives, no coins, and no timer on a puzzle unless you ask for one. Nothing in this game ends a puzzle for you.</p>
+      </div>
+      <div class="grid">
+        <div class="tile">
+          <h3>Check, Undo, Restart, Shuffle</h3>
+          <p>All unlimited and all free. Restart asks first, and you can turn even that off.</p>
+        </div>
+        <div class="tile">
+          <h3>A hint is a button you press</h3>
+          <p>A small bank that refills with time, and nothing is sold by the piece. Nudge makes the hint glow when you have been stuck a while; that can be turned off too.</p>
+        </div>
+        <div class="tile">
+          <h3>The clock is yours</h3>
+          <p>Every board keeps a time for your bests, and you can hide it. The only timer that ends anything is the Grid's Timed mode, and you chose it.</p>
+        </div>
+        <div class="tile">
+          <h3>Pick up where you stopped</h3>
+          <p>An open puzzle is kept move by move, and the desk offers it back to you. Leave a Cipher half done for a week and it is still half done.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="looks">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Two looks</h2>
+        <p>Glass, the default: panes over calm, living scenes, in five accents. Study: a rendered desk of oak, ceramic, slate, brass and marble on paper, in four rooms. Switch whenever you like, in Settings.</p>
+      </div>
+      <div class="split">
+        <div class="shot">
+          <img src="/assets/quill/study.png" alt="The Study look: a dark green desk with a wax-sealed Post envelope and eight paper cards, each carrying a rendered object — a magnifier, a wheel of tiles, a ladder, a hive of letters" width="324" height="720" loading="lazy">
+        </div>
+        <ul class="facts">
+          <li>Glass has Day, Dusk, Contrast and Midnight, five accents from Ocean to Lilac, a scene or a plain background, and a Solid surfaces switch for anyone who cannot read through a pane.</li>
+          <li>The Study has the Studio, the Lamp, the Slate and the Ink, and tiles of oak, ceramic, slate, brass and marble.</li>
+          <li>Ambient motion is Full, Calm or Off, and Reduce motion cuts instead of moving.</li>
+          <li>Three text sizes, large targets, colour-blind marks that draw a shape rather than only a colour, and a left-handed layout.</li>
+          <li>A screen reader reads the board tile by tile, and the app speaks 22 languages.</li>
+        </ul>
+      </div>
+      <div class="stats" style="margin-top:32px">
+        <div class="stat"><b>8</b><span>Puzzle types, all free to play</span></div>
+        <div class="stat"><b>22</b><span>Languages, app and listing</span></div>
+        <div class="stat"><b>150</b><span>Themed word search packs</span></div>
+        <div class="stat"><b>0</b><span>Ads, and no ad SDK in the build</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="screens">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Inside the app</h2>
+        <p>Screens off a real device, nothing redrawn.</p>
+      </div>
+      <div class="gallery">
+        <figure>
+          <div class="shot"><img src="/assets/quill/search.png" alt="A word search mid-solve" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Search</b>Twelve by twelve, Hard, five words down and the jar waiting.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/quill/scramble.png" alt="The Scramble wheel and its crossword" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Scramble</b>Drag the wheel; the words that fit drop into the grid.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/quill/desk.png" alt="The desk with the eight cards" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>The desk</b>Today's Post first, then the eight, each with its best.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/quill/post.png" alt="The Post calendar" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>The Post</b>A week of stamped days, and today's eight below.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/quill/cipher.png" alt="A Cipher half decoded" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Cipher</b>A Dickens line, letter by letter, on its own keyboard.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/quill/study.png" alt="The Study look" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>The Study</b>The same desk, rendered in oak and brass.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/quill/stats.png" alt="The statistics screen" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Stats</b>Puzzles, days, streak, and a row per type and level.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/quill/unlock.png" alt="The Unlock sheet" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>The unlock</b>Six lines, one sentence, and a Restore button on the same sheet.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Yours, on your phone</h2>
+        <p>No account, no sign-in, no server. Every puzzle is made on the device, and your progress is written to a database on it. Nothing about your play leaves the phone unless you switch something on.</p>
+      </div>
+      <div class="grid">
+        <div class="tile">
+          <h3>Offline</h3>
+          <p>The lexicon, the generators, the hints and the save file are all on the device, and so is the daily. Airplane mode changes nothing but the store.</p>
+        </div>
+        <div class="tile">
+          <h3>A backup that is a file you keep</h3>
+          <p>Settings › Data › Export backup writes one file, wherever you choose. Import it on another device and it merges, never deletes. The app has no way to send it anywhere.</p>
+        </div>
+        <div class="tile">
+          <h3>One switch, yours</h3>
+          <p>Send diagnostics, in Settings › Data: crash reports and which puzzles are hard. No ad id, no user id. It starts switched off in the EEA, the UK and Switzerland.</p>
+        </div>
+      </div>
+      <p class="hero-note" style="margin-top:22px">
+        The whole account is in the <a href="/quill/privacy-policy/" style="color:var(--accent-deep)">privacy policy</a>.
+      </p>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Free, and what the unlock adds</h2>
+        <p>Every type, the Easy and Medium levels, the smaller sizes, today's Post, twelve packs and three of the four rooms are free. No type is behind the price.</p>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <h3>Free</h3>
+          <p class="price">Every type, always</p>
+          <ul>
+            <li>All eight puzzle types</li>
+            <li>Easy and Medium, and the smaller sizes of each</li>
+            <li>Today's Post, your streak and your freezes</li>
+            <li>Unlimited Check, Undo, Restart and Shuffle</li>
+            <li>A hint bank of three that refills by waiting</li>
+            <li>Twelve of the themed word search packs</li>
+            <li>Three of the four rooms, and three of the five tiles</li>
+            <li>Your last thirty days of statistics, and 22 languages</li>
+          </ul>
+          <p class="foot">Nothing here is a trial.</p>
+        </div>
+        <div class="plan pro">
+          <h3>Quill Unlocked</h3>
+          <p class="price">One payment, once</p>
+          <ul>
+            <li>Every size and every level, Hard and Expert included</li>
+            <li>Every past day of the Post, back through the archive</li>
+            <li>All hundred and fifty packs</li>
+            <li>The fourth room, and the brass and marble tiles</li>
+            <li>All-time statistics</li>
+            <li>A hint bank of five that refills in seconds rather than minutes</li>
+          </ul>
+          <p class="foot">One purchase, not a subscription. Held by your Google Play or Apple Account, restored with one button on any device you sign into, and it covers what is added to the game later.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="never">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What Quill does not do</h2>
+        <p>Seven facts about the build. They are the product rather than decoration on it.</p>
+      </div>
+      <ul class="never">
+        <li><b>No ads</b>There is no ad SDK in the app, and it reads no advertising identifier.</li>
+        <li><b>No energy, no lives</b>No hearts, no coins, and no waiting to play again.</li>
+        <li><b>No subscription</b>One purchase, once, and it is not required to play any type.</li>
+        <li><b>No type is sold</b>All eight are free, at Easy and Medium, on the smaller boards.</li>
+        <li><b>No account, no sign-in</b>There is no server anywhere in this game to hold one.</li>
+        <li><b>No network needed</b>Every puzzle is made on the device, including the daily Post.</li>
+        <li><b>No timer you did not ask for</b>The clock is for your bests, and you can hide it.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Questions</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>Where do the puzzles come from?</summary>
+          <p>From your phone. A generator builds each one from the bundled lexicon when you open it, and grades it against the level you asked for before it is drawn. The daily Post is seeded from the date, so every device builds the same eight with nothing downloaded. The 150 word search packs are lists and a picture; the board is generated fresh every time you open one.</p>
+        </details>
+        <details>
+          <summary>What counts as a word?</summary>
+          <p>A tiered English lexicon. Answers come from the common tier, so a Hive or a Ladder never rests on a word nobody uses; the wide dictionary decides what else you are allowed to find along the way. Slurs and obscenities are kept out of every grid, forwards and reversed. You can choose US or UK spelling in Settings › Play.</p>
+        </details>
+        <details>
+          <summary>How does the streak work?</summary>
+          <p>Solving any one of today's eight keeps it alive. Solving all eight banks a freeze, up to three, and a freeze is spent automatically on a day you miss. Only today's Post moves the streak: a past day solved from the calendar is history, and moving the device clock does nothing.</p>
+        </details>
+        <details>
+          <summary>Is there a move limit or a timer?</summary>
+          <p>No move limit on any type, and no timer unless you pick the Grid's Timed mode. Every board keeps a time for your bests, and Settings › Play › Show clock hides it. Check, Undo, Restart and Shuffle are unlimited.</p>
+        </details>
+        <details>
+          <summary>Does it work offline?</summary>
+          <p>Entirely. The only things that ever want a connection are the store — the purchase, the restore, the update check and the rating sheet — and the optional diagnostics switch.</p>
+        </details>
+        <details>
+          <summary>Do I need an account?</summary>
+          <p>There isn't one. No sign-in, no profile, no leaderboard, and no server of ours for any of them to live on. To move to a new phone, export a backup from Settings › Data and import it there.</p>
+        </details>
+        <details>
+          <summary>What does the unlock cost, and is it a subscription?</summary>
+          <p>It is one purchase, once, priced by the store in your own currency, and it is not a subscription. It adds every size and level, the Post archive, all the packs, the fourth room and two tile faces, all-time statistics and a faster hint bank. No type is behind it.</p>
+        </details>
+        <details>
+          <summary>Which platforms is it on?</summary>
+          <p>Android 8.0 and up and iOS 15 and up, built from one source set. Both are in preparation for their stores, and this page is where each listing will be announced.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>Eight puzzles, one desk, your phone.</h2>
+      <p>A calm word game for anyone who likes to think: generated on the device, offline, with nothing at all to lose.</p>
+      <div class="hero-cta">
+        <span class="btn btn-soon" aria-disabled="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.8a1.5 1.5 0 0 0-.5 1.1v18.2c0 .45.19.86.5 1.1l10-10.2-10-10.2Zm11.1 9.1 2.9-2.9-11-6.2 8.1 9.1Zm0 2.2-8.1 9.1 11-6.2-2.9-2.9Zm4.3-3.9-2.4 2.4 2.4 2.4 2.5-1.4c.9-.5.9-1.9 0-2.4l-2.5-1Z"/></svg>
+          Google Play — coming soon
+        </span>
+        <span class="btn btn-soon" aria-disabled="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.9-1.4-.15-2.8.85-3.5.85-.72 0-1.86-.83-3.06-.81-1.57.02-3.02.91-3.83 2.32-1.63 2.83-.42 7 1.17 9.3.78 1.12 1.7 2.38 2.92 2.34 1.17-.05 1.61-.76 3.03-.76 1.42 0 1.82.76 3.06.73 1.26-.02 2.06-1.14 2.83-2.27.89-1.3 1.26-2.56 1.28-2.63-.03-.01-2.46-.94-2.49-3.72ZM14.1 5.8c.64-.78 1.07-1.86.95-2.94-.92.04-2.03.61-2.69 1.38-.59.69-1.11 1.79-.97 2.85 1.02.08 2.07-.52 2.71-1.29Z"/></svg>
+          App Store — coming soon
+        </span>
+      </div>
+      <p class="hero-note" style="text-align:center">Questions? <a href="mailto:support@crackoncloud.com" style="color:var(--accent-deep)">support@crackoncloud.com</a></p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© <span id="year">2026</span> crackoncloud</span>
+    <nav>
+      <a href="/">crackoncloud</a>
+      <a href="/quill/privacy-policy/">Privacy policy</a>
+      <a href="mailto:support@crackoncloud.com">support@crackoncloud.com</a>
+    </nav>
+  </div>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
