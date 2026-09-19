@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    The Ruff mark: two Studio cards on the graphite table, a jack-of-hearts pip under an
+    ace-of-spades pip. The same geometry as the app's launcher vector
+    (composeApp/src/androidMain/res/drawable/ic_launcher_foreground.xml, a 108-unit viewport,
+    cropped here to the centre 96) on the launcher background #0F131A. If the launcher changes,
+    this changes in the same commit.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="6 6 96 96">
+  <rect x="6" y="6" width="96" height="96" rx="22" fill="#0F131A"/>
+  <g transform="rotate(-14 46 58)">
+    <rect x="27.2" y="29.6" width="38" height="56" rx="4" fill="#0A0C10" opacity=".6"/>
+    <rect x="26" y="28" width="38" height="56" rx="4" fill="#F4EFE6"/>
+    <path fill="#D8483B" d="M45,50 c-3,-5 -10,-3 -10,3 c0,5 10,11 10,11 c0,0 10,-6 10,-11 c0,-6 -7,-8 -10,-3 z"/>
+  </g>
+  <g transform="rotate(8 62 58)">
+    <rect x="43.2" y="27.6" width="38" height="56" rx="4" fill="#0A0C10" opacity=".6"/>
+    <rect x="42" y="26" width="38" height="56" rx="4" fill="#FFFFFF"/>
+    <path fill="#1B1F26" d="M61,42 c0,0 -10,9 -10,15 c0,4 3,6 6,6 c2,0 3,-1 4,-2 c-0.5,3 -2,5 -4,7 h8 c-2,-2 -3.5,-4 -4,-7 c1,1 2,2 4,2 c3,0 6,-2 6,-6 c0,-6 -10,-15 -10,-15 z"/>
+  </g>
+</svg>
