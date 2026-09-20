@@ -99,7 +99,7 @@ footer a{text-decoration:none}
     <h1>Ruff</h1>
     <p class="meta">
       Android and iOS game <code>com.crackoncloud.ruff</code>, published by crackoncloud ·
-      Last updated 19 September 2026
+      Last updated 20 September 2026
     </p>
 
     <div class="callout">
@@ -139,8 +139,9 @@ footer a{text-decoration:none}
         days a freeze covered</li>
       <li>Your settings: how a card is played, confirm point cards, auto-play the only card, undo,
         thinking delay, trick pause, auto-collect, table, deck, card size, four-colour suits, court
-        letters, left-handed layout, hand sort, animation speed, reduce motion, sound, haptics, the
-        two diagnostics switches, and the screen you were last on</li>
+        letters, left-handed layout, hand sort and the order you last arranged a hand in, animation
+        speed, reduce motion, sound, haptics, the Daily reminder switch and its time, the two
+        diagnostics switches, and the screen you were last on</li>
       <li>The date of first launch, whether the rating sheet has been shown, which first-run tips
         you have dismissed, and whether this phone has switched Expert to its reduced search</li>
       <li>Whether Ruff Unlocked has been bought, as last reported by the store. It is kept
@@ -166,6 +167,15 @@ footer a{text-decoration:none}
       place, is up to you and the app you saved it with.
     </p>
 
+    <h3>The share card</h3>
+    <p>
+      Share, on a result card, draws the card as a picture — the game, the margin, the level and
+      the sealed deal's code, nothing that is not already on the screen — writes it to the app's
+      own cache and hands it to the system share sheet with a one-line caption. Which app receives
+      it is your choice on that sheet; the picture goes to that app and nowhere else, and the file
+      in the cache is replaced by the next card you share. Nothing is sent unless you tap Share.
+    </p>
+
     <h3>Your device's own backup</h3>
     <p>
       On Android, the game allows the platform's own backup, so if you have Android backup switched
@@ -188,6 +198,15 @@ footer a{text-decoration:none}
             haptics setting is off.</td>
         </tr>
         <tr>
+          <td>Notifications</td>
+          <td>One local reminder for the Daily, off until you switch it on in Settings › Daily
+            reminder. The permission is asked for at that moment and never on a cold open; a refusal
+            switches the setting back. It fires once a day at the time you pick, skips a day whose
+            Daily you have already played, and is scheduled by the phone's own clock — there is no
+            push service, no token and no server behind it. On Android the app also listens for the
+            phone finishing a reboot, only to put that alarm back.</td>
+        </tr>
+        <tr>
           <td>Internet<br>Network state</td>
           <td>No hand needs a connection: every deal and every decision is computed on the device,
             including the Daily. It is here for the store — the purchase, the restore, Android's
@@ -197,9 +216,7 @@ footer a{text-decoration:none}
       </tbody>
     </table>
     <p class="note">
-      That is the whole list. There is no notifications permission: the daily reminder is planned
-      for a later release, and in this one nothing is scheduled and no notification is ever posted.
-      The advertising-identifier permission that the analytics library would otherwise bring along
+      That is the whole list. The advertising-identifier permission that the analytics library would otherwise bring along
       is explicitly <em>removed</em> from the Android manifest, because nothing in this game reads
       it. There is no storage permission, because the backup goes through the system picker; and no
       permission for location, contacts, the camera, the microphone, the phone, all-files access, or
@@ -236,13 +253,15 @@ footer a{text-decoration:none}
     </p>
     <ul>
       <li>A match started, with the game, the mode, the levels at the table and a number that
-        identifies the rules in force; a hand ended, with the game, the four seats' scores and
+        identifies the rules in force; a hand ended, with the game, each seat's score and
         whether there was a moon, a nil or a march; a match ended, with the game, whether you
         won, the margin, and how many hands, hints and undos it took</li>
       <li>The Coach asked, and whether its card was played; a Daily played, with the game, the
         margin and the streak; a Tour match done, with the chapter and stars</li>
       <li>The Unlock page opened, and from where; a purchase; a restore, and how it went; a
-        setting changed, by its name; and this phone switching Expert to its reduced search</li>
+        purchase receipt that did not verify on the device; a setting changed, by its name; a
+        result card shared, with the game; and this phone switching Expert to its reduced
+        search</li>
       <li>One sampled measurement: one AI decision in fifty is reported by its level, how many
         milliseconds it took and how many iterations it searched, so the levels' budgets can be
         checked on real phones</li>
@@ -313,8 +332,8 @@ footer a{text-decoration:none}
       Ruff is a card game for a general audience and is not directed at children under 13. It has
       no social features, no messaging, no user profiles and no accounts, it shows no advertising,
       and it asks no one for a name, an email address or any other personal detail, at any age.
-      There is no wagering, no chips and no currency of any kind: Hearts, Spades, Euchre and Whist
-      are scored games, and a bid or a bag is a game term. Because it is not a child-directed app
+      There is no wagering, no chips and no currency of any kind: Hearts, Spades, Euchre, Whist,
+      Oh Hell and Bid Whist are scored games, and a bid, a book or a bag is a game term. Because it is not a child-directed app
       it is not in Google Play's Designed for Families programme.
     </p>
 

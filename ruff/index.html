@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ruff — Hearts, Spades, Euchre and Whist at one honest table, for Android and iOS · crackoncloud</title>
-<meta name="description" content="Ruff is Hearts, Spades, Euchre and Whist in one app: opponents that play a real club hand, a partner that covers your nil, every deal sealed before it is dealt and checkable after, every house rule as a switch, a Coach, a Daily scored against the expert, a 240-match Tour and Pass & Play. Offline, no account, no ads, one purchase.">
+<title>Ruff — Hearts, Spades, Euchre, Whist, Oh Hell and Bid Whist at one honest table, for Android and iOS · crackoncloud</title>
+<meta name="description" content="Ruff is Hearts, Spades, Euchre, Whist, Oh Hell and Bid Whist in one app: opponents that play a real club hand, a partner that covers your nil, every deal sealed before it is dealt and checkable after, every house rule as a switch, a Coach, a Daily scored against the expert, a 300-match Tour and Pass & Play for two to five. Offline, no account, no ads, one purchase.">
 <meta name="application-name" content="Ruff">
 <meta name="apple-mobile-web-app-title" content="Ruff">
 <meta name="theme-color" content="#14181F">
@@ -17,7 +17,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://crackoncloud.com/ruff/">
 <meta property="og:site_name" content="crackoncloud">
-<meta property="og:title" content="Ruff — Hearts, Spades, Euchre and Whist at one honest table">
+<meta property="og:title" content="Ruff — Hearts, Spades, Euchre, Whist, Oh Hell and Bid Whist at one honest table">
 <meta property="og:description" content="Opponents that play a real club hand, sealed deals you can check, every house rule as a switch, a Coach, a Daily, a Tour and Pass & Play. Offline, no account, no ads, one purchase.">
 <meta property="og:image" content="https://crackoncloud.com/assets/ruff/og.png">
 <meta property="og:image:width" content="1200">
@@ -35,10 +35,10 @@
   "applicationSubCategory": "Card",
   "gamePlatform": ["Android", "iOS"],
   "playMode": ["SinglePlayer", "MultiPlayer"],
-  "numberOfPlayers": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 4 },
+  "numberOfPlayers": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 5 },
   "url": "https://crackoncloud.com/ruff/",
   "image": "https://crackoncloud.com/assets/ruff/icon-256.png",
-  "description": "Hearts, Spades, Euchre and Whist for Android and iOS, at one table with one AI for every seat. The opponents search thousands of possible deals before each card and choose the conventional play among the good ones; a partner covers your nil and never over-trumps your winner. Every deal is sealed to a SHA-256 code before it is dealt and can be checked after it. Every house rule is a switch. A Coach shows the expert's card and why; a Daily is scored against the expert on the same deals; a Tour of 240 matches climbs from Easy to Expert; Pass & Play seats up to four people at one phone. No ads, no account, no server; offline; one purchase, not a subscription.",
+  "description": "Hearts, Spades, Euchre, Whist, Oh Hell and Bid Whist for Android and iOS, at one table of two to five seats with one AI for every seat. The opponents search thousands of possible deals before each card and choose the conventional play among the good ones; a partner covers your nil and never over-trumps your winner. Every deal is sealed to a SHA-256 code before it is dealt and can be checked after it. Every house rule is a switch. A Coach shows the expert's card and why; a Daily is scored against the expert on the same deals; a Tour of 300 matches climbs from Easy to Expert; Pass & Play seats up to five people at one phone. No ads, no account, no server; offline; one purchase, not a subscription.",
   "author": { "@type": "Organization", "name": "crackoncloud", "url": "https://crackoncloud.com/" },
   "privacyPolicy": "https://crackoncloud.com/ruff/privacy-policy/"
 }
@@ -165,7 +165,7 @@ section{padding:64px 0;border-top:1px solid var(--line)}
 .tile h3{margin:0 0 8px;font-size:17px;letter-spacing:-.01em}
 .tile p{margin:0;color:var(--quiet);font-size:14.5px}
 
-.games{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.games{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
 .game{
   background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
   padding:22px 22px 20px;position:relative;overflow:hidden;
@@ -248,7 +248,7 @@ footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--quiet);f
       Ruff <span class="sep">·</span> <span class="sub">crackoncloud</span>
     </a>
     <nav>
-      <a href="#games">Four games</a>
+      <a href="#games">Six games</a>
       <a href="#partner">The partner</a>
       <a href="#sealed">Sealed deals</a>
       <a href="#rules">Your rules</a>
@@ -266,7 +266,7 @@ footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--quiet);f
       <div>
         <span class="eyebrow">Card games · Android and iOS</span>
         <h1>Ruff</h1>
-        <p class="tagline">Hearts, Spades, Euchre and Whist. <span class="alt">At one honest table.</span></p>
+        <p class="tagline">Hearts, Spades, Euchre, Whist, Oh Hell and Bid Whist. <span class="alt">At one honest table.</span></p>
         <p class="lede">
           Opponents that play a real club hand: a partner that covers your nil, never trumps your
           winner, and bids to your rules. Every deal is sealed before it is dealt and can be checked
@@ -294,33 +294,45 @@ footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--quiet);f
   <section id="games">
     <div class="wrap">
       <div class="section-head">
-        <h2>Four games, one table</h2>
-        <p>All four are free, at every target, against Easy and Standard opponents. Each game has its own rules sheet, its own statistics and its own place in the Daily and the Tour.</p>
+        <h2>Six games, one table</h2>
+        <p>All six are free, at every target, against Easy and Standard opponents. Each game has its own rules sheet, its own statistics and its own place in the Daily and the Tour.</p>
       </div>
       <div class="games">
         <div class="game">
           <span class="suit red" aria-hidden="true">♥</span>
           <h3><span class="pip red" aria-hidden="true">♥</span>Hearts</h3>
           <p class="to">To 50, 100 or 150</p>
-          <p>The jack of diamonds, shooting the moon your way — add, subtract, or choose at the time — and every passing rotation, or none.</p>
+          <p>The jack of diamonds, shooting the moon your way — add, subtract, or choose at the time — every passing rotation or none, the sun, and a table for three or five.</p>
         </div>
         <div class="game">
           <span class="suit" aria-hidden="true">♠</span>
           <h3><span class="pip" aria-hidden="true">♠</span>Spades</h3>
           <p class="to">To 200, 300 or 500</p>
-          <p>Nil and blind nil, bags at five or ten, jokers as top trumps, spades led any time, ten for 200, and every player for themselves if that is how your table plays.</p>
+          <p>Nil and blind nil, bags at five or ten, jokers as top trumps, spades led any time, ten for 200, every player for themselves, and cutthroat for three with a kitty.</p>
         </div>
         <div class="game">
           <span class="suit red" aria-hidden="true">♦</span>
           <h3><span class="pip red" aria-hidden="true">♦</span>Euchre</h3>
           <p class="to">To 5, 7, 10 or 15</p>
-          <p>Stick the dealer, going alone, the farmer's hand, the Canadian loner, a 24-, 28- or 32-card deck, and British scoring.</p>
+          <p>Stick the dealer, going alone, the farmer's hand, the Canadian loner, a defender answering alone, a 24-, 28- or 32-card deck, and British scoring.</p>
         </div>
         <div class="game">
           <span class="suit" aria-hidden="true">♣</span>
           <h3><span class="pip" aria-hidden="true">♣</span>Whist</h3>
           <p class="to">To 5 or 7</p>
-          <p>The classic partnership game: the last card turned for trumps, the long or the short game, with honours if you count them.</p>
+          <p>The classic partnership game: the last card turned for trumps, the long or the short game, with honours if you count them. Or German Whist for two, drawing from the stock, or Knockout Whist down to the last seat in.</p>
+        </div>
+        <div class="game">
+          <span class="suit red" aria-hidden="true">♦</span>
+          <h3><span class="pip red" aria-hidden="true">♦</span>Oh Hell</h3>
+          <p class="to">Three, four or five seats</p>
+          <p>A bid on every hand as the deal climbs from one card to seven and back, or runs down from seven or up to thirteen; trump from the turn-up; the dealer hooked so the bids never add up; ten and a trick for an exact bid, or the difference off for a miss.</p>
+        </div>
+        <div class="game">
+          <span class="suit" aria-hidden="true">♠</span>
+          <h3><span class="pip" aria-hidden="true">♠</span>Bid Whist</h3>
+          <p class="to">To 5, 7 or 9</p>
+          <p>Fifty-four cards, a six-card kitty, and bids of three to seven books uptown, downtown or no-trump; the winner takes the kitty, names trump and discards six; jokers on top, and a redeal on four passes if you play it.</p>
         </div>
       </div>
     </div>
@@ -330,7 +342,7 @@ footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--quiet);f
     <div class="wrap">
       <div class="section-head">
         <h2>A partner who plays like one</h2>
-        <p>One AI for every seat, at four levels you set per seat, so you can have a strong partner and gentle opponents, or the other way round. It searches thousands of possible deals before every card, then chooses the conventional play among the good ones.</p>
+        <p>One AI for every seat, at any table of two to five, at four levels you set per seat, so you can have a strong partner and gentle opponents, or the other way round. It searches thousands of possible deals before every card, then chooses the conventional play among the good ones.</p>
       </div>
       <div class="split">
         <div class="shot">
@@ -373,17 +385,19 @@ footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--quiet);f
     <div class="wrap">
       <div class="section-head">
         <h2>Your rules</h2>
-        <p>Every house rule the leaders argue about, as a switch on the setup sheet. The standard set and the two most-asked options per game are free; the whole sheet opens with the unlock.</p>
+        <p>Every house rule the leaders argue about, as a switch on the setup sheet. The standard game of each, every target and the most-asked options are free; the whole sheet opens with the unlock.</p>
       </div>
       <div class="split">
         <div class="shot">
           <img src="/assets/ruff/rules.png" alt="The Spades setup sheet: Easy, Standard, Strong and Expert chips, a Set each seat switch, play to 200, 300 or 500, and the rules — nil bids, bag penalty at 10 or 5, blind nil, jokers, every player for themselves, spades led any time, ten for 200" width="324" height="720" loading="lazy">
         </div>
         <ul class="facts">
-          <li><b>Hearts</b> — the jack of diamonds and how the moon scores are free; the passing rotation, the queen breaking hearts and no points on the first trick come with the unlock.</li>
-          <li><b>Spades</b> — nil and bags at five or ten are free; blind nil, jokers, solo, spades led any time and ten for 200 come with the unlock.</li>
-          <li><b>Euchre</b> — stick the dealer is free; the farmer's hand, the Canadian loner, the deck size and British scoring come with the unlock.</li>
-          <li><b>Whist</b> — the long game is free; honours come with the unlock.</li>
+          <li><b>Hearts</b> — the jack of diamonds and how the moon scores are free; the passing rotation, the queen breaking hearts, no points on the first trick, the sun and the three- and five-seat tables come with the unlock.</li>
+          <li><b>Spades</b> — nil and bags at five or ten are free; blind nil, jokers, solo, cutthroat, spades led any time and ten for 200 come with the unlock.</li>
+          <li><b>Euchre</b> — stick the dealer is free; the farmer's hand, the Canadian loner, the lone defender, the deck size and British scoring come with the unlock.</li>
+          <li><b>Whist</b> — the long game is free; honours, German Whist and Knockout Whist come with the unlock.</li>
+          <li><b>Oh Hell</b> — the standard game is free; the schedule, the seat count, the hook and the scoring come with the unlock.</li>
+          <li><b>Bid Whist</b> — the standard game is free, to 5, 7 or 9; the redeal on four passes comes with the unlock.</li>
           <li>The rules in force are one tap away from the table, and the rule sheet for each game is in the app.</li>
         </ul>
       </div>
@@ -394,20 +408,20 @@ footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--quiet);f
     <div class="wrap">
       <div class="section-head">
         <h2>A Daily, a Tour, and a table for the family</h2>
-        <p>Four ways to sit down that are not another match against the same four seats.</p>
+        <p>Four ways to sit down that are not another match against the same seats.</p>
       </div>
       <div class="grid four">
         <div class="tile">
           <h3>The Daily</h3>
-          <p>One game is featured each day, in turn. You play four hands from the day's seed; the expert plays the same four; your score is the margin between you. Solve it and your streak grows; every seventh day banks a freeze, up to two, spent for you on a day you miss.</p>
+          <p>One of the six games is featured each day, in turn. You play four hands from the day's seed; the expert plays the same four; your score is the margin between you. Solve it and your streak grows; every seventh day banks a freeze, up to two, spent for you on a day you miss. A reminder, off until you switch it on, can nudge you at a time you pick.</p>
         </div>
         <div class="tile">
           <h3>The Tour</h3>
-          <p>Forty chapters of six matches, 240 in all, that introduce one rule at a time and climb from Easy tables to Expert ones, with stars for the margin. Every chapter is verified winnable by an Expert seat. The first three chapters are free.</p>
+          <p>Fifty chapters of six matches, 300 in all, that introduce one rule at a time and climb from Easy tables to Expert ones, with stars for the margin. Every chapter is verified winnable by an Expert seat. The first three chapters are free.</p>
         </div>
         <div class="tile">
           <h3>Pass &amp; Play</h3>
-          <p>Two, three or four people at one phone. The table turns to whoever is holding it, and the hand-off screen hides the cards in between.</p>
+          <p>Two to five people at one phone, in any of the six games. The table turns to whoever is holding it, and the hand-off screen hides the cards in between.</p>
         </div>
         <div class="tile">
           <h3>Practice</h3>
@@ -429,15 +443,15 @@ footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--quiet);f
         </div>
         <ul class="facts">
           <li>Graphite, Paper and Midnight tables and the Studio, Bold and Classic decks are free; Velvet and Copper, Ink and Neon come with the unlock.</li>
-          <li>Four-colour suits, local court letters in every language, three card sizes, a left-handed layout, sort by suit or by rank.</li>
+          <li>Four-colour suits, local court letters in every language, three card sizes, a left-handed layout, sort by suit, by rank, or in the order you arrange the hand yourself.</li>
           <li>Play a card with two taps, one tap, or a drag. Confirm point cards, auto-play the only legal card, undo, set the thinking delay and the trick pause.</li>
           <li>Animation at Normal, Fast or Off; Reduce motion cuts instead of moving. Sound and haptics each have a switch.</li>
-          <li>A screen reader can play at the table — every card is spoken by name — and the app speaks 22 languages.</li>
+          <li>A screen reader can play at the table — every card is spoken by name — and the app speaks 22 languages. The result card shares as a picture, with the sealed deal named on it.</li>
         </ul>
       </div>
       <div class="stats" style="margin-top:32px">
-        <div class="stat"><b>4</b><span>Games, all free to play</span></div>
-        <div class="stat"><b>240</b><span>Tour matches in forty chapters</span></div>
+        <div class="stat"><b>6</b><span>Games, all free to play</span></div>
+        <div class="stat"><b>300</b><span>Tour matches in fifty chapters</span></div>
         <div class="stat"><b>22</b><span>Languages, app and listing</span></div>
         <div class="stat"><b>0</b><span>Ads, and no ad SDK in the build</span></div>
       </div>
@@ -452,8 +466,8 @@ footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--quiet);f
       </div>
       <div class="gallery">
         <figure>
-          <div class="shot"><img src="/assets/ruff/home.png" alt="The Ruff home screen" width="324" height="720" loading="lazy"></div>
-          <figcaption><b>Home</b>A Continue strip, the four games with their records, Pass &amp; Play and Practice.</figcaption>
+          <div class="shot"><img src="/assets/ruff/home.png" alt="The Ruff home screen: Hearts, Spades, Euchre, Whist, Oh Hell and Bid Whist, each with its record and level" width="324" height="720" loading="lazy"></div>
+          <figcaption><b>Home</b>The six games with their records and levels, then Pass &amp; Play and Practice.</figcaption>
         </figure>
         <figure>
           <div class="shot"><img src="/assets/ruff/table.png" alt="A hand of Hearts" width="324" height="720" loading="lazy"></div>
@@ -509,21 +523,21 @@ footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--quiet);f
     <div class="wrap">
       <div class="section-head">
         <h2>Free, and what the unlock adds</h2>
-        <p>All four games, Easy and Standard at every seat, the standard rules and the most-asked options, today's Daily, the first three Tour chapters, Pass &amp; Play and Practice are free. No game is behind the price.</p>
+        <p>All six games, Easy and Standard at every seat, the standard rules and the most-asked options, today's Daily, the first three Tour chapters, Pass &amp; Play and Practice are free. No game is behind the price.</p>
       </div>
       <div class="plans">
         <div class="plan">
           <h3>Free</h3>
           <p class="price">Every game, always</p>
           <ul>
-            <li>Hearts, Spades, Euchre and Whist, at every target</li>
+            <li>Hearts, Spades, Euchre, Whist, Oh Hell and Bid Whist, at every target</li>
             <li>Easy and Standard opponents, set per seat</li>
             <li>The standard rules and two options per game</li>
             <li>Today's featured Daily, your streak and your freezes</li>
             <li>Tour chapters 1–3, eighteen matches</li>
             <li>The Coach, three a match in Play and unlimited in Practice</li>
             <li>The sealed deal, the check, undo, and the hand review</li>
-            <li>Pass &amp; Play for up to four, and Practice</li>
+            <li>Pass &amp; Play for up to five, and Practice</li>
             <li>Three tables, three decks, two backs</li>
             <li>Statistics and history, forever, and 22 languages</li>
           </ul>
@@ -535,8 +549,8 @@ footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--quiet);f
           <ul>
             <li>Strong and Expert opponents, at any seat</li>
             <li>Every house rule on every sheet</li>
-            <li>The whole Tour, all forty chapters</li>
-            <li>Every past Daily, and all four games on any day</li>
+            <li>The whole Tour, all fifty chapters</li>
+            <li>Every past Daily, and all six games on any day</li>
             <li>The Coach without limit, and what Expert would have played at any trick of the review</li>
             <li>The Velvet and Copper tables, the Ink and Neon decks</li>
           </ul>
@@ -556,7 +570,7 @@ footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--quiet);f
         <li><b>No ads</b>There is no ad SDK in the app, and it reads no advertising identifier.</li>
         <li><b>No coins, no chips, no wagers</b>Nothing is bet and nothing is bought by the piece. Bids and bags are the games' own words.</li>
         <li><b>No subscription</b>One purchase, once, and it is not required to play any game.</li>
-        <li><b>No game is sold</b>All four are free, at every target, against Easy and Standard.</li>
+        <li><b>No game is sold</b>All six are free, at every target, against Easy and Standard.</li>
         <li><b>No account, no sign-in</b>There is no server anywhere in this game to hold one.</li>
         <li><b>No network needed</b>Every deal and every decision is made on the device, including the Daily.</li>
         <li><b>No peeking</b>The AI's input cannot hold a hidden card, and a test proves it every build.</li>
@@ -580,11 +594,11 @@ footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--quiet);f
         </details>
         <details>
           <summary>How does the Daily work?</summary>
-          <p>One game is featured each day, in turn. You play four hands from the day's seed and the expert plays the same four; your score is the margin between you, so a bad deal is bad for both of you. Any device builds the same four hands from the date, nothing is downloaded, and today's is free. The other three games on a given day, and past days, open with the unlock. Only today moves the streak; a past day played from the calendar is history.</p>
+          <p>One of the six games is featured each day, in turn. You play four hands from the day's seed and the expert plays the same four; your score is the margin between you, so a bad deal is bad for both of you. Any device builds the same four hands from the date, nothing is downloaded, and today's is free. The other five games on a given day, and past days, open with the unlock. Only today moves the streak; a past day played from the calendar is history.</p>
         </details>
         <details>
           <summary>Can I play with people in the room?</summary>
-          <p>Yes: Pass &amp; Play seats two, three or four people at one phone, with the AI filling the rest. The table turns to whoever is holding the phone, and the hand-off screen hides the cards until the next person taps and holds. There is no online play and no leaderboard at 1.0.</p>
+          <p>Yes: Pass &amp; Play seats two to five people at one phone — as many as the table has seats — with the AI filling the rest. The table turns to whoever is holding the phone, and the hand-off screen hides the cards until the next person taps and holds. There is no online play and no leaderboard at 1.0.</p>
         </details>
         <details>
           <summary>Does it work offline?</summary>
@@ -608,8 +622,8 @@ footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--quiet);f
 
   <section class="band">
     <div class="wrap">
-      <h2>Four games, one honest table, your phone.</h2>
-      <p>A card game for anyone who plays Hearts, Spades, Euchre or Whist at a real table: fair deals, house rules, and a partner worth having.</p>
+      <h2>Six games, one honest table, your phone.</h2>
+      <p>A card game for anyone who plays Hearts, Spades, Euchre, Whist, Oh Hell or Bid Whist at a real table: fair deals, house rules, and a partner worth having.</p>
       <div class="hero-cta">
         <span class="btn btn-soon" aria-disabled="true">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.8a1.5 1.5 0 0 0-.5 1.1v18.2c0 .45.19.86.5 1.1l10-10.2-10-10.2Zm11.1 9.1 2.9-2.9-11-6.2 8.1 9.1Zm0 2.2-8.1 9.1 11-6.2-2.9-2.9Zm4.3-3.9-2.4 2.4 2.4 2.4 2.5-1.4c.9-.5.9-1.9 0-2.4l-2.5-1Z"/></svg>
