@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sapper — No-guess minesweeper for Android and iOS · crackoncloud</title>
+<meta name="description" content="Sapper is minesweeper that never makes you guess: every No-guess board is certified solvable by logic and rated by the thinking it needs. Square, hex, triangle, knight and torus boards, size and density as separate dials, 3BV and 3BV/s on every result, a daily board, a 1,200-board ladder and hints that show the proof. Offline, no account, no ads, one purchase.">
+<meta name="application-name" content="Sapper">
+<meta name="apple-mobile-web-app-title" content="Sapper">
+<meta name="theme-color" content="#0E131B">
+<link rel="canonical" href="https://crackoncloud.com/sapper/">
+<link rel="icon" href="/assets/sapper/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/sapper/icon-256.png" sizes="256x256" type="image/png">
+<link rel="apple-touch-icon" href="/assets/sapper/icon-256.png">
+<meta name="robots" content="index,follow">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://crackoncloud.com/sapper/">
+<meta property="og:site_name" content="crackoncloud">
+<meta property="og:title" content="Sapper — No-guess minesweeper">
+<meta property="og:description" content="Every No-guess board certified solvable by logic and rated by the thinking it needs. Five board shapes, 3BV/s, a daily board, a 1,200-board ladder. Offline, no account, no ads, one purchase.">
+<meta property="og:image" content="https://crackoncloud.com/assets/sapper/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoGame",
+  "name": "Sapper: No-Guess Minesweeper",
+  "alternateName": "Sapper",
+  "operatingSystem": "Android, iOS",
+  "applicationCategory": "GameApplication",
+  "applicationSubCategory": "Puzzle",
+  "gamePlatform": ["Android", "iOS"],
+  "playMode": "SinglePlayer",
+  "url": "https://crackoncloud.com/sapper/",
+  "image": "https://crackoncloud.com/assets/sapper/icon-256.png",
+  "description": "No-guess minesweeper for Android and iOS. Every board in No-guess mode is checked by a four-tier solver before you see it, so there is always a safe deduction from the first tap to the last cell, and the same solver rates the board Gentle, Standard, Sharp or Fierce by the hardest technique it needs. Square, hex, triangle, knight and torus boards; Beginner, Intermediate and Expert on every shape and a Custom board with width, height and density as separate dials; a long-press that can never fire a reveal; 3BV and 3BV/s on every result; a daily board built on the phone from the date; a 1,200-board ladder in forty chapters; hints that show the numbers that prove the move. No ads, no account, no server; offline; one purchase, not a subscription.",
+  "author": { "@type": "Organization", "name": "crackoncloud", "url": "https://crackoncloud.com/" },
+  "privacyPolicy": "https://crackoncloud.com/sapper/privacy-policy/"
+}
+</script>
+
+<style>
+:root{
+  --ground:#0E131B;
+  --ground-2:#0A0E14;
+  --ground-lit:#131A24;
+  --card:#161C27;
+  --card-lit:#1C2433;
+  --line:#2C3646;
+  --rule:#3D4A5E;
+  --ink:#F2EFE8;
+  --quiet:#A9B1BE;
+  --body:#D0D6E0;
+  --accent:#F2A64B;
+  --accent-deep:#D98B2E;
+  --accent-ink:#1A1308;
+  --flag:#FF5C5C;
+  --safe:#6FE39A;
+  --radius:16px;
+  --maxw:1080px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--ink);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  font-variant-numeric:tabular-nums;
+}
+a{color:inherit}
+img{max-width:100%;height:auto;display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+header{
+  position:sticky;top:0;z-index:20;
+  background:rgba(14,19,27,.86);
+  backdrop-filter:saturate(160%) blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em;text-decoration:none}
+.brand .mark{width:30px;height:30px;flex:none;border-radius:8px}
+.brand .sep{color:var(--rule)}
+.brand .sub{color:var(--quiet);font-weight:500}
+.nav nav{display:flex;gap:22px;font-size:14px;color:var(--quiet);align-items:center}
+.nav nav a{text-decoration:none}
+.nav nav a:hover{color:var(--ink)}
+@media(max-width:900px){.nav nav a:not(.btn-sm){display:none}}
+.btn-sm{
+  padding:8px 14px;border-radius:10px;border:1px solid var(--line);
+  background:var(--card);color:var(--quiet);font-weight:600;white-space:nowrap;
+}
+@media(max-width:440px){.brand .sep,.brand .sub{display:none}}
+
+.hero{padding:80px 0 64px;position:relative;overflow:hidden}
+.hero::before{
+  content:"";position:absolute;inset:-280px 0 auto 50%;
+  width:1100px;height:680px;transform:translateX(-50%);
+  background:
+    radial-gradient(closest-side at 40% 50%,rgba(242,166,75,.15),transparent 70%),
+    radial-gradient(closest-side at 66% 46%,rgba(78,93,116,.26),transparent 70%);
+  pointer-events:none;
+}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:40px}}
+.eyebrow{
+  display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);border:1px solid var(--line);border-radius:999px;
+  padding:6px 12px;background:var(--card);
+}
+h1{
+  font-size:clamp(34px,6vw,56px);line-height:1.07;letter-spacing:-.03em;
+  margin:20px 0 0;max-width:15ch;
+}
+.tagline{
+  font-size:clamp(22px,3.4vw,32px);line-height:1.15;letter-spacing:-.02em;
+  font-weight:650;margin:12px 0 16px;max-width:24ch;
+}
+.tagline .alt{color:var(--accent)}
+.lede{color:var(--quiet);font-size:clamp(16px,2.2vw,19px);max-width:56ch;margin:0}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hero-note{color:var(--quiet);font-size:13.5px;margin:16px 0 0}
+
+.btn{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:11px 18px;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px;
+  border:1px solid var(--line);background:var(--card);color:var(--ink);
+  transition:transform .15s ease,border-color .15s ease,background .15s ease;
+}
+.btn:hover{transform:translateY(-1px);border-color:var(--rule)}
+.btn-primary{background:var(--accent);border-color:var(--accent-deep);color:var(--accent-ink)}
+.btn-primary:hover{background:var(--accent-deep);border-color:var(--accent-deep)}
+.btn svg{width:16px;height:16px;flex:none;fill:currentColor}
+.btn-soon{color:var(--quiet);background:var(--ground-lit);cursor:default}
+.btn-soon:hover{transform:none;border-color:var(--line)}
+
+.shot{
+  border-radius:26px;border:1px solid var(--line);
+  background:var(--card);
+  box-shadow:0 18px 44px rgba(0,0,0,.45);
+  overflow:hidden;
+}
+.hero-shot{max-width:300px;margin:0 auto}
+
+section{padding:64px 0;border-top:1px solid var(--line)}
+.section-head h2{font-size:clamp(24px,3.4vw,32px);letter-spacing:-.02em;margin:0 0 8px}
+.section-head p{color:var(--quiet);margin:0 0 32px;max-width:64ch}
+
+.split{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:center}
+.split.flip{grid-template-columns:1.15fr .85fr}
+@media(max-width:860px){.split,.split.flip{grid-template-columns:1fr;gap:32px}}
+.split .shot{max-width:280px}
+.split.flip .shot{order:2}
+@media(max-width:860px){.split.flip .shot{order:0}}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:600px}
+.pair .shot{max-width:none}
+
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.grid.three{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+.tile h3{margin:0 0 8px;font-size:17px;letter-spacing:-.01em}
+.tile p{margin:0;color:var(--quiet);font-size:14.5px}
+
+.shapes{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.shape{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 20px 20px;
+}
+.shape svg{width:44px;height:44px;display:block;margin:0 0 14px}
+.shape h3{margin:0 0 4px;font-size:20px;letter-spacing:-.02em}
+.shape .n{color:var(--accent);font-size:13px;font-weight:600;margin:0 0 10px}
+.shape p{margin:0;color:var(--quiet);font-size:14.5px}
+.shape .lock{display:inline-block;margin-top:12px;font-size:12px;color:var(--quiet);border:1px solid var(--line);border-radius:999px;padding:2px 10px}
+
+.tiers{list-style:none;padding:0;margin:0;display:grid;gap:12px;counter-reset:tier}
+.tiers li{
+  display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;
+  background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;
+}
+.tiers li::before{
+  counter-increment:tier;content:"T" counter(tier);
+  display:flex;align-items:center;justify-content:center;height:32px;border-radius:9px;
+  background:var(--ground-lit);border:1px solid var(--rule);color:var(--accent);font-weight:700;font-size:14px;
+}
+.tiers b{display:block;color:var(--ink);font-size:15px}
+.tiers span{color:var(--quiet);font-size:14px}
+
+.bands{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 0}
+.bands span{
+  display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border-radius:999px;
+  border:1px solid var(--line);background:var(--card);font-size:14px;font-weight:600;
+}
+.bands i{font-style:normal;color:var(--accent);letter-spacing:2px;font-size:10px}
+
+.stats{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin:0}
+.stat{border:1px solid var(--line);background:var(--card);border-radius:var(--radius);padding:20px}
+.stat b{display:block;font-size:26px;letter-spacing:-.02em}
+.stat span{color:var(--quiet);font-size:14px}
+
+.facts{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.facts li{position:relative;padding-left:24px;color:var(--body);font-size:15.5px}
+.facts li::before{
+  content:"";position:absolute;left:0;top:.6em;width:9px;height:9px;border-radius:50%;
+  background:var(--accent);
+}
+
+.presets{width:100%;border-collapse:collapse;font-size:14.5px;margin:28px 0 0}
+.presets th,.presets td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+.presets th{color:var(--quiet);font-weight:600;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase}
+.presets td:first-child{color:var(--ink);font-weight:600}
+.presets td{color:var(--body)}
+.table-scroll{overflow-x:auto}
+
+.gallery{display:flex;gap:20px;overflow-x:auto;padding:4px 0 18px;scroll-snap-type:x mandatory}
+.gallery figure{margin:0;flex:0 0 232px;scroll-snap-align:start}
+.gallery figcaption{color:var(--quiet);font-size:13.5px;margin-top:12px}
+.gallery figcaption b{display:block;color:var(--ink);font-size:14.5px;font-weight:600;margin-bottom:2px}
+
+.plans{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;display:flex;flex-direction:column}
+.plan.pro{border-color:var(--accent);box-shadow:0 12px 30px rgba(242,166,75,.12)}
+.plan h3{margin:0;font-size:20px;letter-spacing:-.02em}
+.plan .price{color:var(--accent);font-size:14px;font-weight:600;margin:6px 0 16px}
+.plan ul{list-style:none;padding:0;margin:0 0 20px;display:grid;gap:9px;font-size:14.5px;color:var(--body)}
+.plan li{position:relative;padding-left:22px}
+.plan li::before{content:"";position:absolute;left:0;top:.55em;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.plan .foot{margin-top:auto;color:var(--quiet);font-size:13.5px}
+
+.never{list-style:none;padding:0;margin:0;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.never li{border:1px solid var(--line);background:var(--card);border-radius:var(--radius);padding:18px 20px;font-size:15px;color:var(--body)}
+.never li b{display:block;color:var(--ink);margin-bottom:4px}
+
+.faq{display:grid;gap:0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line);padding:18px 0}
+.faq summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--accent);font-weight:700}
+.faq details[open] summary::after{content:"–"}
+.faq p{color:var(--quiet);margin:12px 0 0;font-size:15px;max-width:72ch}
+
+.band{text-align:center}
+.band h2{font-size:clamp(24px,3.6vw,34px);letter-spacing:-.02em;margin:0 0 10px}
+.band p{color:var(--quiet);margin:0 auto 26px;max-width:54ch}
+.band .hero-cta{justify-content:center}
+
+footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--quiet);font-size:14px}
+.foot{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center}
+.foot nav{display:flex;flex-wrap:wrap;gap:18px}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <img class="mark" src="/assets/sapper/icon.svg" alt="" width="30" height="30">
+      Sapper <span class="sep">·</span> <span class="sub">crackoncloud</span>
+    </a>
+    <nav>
+      <a href="#no-guess">No guessing</a>
+      <a href="#shapes">Five shapes</a>
+      <a href="#controls">Controls</a>
+      <a href="#numbers">3BV</a>
+      <a href="#daily">Daily and ladder</a>
+      <a href="#pricing">Pricing</a>
+      <span class="btn-sm">Coming soon</span>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Minesweeper · Android and iOS</span>
+        <h1>Sapper</h1>
+        <p class="tagline">Minesweeper that never makes you guess. <span class="alt">Rated by the thinking it needs.</span></p>
+        <p class="lede">
+          Every board in No-guess mode is checked by a solver before you see it: from your first
+          tap to the last cell there is always a safe deduction, never a 50/50. Square, hex,
+          triangle, knight and torus boards, a daily board, a 1,200-board ladder, and 3BV/s on
+          every result. No ads.
+        </p>
+        <div class="hero-cta">
+          <span class="btn btn-soon" aria-disabled="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.8a1.5 1.5 0 0 0-.5 1.1v18.2c0 .45.19.86.5 1.1l10-10.2-10-10.2Zm11.1 9.1 2.9-2.9-11-6.2 8.1 9.1Zm0 2.2-8.1 9.1 11-6.2-2.9-2.9Zm4.3-3.9-2.4 2.4 2.4 2.4 2.5-1.4c.9-.5.9-1.9 0-2.4l-2.5-1Z"/></svg>
+            Google Play — coming soon
+          </span>
+          <span class="btn btn-soon" aria-disabled="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.9-1.4-.15-2.8.85-3.5.85-.72 0-1.86-.83-3.06-.81-1.57.02-3.02.91-3.83 2.32-1.63 2.83-.42 7 1.17 9.3.78 1.12 1.7 2.38 2.92 2.34 1.17-.05 1.61-.76 3.03-.76 1.42 0 1.82.76 3.06.73 1.26-.02 2.06-1.14 2.83-2.27.89-1.3 1.26-2.56 1.28-2.63-.03-.01-2.46-.94-2.49-3.72ZM14.1 5.8c.64-.78 1.07-1.86.95-2.94-.92.04-2.03.61-2.69 1.38-.59.69-1.11 1.79-.97 2.85 1.02.08 2.07-.52 2.71-1.29Z"/></svg>
+            App Store — coming soon
+          </span>
+        </div>
+        <p class="hero-note">Android 8.0 and up, iOS 15 and up, from one build, in preparation for both stores. This page is where each listing will be announced.</p>
+      </div>
+      <div class="hero-shot shot">
+        <img src="/assets/sapper/hint.png" alt="A hex Intermediate board mid-solve on the Slate theme, with a hint held: an amber ring on the number that proves the move and dashed outlines on the cells it decides" width="324" height="696">
+      </div>
+    </div>
+  </div>
+
+  <section id="no-guess">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>No guessing, and "hard" means harder thinking</h2>
+        <p>A four-tier solver certifies every No-guess board before it is shown, and rates it by the hardest technique the solution needs. A Sharp board is not a board with more mines; it is the same grid asking more of you.</p>
+      </div>
+      <div class="split">
+        <div class="shot">
+          <img src="/assets/sapper/play.png" alt="The Play screen: No-guess, Classic and Zen; the Gentle, Standard, Sharp and Fierce bands; a Continue card for a torus board; and the Beginner, Intermediate and Expert presets for square, hex and triangle with personal bests" width="324" height="696" loading="lazy">
+        </div>
+        <div>
+          <ol class="tiers">
+            <li><div><b>One number decides it</b><span>A number whose hidden neighbours are all mines, or all safe.</span></div></li>
+            <li><div><b>Two numbers, one inside the other</b><span>One number's cells are a subset of another's, and the difference decides them.</span></div></li>
+            <li><div><b>Every arrangement agrees</b><span>Every way the mines could lie along the edge puts a cell on the same side.</span></div></li>
+            <li><div><b>The mine count decides it</b><span>The mines left on the counter settle what the numbers alone cannot.</span></div></li>
+          </ol>
+          <div class="bands" aria-label="Rating bands">
+            <span>Gentle <i>●</i></span>
+            <span>Standard <i>●●</i></span>
+            <span>Sharp <i>●●●</i></span>
+            <span>Fierce <i>●●●●</i></span>
+          </div>
+        </div>
+      </div>
+      <div class="grid three" style="margin-top:36px">
+        <div class="tile">
+          <h3>No-guess</h3>
+          <p>Certified solvable by deduction, rated by technique, timed, with its own statistics per preset and band. The mode the app opens on.</p>
+        </div>
+        <div class="tile">
+          <h3>Classic</h3>
+          <p>Standard rules for purists: the first tap always opens a region, and after that a guess may be needed. When one is, the hint says so.</p>
+        </div>
+        <div class="tile">
+          <h3>Zen</h3>
+          <p>Any preset, no timer and no death: a mine you tap is shown and flagged and play goes on, with one undo at a time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="shapes">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Five board shapes</h2>
+        <p>Beginner, Intermediate and Expert on every one, and the same solver certifying each.</p>
+      </div>
+      <div class="shapes">
+        <div class="shape">
+          <svg viewBox="0 0 44 44" aria-hidden="true"><g fill="#3D4A5E"><rect x="2" y="2" width="12" height="12" rx="2"/><rect x="16" y="2" width="12" height="12" rx="2"/><rect x="30" y="2" width="12" height="12" rx="2"/><rect x="2" y="16" width="12" height="12" rx="2"/><rect x="30" y="16" width="12" height="12" rx="2"/><rect x="2" y="30" width="12" height="12" rx="2"/><rect x="16" y="30" width="12" height="12" rx="2"/><rect x="30" y="30" width="12" height="12" rx="2"/></g><rect x="16" y="16" width="12" height="12" rx="2" fill="#F2A64B"/></svg>
+          <h3>Square</h3>
+          <p class="n">Eight neighbours</p>
+          <p>The classic, at the three sizes everyone knows: 9×9 with 10, 16×16 with 40, 30×16 with 99.</p>
+        </div>
+        <div class="shape">
+          <svg viewBox="0 0 44 44" aria-hidden="true"><g fill="#3D4A5E"><path d="M15 3l6 3.5v7L15 17l-6-3.5v-7z"/><path d="M29 3l6 3.5v7L29 17l-6-3.5v-7z"/><path d="M8 15l6 3.5v7L8 29l-6-3.5v-7z"/><path d="M36 15l6 3.5v7L36 29l-6-3.5v-7z"/><path d="M15 27l6 3.5v7L15 41l-6-3.5v-7z"/><path d="M29 27l6 3.5v7L29 41l-6-3.5v-7z"/></g><path d="M22 15l6 3.5v7L22 29l-6-3.5v-7z" fill="#F2A64B"/></svg>
+          <h3>Hex</h3>
+          <p class="n">Six neighbours</p>
+          <p>A board that looks like nothing else and reads differently: every cell touches six, and there are no diagonals to argue about.</p>
+        </div>
+        <div class="shape">
+          <svg viewBox="0 0 44 44" aria-hidden="true"><g fill="#3D4A5E"><path d="M2 20L9 8l7 12z"/><path d="M11 8h14l-7 12z"/><path d="M27 8h14l-7 12z"/><path d="M9 22h14l-7 12z"/><path d="M25 22h14l-7 12z"/><path d="M28 20l7-12 7 12z" opacity=".6"/><path d="M18 36l7-12 7 12z" opacity=".6"/></g><path d="M18 20l7-12 7 12z" fill="#F2A64B"/></svg>
+          <h3>Triangle</h3>
+          <p class="n">Twelve neighbours</p>
+          <p>Every cell touching twelve others, for experts: each number covers far more ground, and says less about any one cell.</p>
+          <span class="lock">Unlock</span>
+        </div>
+        <div class="shape">
+          <svg viewBox="0 0 44 44" aria-hidden="true"><g fill="#3D4A5E"><rect x="9" y="1" width="8" height="8" rx="1.5"/><rect x="27" y="1" width="8" height="8" rx="1.5"/><rect x="1" y="9" width="8" height="8" rx="1.5"/><rect x="35" y="9" width="8" height="8" rx="1.5"/><rect x="1" y="27" width="8" height="8" rx="1.5"/><rect x="35" y="27" width="8" height="8" rx="1.5"/><rect x="9" y="35" width="8" height="8" rx="1.5"/><rect x="27" y="35" width="8" height="8" rx="1.5"/></g><rect x="18" y="18" width="8" height="8" rx="1.5" fill="#F2A64B"/></svg>
+          <h3>Knight</h3>
+          <p class="n">A knight's move away</p>
+          <p>A number counts the mines a knight's move from it, not the cells beside it. The grid is familiar; the reading is not.</p>
+          <span class="lock">Unlock</span>
+        </div>
+        <div class="shape">
+          <svg viewBox="0 0 44 44" aria-hidden="true"><rect x="4" y="4" width="36" height="36" rx="6" fill="none" stroke="#3D4A5E" stroke-width="3" stroke-dasharray="5 4"/><path d="M22 12v20M12 22h20" stroke="#3D4A5E" stroke-width="3" stroke-linecap="round"/><rect x="16" y="16" width="12" height="12" rx="2" fill="#F2A64B"/></svg>
+          <h3>Torus</h3>
+          <p class="n">The edges wrap</p>
+          <p>Left meets right and top meets bottom, so every cell has eight neighbours and there is no safe corner to start from.</p>
+          <span class="lock">Unlock</span>
+        </div>
+      </div>
+      <div class="split flip" style="margin-top:44px">
+        <div class="shot">
+          <img src="/assets/sapper/custom.png" alt="The Custom card: five shape chips, a preview of the board, and Width 26, Height 31 and Density 17% with 137 mines as three sliders above a Start button" width="324" height="696" loading="lazy">
+        </div>
+        <div>
+          <h3 style="margin:0 0 12px;font-size:20px;letter-spacing:-.02em">Your dials</h3>
+          <ul class="facts">
+            <li>A Custom card with width, height and density as three separate sliders, shown as a percentage and as a mine count, on any of the five shapes.</li>
+            <li>Up to 30 a side at 10–20% density free; up to 50×50 — 2,500 cells — at 5–25% with the unlock.</li>
+            <li>The shape and the dials are remembered, so a trip to another screen does not reset them.</li>
+            <li>The last mode and preset are kept on the Play screen, and one tap starts the next board.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="controls">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Controls that respect your thumb</h2>
+        <p>The complaint in the genre's reviews is a flag that turned into a reveal on the way up. Here a long-press that has placed a flag consumes the gesture, and lifting your finger does nothing.</p>
+      </div>
+      <div class="grid">
+        <div class="tile">
+          <h3>A hold you can tune</h3>
+          <p>Set the long-press from 150 to 600 ms, and try it on a test pad right there in the setting before you go back to a board.</p>
+        </div>
+        <div class="tile">
+          <h3>Tap and hold, your way</h3>
+          <p>Tap to reveal and hold to flag, or swap them. A big flag toggle in the tray flips tap and hold with one touch. Double-tap to flag, if you prefer.</p>
+        </div>
+        <div class="tile">
+          <h3>Chording</h3>
+          <p>Tap a satisfied number to open its neighbours, or hold it instead, or switch chording off. A number that cannot chord yet pulses so you know why.</p>
+        </div>
+        <div class="tile">
+          <h3>Big boards, small screens</h3>
+          <p>Pinch to zoom and pan with one finger. The tray can sit on the left for a left hand, or the right.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="numbers">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Numbers you can trust</h2>
+        <p>The minesweeper community's own measures, not a black-box score.</p>
+      </div>
+      <div class="split">
+        <div class="shot">
+          <img src="/assets/sapper/result.png" alt="A result card over a cleared hex board: 4.2 s, 20 3BV, 4.75 3BV/s, rated Gentle, 0 hints, Clean, New best, with Next board and Replay board buttons and the board id underneath" width="324" height="696" loading="lazy">
+        </div>
+        <ul class="facts">
+          <li>Time to a tenth of a second, 3BV and 3BV/s on every result card, with the board's rating, the hints used and a Clean mark for a solve with neither hints nor mines.</li>
+          <li>Personal bests per preset and mode, with the delta on every win. A best made with a hint does not count as one.</li>
+          <li>Stats by mode — No-guess, Classic and Zen: games, wins, win rate, average, best 3BV/s and clean runs, and a history of every game.</li>
+          <li>The history is never truncated: no update deletes a result, and there is no button that does either.</li>
+          <li>Every board has an id you can copy from its result card. Replay a board you won, or retry one you lost — every board but the daily, which is one attempt a day.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="hints">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Hints that teach</h2>
+        <p>A hint rings the numbers that prove the next move and outlines the cells they decide, and names the technique in one line — "Two numbers, one inside the other". It shows the reasoning, not just the answer.</p>
+      </div>
+      <div class="grid three">
+        <div class="tile">
+          <h3>The proof, not the cell</h3>
+          <p>The ring sits on the evidence and the dashes on the conclusion, so the next time that pattern turns up, you are the one who sees it.</p>
+        </div>
+        <div class="tile">
+          <h3>"This is a guess"</h3>
+          <p>In Classic, when nothing can be deduced, the hint says so plainly: no safe move exists. The most useful thing a minesweeper can tell you.</p>
+        </div>
+        <div class="tile">
+          <h3>Honest about cost</h3>
+          <p>A board solved with a hint is marked on its result card, is not a personal best, and on the ladder costs a star.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="daily">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>A daily board, and a ladder</h2>
+        <p>Two ways to play that are not another random board.</p>
+      </div>
+      <div class="split flip">
+        <div class="pair">
+          <div class="shot"><img src="/assets/sapper/daily.png" alt="The Daily screen: today's 16×16 square board solved in 8.7 s, a streak of one, and September 2026 with nine days filled in" width="324" height="696" loading="lazy"></div>
+          <div class="shot"><img src="/assets/sapper/ladder.png" alt="The ladder: chapter 1, Gentle I, its trail three-starred in amber up to the next node, 57 of 3,600 stars" width="324" height="696" loading="lazy"></div>
+        </div>
+        <ul class="facts">
+          <li><b>The daily board</b> is one No-guess board a day, the same for everyone, built on your phone from the date. No server and no signal: every device makes the same board from the same day.</li>
+          <li>Solve it and your streak grows. Every seventh day in a row banks a freeze, up to two, spent for you on a day you miss. A freeze is earned, never bought.</li>
+          <li>A month calendar shows the days you solved and the days a freeze covered. Today's board is free; every past day opens with the unlock.</li>
+          <li><b>The ladder</b> is forty chapters of thirty boards, 1,200 in all, rated from all-Gentle up to Fierce and shipped in the app, each one certified by the solver.</li>
+          <li>No death on the ladder: three stars for a clean solve, two with one mine hit, one with a hint or two. The first three chapters are free.</li>
+          <li>A daily reminder around six in the evening, off until you switch it on.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="look">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Made to be looked at</h2>
+        <p>Flat, fast and vector-drawn, with the polish in the motion: a flood that ripples out from your tap, a flag that pops, a win that settles.</p>
+      </div>
+      <div class="split">
+        <div class="shot">
+          <img src="/assets/sapper/look.png" alt="Settings, Look and Board: theme tiles for Slate, OLED, Paper and Retro, question marks, safe first tap, animation speed, colour-blind numbers, eight number colours and reduce motion" width="324" height="696" loading="lazy">
+        </div>
+        <ul class="facts">
+          <li>Slate, OLED and Paper themes free; a hand-drawn Retro theme and an Ink theme with the unlock; or follow the system's light and dark.</li>
+          <li>Colour-blind numbers in the Okabe–Ito palette, or pick each of the eight number colours yourself.</li>
+          <li>Animation at Normal, Fast or Off, and Reduce motion for no shakes and no confetti. Sound and haptics each have switches, haptics per flag, chord and mine.</li>
+          <li>Question marks as a third tap, if you want them. The first tap is always safe.</li>
+          <li>A screen reader reads the board cell by cell — row, column and what is there — and the app speaks 22 languages.</li>
+        </ul>
+      </div>
+      <div class="stats" style="margin-top:32px">
+        <div class="stat"><b>5</b><span>Board shapes, two of them free</span></div>
+        <div class="stat"><b>1,200</b><span>Ladder boards in forty chapters</span></div>
+        <div class="stat"><b>22</b><span>Languages in the app</span></div>
+        <div class="stat"><b>0</b><span>Ads, and no ad SDK in the build</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="screens">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Inside the app</h2>
+        <p>Screens off a real device, nothing redrawn.</p>
+      </div>
+      <div class="gallery">
+        <figure>
+          <div class="shot"><img src="/assets/sapper/hint.png" alt="A hex board with a hint held" width="324" height="696" loading="lazy"></div>
+          <figcaption><b>A hint</b>Hex Intermediate: the ring on the proof, the dashes on the cells it decides.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/sapper/play.png" alt="The Play screen" width="324" height="696" loading="lazy"></div>
+          <figcaption><b>Play</b>Three modes, four bands, and the presets of every shape.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/sapper/custom.png" alt="The Custom card" width="324" height="696" loading="lazy"></div>
+          <figcaption><b>Custom</b>Five shapes, and width, height and density as three dials.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/sapper/ladder.png" alt="The ladder" width="324" height="696" loading="lazy"></div>
+          <figcaption><b>The ladder</b>Chapter 1's trail, three stars a board.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/sapper/result.png" alt="A result card" width="324" height="696" loading="lazy"></div>
+          <figcaption><b>Cleared</b>Time, 3BV, 3BV/s, rating, hints, and a new best.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/sapper/daily.png" alt="The Daily screen" width="324" height="696" loading="lazy"></div>
+          <figcaption><b>Daily</b>Today solved, the streak, and the month.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/sapper/look.png" alt="Settings, Look" width="324" height="696" loading="lazy"></div>
+          <figcaption><b>Look</b>Themes, number colours, and motion.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Yours, on your phone</h2>
+        <p>No account, no sign-in, no server. Every board is generated on the device or shipped inside the app, and every game, result and best is written to a database on it.</p>
+      </div>
+      <div class="grid">
+        <div class="tile">
+          <h3>Offline</h3>
+          <p>The generator, the solver, the daily board and the ladder are all on the device. Airplane mode changes nothing but the store.</p>
+        </div>
+        <div class="tile">
+          <h3>A backup that is a file you keep</h3>
+          <p>Settings › Data › Export backup writes one file, wherever you choose. Import it on another device and it merges without ever lowering a best. The app has no way to send it anywhere.</p>
+        </div>
+        <div class="tile">
+          <h3>Two switches, yours</h3>
+          <p>Crash reports and Usage events, in Settings › Data. No ad id, no user id, and both start switched off in the EEA, the UK and Switzerland.</p>
+        </div>
+      </div>
+      <p class="hero-note" style="margin-top:22px">
+        The whole account is in the <a href="/sapper/privacy-policy/" style="color:var(--accent)">privacy policy</a>.
+      </p>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Free, and what the unlock adds</h2>
+        <p>The whole classic minesweeper is free: Beginner, Intermediate and Expert on square and hex, timed, no-guess certified, with stats, hints and the daily board. Nothing here is a trial.</p>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <h3>Free</h3>
+          <p class="price">The classic game, always</p>
+          <ul>
+            <li>Square and hex boards, Beginner, Intermediate and Expert</li>
+            <li>No-guess, Classic and Zen</li>
+            <li>The Gentle and Standard bands</li>
+            <li>Custom boards up to 30 a side, at 10–20% density</li>
+            <li>Today's daily board, your streak and your freezes</li>
+            <li>Ladder chapters 1–3, ninety boards</li>
+            <li>Hints, 3BV and 3BV/s, bests, stats and the whole history</li>
+            <li>Slate, OLED and Paper themes</li>
+            <li>Every control and accessibility setting, and 22 languages</li>
+          </ul>
+          <p class="foot">No trial clock, no daily limit, no nag.</p>
+        </div>
+        <div class="plan pro">
+          <h3>Sapper Unlocked</h3>
+          <p class="price">One payment, once</p>
+          <ul>
+            <li>Triangle, knight and torus boards</li>
+            <li>The Sharp and Fierce bands</li>
+            <li>The whole ladder, all forty chapters</li>
+            <li>Every past daily board</li>
+            <li>Custom boards up to 50×50, at 5–25% density</li>
+            <li>The Retro and Ink themes</li>
+          </ul>
+          <p class="foot">One purchase, not a subscription. Held by your Google Play or Apple Account, restored on any device you sign into.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="never">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What Sapper does not do</h2>
+        <p>Six facts about the build. They are the product rather than decoration on it.</p>
+      </div>
+      <ul class="never">
+        <li><b>No ads</b>There is no ad SDK in the app, and it reads no advertising identifier.</li>
+        <li><b>No 50/50s</b>In No-guess mode, every board has a safe deduction at every step, from the first tap to the last cell.</li>
+        <li><b>No subscription</b>One purchase, once, and it is not needed for the classic game.</li>
+        <li><b>No bought freezes</b>A streak freeze is earned by playing, and nothing in the game is sold by the piece.</li>
+        <li><b>No account, no sign-in</b>There is no server anywhere in this game to hold one.</li>
+        <li><b>No network needed</b>Every board is made or shipped on the device, including the daily.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Questions</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>How do you know a board needs no guessing?</summary>
+          <p>Before a No-guess board is shown, a solver plays it from the opening using only deductions — one number, a subset of two, every arrangement of the edge, and the mine count — and a board it cannot finish is repaired and checked again. The same solver is what the hint uses, so the proof a hint shows you is the proof the board was certified with. The solver is tested against an independent reference on a golden set of boards, and every ladder board is certified again whenever the solver changes.</p>
+        </details>
+        <details>
+          <summary>What do Gentle, Standard, Sharp and Fierce mean?</summary>
+          <p>They are bands of the board's rating: which techniques its solution needed, and how often. A Gentle board falls to single numbers; a Fierce one leans on whole-edge reasoning and the mine count. The band is independent of size, so you can play a Fierce Beginner or a Gentle Expert.</p>
+        </details>
+        <details>
+          <summary>What are 3BV and 3BV/s?</summary>
+          <p>3BV is the minimum number of clicks that clears a board — each opening counts once and each number outside one counts once — so it measures how much work a board is. 3BV/s is 3BV divided by your time, the community's measure of speed that is fair across boards of different difficulty. Both are on every result card, and your best 3BV/s is on the Stats screen.</p>
+        </details>
+        <details>
+          <summary>How does the daily board work?</summary>
+          <p>Every phone builds the same No-guess board from the date, so everyone plays the same board that day with nothing downloaded. Solving it grows your streak; every seventh day in a row banks a freeze, up to two, which covers a missed day automatically. Today's board is free, and the past days in the calendar open with the unlock.</p>
+        </details>
+        <details>
+          <summary>Does it work offline?</summary>
+          <p>Entirely. The only things that ever want a connection are the store — the purchase, the restore, Android's update check and the rating sheet — and the two diagnostics switches, if you have them on.</p>
+        </details>
+        <details>
+          <summary>Do I need an account?</summary>
+          <p>There isn't one. No sign-in, no profile, and no server of ours for either to live on. To move to a new phone, export a backup from Settings › Data and import it there; the import merges, so nothing you have is ever lowered by it.</p>
+        </details>
+        <details>
+          <summary>What does the unlock cost, and is it a subscription?</summary>
+          <p>It is one purchase, once, priced by the store in your own currency, and it is not a subscription. It adds the triangle, knight and torus boards, the Sharp and Fierce bands, the whole ladder, every past daily, bigger custom boards and the Retro and Ink themes.</p>
+        </details>
+        <details>
+          <summary>Which platforms is it on?</summary>
+          <p>Android 8.0 and up and iOS 15 and up, built from one source set, on phones and tablets. Both are in preparation for their stores, and this page is where each listing will be announced.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>Every board solvable. Every move provable.</h2>
+      <p>A minesweeper for anyone who has been sweeping mines since the desktop and never wants to guess again.</p>
+      <div class="hero-cta">
+        <span class="btn btn-soon" aria-disabled="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.8a1.5 1.5 0 0 0-.5 1.1v18.2c0 .45.19.86.5 1.1l10-10.2-10-10.2Zm11.1 9.1 2.9-2.9-11-6.2 8.1 9.1Zm0 2.2-8.1 9.1 11-6.2-2.9-2.9Zm4.3-3.9-2.4 2.4 2.4 2.4 2.5-1.4c.9-.5.9-1.9 0-2.4l-2.5-1Z"/></svg>
+          Google Play — coming soon
+        </span>
+        <span class="btn btn-soon" aria-disabled="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.9-1.4-.15-2.8.85-3.5.85-.72 0-1.86-.83-3.06-.81-1.57.02-3.02.91-3.83 2.32-1.63 2.83-.42 7 1.17 9.3.78 1.12 1.7 2.38 2.92 2.34 1.17-.05 1.61-.76 3.03-.76 1.42 0 1.82.76 3.06.73 1.26-.02 2.06-1.14 2.83-2.27.89-1.3 1.26-2.56 1.28-2.63-.03-.01-2.46-.94-2.49-3.72ZM14.1 5.8c.64-.78 1.07-1.86.95-2.94-.92.04-2.03.61-2.69 1.38-.59.69-1.11 1.79-.97 2.85 1.02.08 2.07-.52 2.71-1.29Z"/></svg>
+          App Store — coming soon
+        </span>
+      </div>
+      <p class="hero-note" style="text-align:center">Questions? <a href="mailto:support@crackoncloud.com" style="color:var(--accent)">support@crackoncloud.com</a></p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© <span id="year">2026</span> crackoncloud</span>
+    <nav>
+      <a href="/">crackoncloud</a>
+      <a href="/sapper/privacy-policy/">Privacy policy</a>
+      <a href="mailto:support@crackoncloud.com">support@crackoncloud.com</a>
+    </nav>
+  </div>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

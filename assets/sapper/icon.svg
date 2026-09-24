@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    The Sapper mark: one hidden hex cell with a flag, on the Slate ground. The same geometry as
+    the app's launcher vector (composeApp/src/androidMain/res/drawable/ic_launcher_foreground.xml,
+    written by tools/app_icon.py, a 108-unit viewport cropped here to the centre 96) on the
+    launcher background #0E131B. If the launcher changes, this changes in the same commit.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="6 6 96 96">
+  <rect x="6" y="6" width="96" height="96" rx="22" fill="#0E131B"/>
+  <path fill="#3D4A5E" d="M54.00,24.00 L79.98,39.00 L79.98,69.00 L54.00,84.00 L28.02,69.00 L28.02,39.00 Z"/>
+  <path fill="#4E5D74" d="M28.02,39.00 L54.00,24.00 L79.98,39.00 L78.42,39.90 L54.00,25.80 L29.58,39.90 Z"/>
+  <path fill="#E6E6E6" d="M47.04,34.99 L48.86,34.99 Q49.46,34.99 49.46,35.59 L49.46,70.68 Q49.46,71.28 48.86,71.28 L47.04,71.28 Q46.44,71.28 46.44,70.68 L46.44,35.59 Q46.44,34.99 47.04,34.99 Z"/>
+  <path fill="#E6E6E6" d="M38.83,69.77 L57.07,69.77 Q57.67,69.77 57.67,70.37 L57.67,72.19 Q57.67,72.79 57.07,72.79 L38.83,72.79 Q38.23,72.79 38.23,72.19 L38.23,70.37 Q38.23,69.77 38.83,69.77 Z"/>
+  <path fill="#FF5C5C" d="M47.95,34.99 L75.60,43.20 L47.95,52.27 Z"/>
+  <path fill="none" stroke="#B34040" stroke-width="1" d="M75.60,43.20 L47.95,52.27"/>
+</svg>
