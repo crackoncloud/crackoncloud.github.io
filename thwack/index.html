@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thwack — Car crash test puzzle for Android and iOS · crackoncloud</title>
+<meta name="description" content="Thwack is a cartoon car crash physics puzzle. Swing the ramp, hold the pedal, let go: a hatchback, a cow or a grand piano flies into something built to fall down, and the wreck is scored in dollars. Every level ships only once a winning shot is proven to exist. Ramps, cranes, catapults and bungees; a Daily challenge and a Test Yard sandbox. Offline, no account, one purchase.">
+<meta name="application-name" content="Thwack">
+<meta name="apple-mobile-web-app-title" content="Thwack">
+<meta name="theme-color" content="#0C0F13">
+<link rel="canonical" href="https://crackoncloud.com/thwack/">
+<link rel="icon" href="/assets/thwack/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/thwack/icon-256.png" sizes="256x256" type="image/png">
+<link rel="apple-touch-icon" href="/assets/thwack/icon-256.png">
+<link rel="preload" href="/assets/thwack/barlow-condensed-bold.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="robots" content="index,follow">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://crackoncloud.com/thwack/">
+<meta property="og:site_name" content="crackoncloud">
+<meta property="og:title" content="Thwack — Car crash test puzzle">
+<meta property="og:description" content="Launch cars, cows and pianos at towers and score the wreck in dollars. Every level proven winnable before it ships. A Daily, a Test Yard, offline, no account.">
+<meta property="og:image" content="https://crackoncloud.com/assets/thwack/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoGame",
+  "name": "Thwack: Car Crash Test Puzzle",
+  "alternateName": "Thwack",
+  "operatingSystem": "Android, iOS",
+  "applicationCategory": "GameApplication",
+  "applicationSubCategory": "Puzzle",
+  "gamePlatform": ["Android", "iOS"],
+  "playMode": "SinglePlayer",
+  "url": "https://crackoncloud.com/thwack/",
+  "image": "https://crackoncloud.com/assets/thwack/icon-256.png",
+  "description": "A cartoon car crash physics puzzle for Android and iOS. Each level puts a launcher on the left and something built to fall down on the right: set the angle with your thumb, the power with the pedal, and let go. Hatchbacks, cows, pianos and fridges fly from a ramp rig, a magnet crane, a tyre bungee, a swing crane, a catapult, a tyre swing, a firework rail, a street run and a diving board, and every wreck is scored in dollars of damage against a goal. Every level ships only once a winning shot has been found and replayed. The Junkyard, the Farm and the Suburbs; a Daily challenge; a Test Yard sandbox. Offline, no account; free to play with an occasional ad between levels, and one purchase that removes it.",
+  "author": { "@type": "Organization", "name": "crackoncloud", "url": "https://crackoncloud.com/" },
+  "privacyPolicy": "https://crackoncloud.com/thwack/privacy-policy/"
+}
+</script>
+
+<style>
+@font-face{
+  font-family:"Barlow Condensed";
+  src:url(/assets/thwack/barlow-condensed-bold.woff2) format("woff2");
+  font-weight:700;font-style:normal;font-display:swap;
+}
+:root{
+  --paper:#0C0F13;
+  --paper-2:#090B0E;
+  --sunken:#161A20;
+  --card:#1E242C;
+  --card-lit:#252C36;
+  --line:#2A313B;
+  --rule:#3A4350;
+  --ink:#F2F4F7;
+  --quiet:#9AA3AE;
+  --body:#D3D8DF;
+  --gold:#FFB020;
+  --gold-deep:#E89A0B;
+  --gold-ink:#1A1200;
+  --star:#FFD24D;
+  --approved:#3DD68C;
+  --red:#E8542E;
+  --edge:#1B1E23;
+  --sky-top:#3FAEEB;
+  --sky-low:#BDEBFF;
+  --sky-ink:#0F2233;
+  --radius:16px;
+  --maxw:1120px;
+  --display:"Barlow Condensed","Arial Narrow","Roboto Condensed",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  font-variant-numeric:tabular-nums;
+}
+a{color:inherit}
+img{max-width:100%;height:auto;display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+@media(max-width:480px){.wrap{padding:0 16px}}
+
+header{
+  position:sticky;top:0;z-index:20;
+  background:rgba(12,15,19,.88);
+  backdrop-filter:saturate(160%) blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em;text-decoration:none}
+.brand .mark{width:30px;height:30px;flex:none;border-radius:8px}
+.brand .sep{color:var(--rule)}
+.brand .sub{color:var(--quiet);font-weight:500}
+.nav nav{display:flex;gap:22px;font-size:14px;color:var(--quiet);align-items:center}
+.nav nav a{text-decoration:none}
+.nav nav a:hover{color:var(--ink)}
+@media(max-width:940px){.nav nav a:not(.btn-sm){display:none}}
+.btn-sm{
+  padding:8px 14px;border-radius:10px;border:1px solid var(--line);
+  background:var(--card);color:var(--quiet);font-weight:600;white-space:nowrap;
+}
+@media(max-width:440px){.brand .sep,.brand .sub{display:none}}
+
+/* The hero is the stage: its sky, two clouds, and the ground line under the shot */
+.hero{
+  position:relative;overflow:hidden;
+  background:linear-gradient(180deg,var(--sky-top) 0%,#7FCBF3 46%,var(--sky-low) 100%);
+  color:var(--sky-ink);
+  padding:64px 0 0;
+}
+.cloud{position:absolute;pointer-events:none}
+.cloud.a{top:150px;right:max(3%,calc(50% - 540px));width:230px}
+.cloud.b{top:360px;right:max(22%,calc(50% - 260px));width:120px;opacity:.9}
+@media(max-width:1100px){.cloud.b{display:none}}
+@media(max-width:900px){.cloud.a{top:18px;right:-24px;width:120px;opacity:.85}}
+.hero .wrap{position:relative}
+.hero-copy{max-width:720px}
+.eyebrow{
+  display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+  color:var(--gold);border:1px solid var(--line);border-radius:999px;
+  padding:6px 12px;background:var(--card);
+}
+.hero .eyebrow{color:var(--star);background:var(--edge);border-color:var(--edge)}
+@media(max-width:480px){.eyebrow{font-size:11px;letter-spacing:.09em;padding:6px 11px}}
+.bang{
+  font-family:var(--display);font-weight:700;text-transform:uppercase;
+  font-size:clamp(64px,13vw,132px);line-height:.9;letter-spacing:.005em;
+  margin:18px 0 0;color:var(--star);
+  -webkit-text-stroke:.085em var(--edge);paint-order:stroke fill;
+  text-shadow:.045em .065em 0 var(--edge);
+}
+.tagline{
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(26px,4.2vw,40px);line-height:1.05;letter-spacing:.005em;
+  margin:18px 0 14px;color:var(--edge);
+}
+.lede{font-size:clamp(16px,2.2vw,19px);max-width:60ch;margin:0;color:var(--sky-ink)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.hero-note{color:var(--quiet);font-size:13.5px;margin:16px 0 0}
+.hero .hero-note{color:#274259}
+.hero-stage{position:relative;margin-top:44px}
+.hero-stage .shot{border-radius:22px 22px 0 0;border-bottom:0;box-shadow:0 -6px 40px rgba(15,34,51,.25)}
+.ground{height:18px;background:linear-gradient(180deg,#5FA94B 0 7px,#3F7F34 7px)}
+
+.btn{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:11px 18px;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px;
+  border:1px solid var(--line);background:var(--card);color:var(--ink);
+  transition:transform .15s ease,border-color .15s ease,background .15s ease;
+}
+.btn:hover{transform:translateY(-1px);border-color:var(--rule)}
+.btn-primary{background:var(--gold);border-color:var(--gold-deep);color:var(--gold-ink)}
+.btn-primary:hover{background:var(--gold-deep);border-color:var(--gold-deep)}
+.btn svg{width:16px;height:16px;flex:none;fill:currentColor}
+.btn-soon{color:var(--quiet);background:var(--sunken);cursor:default}
+.btn-soon:hover{transform:none;border-color:var(--line)}
+.hero .btn-soon{background:var(--edge);border-color:var(--edge);color:#C9D1DB}
+
+.shot{
+  border-radius:18px;border:1px solid var(--line);
+  background:var(--card);
+  box-shadow:0 18px 44px rgba(0,0,0,.45);
+  overflow:hidden;
+}
+
+section{padding:72px 0;border-top:1px solid var(--line);scroll-margin-top:64px}
+.section-head h2,.band h2{
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(30px,4.4vw,44px);line-height:1.02;letter-spacing:.005em;margin:0 0 10px;
+}
+.section-head p{color:var(--quiet);margin:0 0 34px;max-width:66ch}
+.label{
+  display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+  color:var(--gold);margin:0 0 10px;
+}
+
+.split{display:grid;grid-template-columns:1.25fr .75fr;gap:44px;align-items:center}
+.split.flip{grid-template-columns:.75fr 1.25fr}
+.split.flip > .shot,.split.flip > .stack{order:2}
+@media(max-width:900px){
+  .split,.split.flip{grid-template-columns:1fr;gap:28px}
+  .split.flip > .shot,.split.flip > .stack{order:0}
+}
+.stack{display:grid;gap:18px}
+
+.steps{list-style:none;padding:0;margin:0;display:grid;gap:12px;counter-reset:step}
+.steps li{
+  display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;
+  background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;
+}
+.steps li::before{
+  counter-increment:step;content:counter(step);
+  display:flex;align-items:center;justify-content:center;height:32px;border-radius:9px;
+  background:var(--gold);color:var(--gold-ink);font:700 19px/1 var(--display);
+}
+.steps b{display:block;color:var(--ink);font-size:15.5px}
+.steps span{color:var(--quiet);font-size:14.5px}
+
+.ledger{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:8px 20px 16px}
+.ledger dl{margin:0;display:grid;grid-template-columns:1fr auto;column-gap:0}
+.ledger dt,.ledger dd{padding:12px 0;border-bottom:1px dashed var(--rule);margin:0}
+.ledger dt{color:var(--ink);font-weight:600}
+.ledger dt span{display:block;color:var(--quiet);font-weight:400;font-size:14px}
+.ledger dd{color:var(--gold);font:700 22px/1.2 var(--display);padding-left:16px;display:flex;align-items:center;justify-content:flex-end}
+.ledger .total{border:0;padding-top:14px}
+.ledger dt.total{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--quiet);align-self:center}
+.ledger dd.total{font-size:34px}
+
+.goals{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 0;padding:0;list-style:none}
+.goals li{
+  padding:8px 14px;border-radius:12px;background:var(--edge);border:1px solid var(--line);
+  font-size:14px;font-weight:600;color:var(--ink);
+}
+.goals li::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gold);margin-right:9px;vertical-align:1px}
+
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.grid.three{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 22px 20px}
+.tile h3{margin:0 0 6px;font-size:17px;letter-spacing:-.01em}
+.tile p{margin:0;color:var(--quiet);font-size:14.5px}
+
+.launchers{display:grid;gap:14px;grid-template-columns:repeat(3,1fr)}
+@media(max-width:900px){.launchers{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:580px){.launchers{grid-template-columns:1fr}}
+.launcher{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px}
+.launcher .where{float:right;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--quiet);border:1px solid var(--line);border-radius:999px;padding:1px 9px;margin-left:8px}
+.launcher h3{margin:0 0 6px;font:700 24px/1.1 var(--display);letter-spacing:.005em}
+.launcher .coach{margin:0 0 6px;color:var(--gold);font-weight:600;font-size:14.5px}
+.launcher p{margin:0;color:var(--quiet);font-size:14px}
+
+.cast{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.cast .tile h3{font:700 24px/1.1 var(--display);margin:0 0 12px}
+.cast ul{list-style:none;padding:0;margin:0;display:grid;gap:9px}
+.cast li{display:grid;grid-template-columns:118px 1fr;gap:10px;font-size:14.5px;color:var(--quiet)}
+.cast li b{color:var(--ink);font-weight:600}
+.cast li i{font-style:normal;color:var(--gold);font-weight:600;display:block;font-size:13px}
+
+.places{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.place{border-radius:var(--radius);border:1px solid var(--line);overflow:hidden;background:var(--card)}
+.place .strip{height:62px;position:relative}
+.place .strip::after{content:"";position:absolute;left:0;right:0;bottom:0;height:14px}
+.place.junk .strip{background:linear-gradient(180deg,#8FB6D3,#E3D6C0)}
+.place.junk .strip::after{background:linear-gradient(180deg,#6B4A2E 0 4px,#7E5636 4px)}
+.place.farm .strip{background:linear-gradient(180deg,#79B6E6,#D9ECF6)}
+.place.farm .strip::after{background:linear-gradient(180deg,#6DB04F 0 4px,#4C8A3A 4px)}
+.place.burbs .strip{background:linear-gradient(180deg,#6FAEE3,#CFE6F7)}
+.place.burbs .strip::after{background:linear-gradient(180deg,#4A4F57 0 4px,#6B6F76 4px)}
+.place .in{padding:18px 20px 20px}
+.place h3{margin:0 0 6px;font:700 26px/1.1 var(--display)}
+.place p{margin:0;color:var(--quiet);font-size:14.5px}
+
+.facts{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.facts li{position:relative;padding-left:24px;color:var(--body);font-size:15.5px}
+.facts li::before{
+  content:"";position:absolute;left:0;top:.6em;width:9px;height:9px;border-radius:50%;
+  background:var(--gold);
+}
+.facts b{color:var(--ink)}
+
+.stats{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));margin:36px 0 0}
+.stat{border:1px solid var(--line);background:var(--card);border-radius:var(--radius);padding:18px 20px}
+.stat b{display:block;font:700 40px/1 var(--display);color:var(--gold);margin-bottom:6px}
+.stat span{color:var(--quiet);font-size:14px}
+
+.gallery{display:flex;gap:20px;overflow-x:auto;padding:4px 0 18px;scroll-snap-type:x mandatory}
+.gallery figure{margin:0;flex:0 0 min(520px,86vw);scroll-snap-align:start}
+.gallery figcaption{color:var(--quiet);font-size:13.5px;margin-top:12px}
+.gallery figcaption b{display:block;color:var(--ink);font-size:14.5px;font-weight:600;margin-bottom:2px}
+
+.plans{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;display:flex;flex-direction:column}
+.plan.pro{border-color:var(--gold);box-shadow:0 12px 30px rgba(255,176,32,.12)}
+.plan h3{margin:0;font:700 28px/1.1 var(--display)}
+.plan .price{color:var(--gold);font-size:14px;font-weight:600;margin:6px 0 16px}
+.plan ul{list-style:none;padding:0;margin:0 0 20px;display:grid;gap:9px;font-size:14.5px;color:var(--body)}
+.plan li{position:relative;padding-left:22px}
+.plan li::before{content:"";position:absolute;left:0;top:.55em;width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.plan li.ad::before{background:var(--quiet)}
+.plan .foot{margin-top:auto;color:var(--quiet);font-size:13.5px}
+
+.never{list-style:none;padding:0;margin:0;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.never li{border:1px solid var(--line);background:var(--card);border-radius:var(--radius);padding:18px 20px;font-size:15px;color:var(--body)}
+.never li b{display:block;color:var(--ink);margin-bottom:4px}
+
+.faq{display:grid;gap:0;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line);padding:18px 0}
+.faq summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--gold);font-weight:700}
+.faq details[open] summary::after{content:"–"}
+.faq p{color:var(--quiet);margin:12px 0 0;font-size:15px;max-width:74ch}
+
+.band{text-align:center}
+.band p{color:var(--quiet);margin:0 auto 26px;max-width:56ch}
+.band .hero-cta{justify-content:center}
+
+footer{border-top:1px solid var(--line);padding:36px 0 56px;color:var(--quiet);font-size:14px}
+.foot{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center}
+.foot nav{display:flex;flex-wrap:wrap;gap:18px}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <img class="mark" src="/assets/thwack/icon.svg" alt="" width="30" height="30">
+      Thwack <span class="sep">·</span> <span class="sub">crackoncloud</span>
+    </a>
+    <nav>
+      <a href="#launch">How it plays</a>
+      <a href="#launchers">Launchers</a>
+      <a href="#cast">Payloads</a>
+      <a href="#proof">Every level winnable</a>
+      <a href="#daily">Daily and Yard</a>
+      <a href="#pricing">Pricing</a>
+      <span class="btn-sm">Coming soon</span>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="hero">
+    <svg class="cloud a" viewBox="0 0 180 70" aria-hidden="true"><path d="M26 64Q6 64 6 50Q6 36 24 36Q28 16 52 18Q66 2 88 12Q110 8 114 30Q134 30 134 48Q134 64 116 64Z" fill="#fff" stroke="#9CCFE8" stroke-width="3" stroke-linejoin="round"/></svg>
+    <svg class="cloud b" viewBox="0 0 180 70" aria-hidden="true"><path d="M26 64Q6 64 6 50Q6 36 24 36Q28 16 52 18Q66 2 88 12Q110 8 114 30Q134 30 134 48Q134 64 116 64Z" fill="#fff" stroke="#9CCFE8" stroke-width="3" stroke-linejoin="round"/></svg>
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="eyebrow">Car crash test puzzle · Android and iOS</span>
+        <h1 class="bang">Thwack</h1>
+        <p class="tagline">Launch it. Wreck it. Score it.</p>
+        <p class="lede">
+          You run the crash test. Swing the ramp, hold the pedal, let go — a hatchback, a cow or a
+          grand piano flies across the yard into something built to fall down, and the wreck is
+          scored in dollars of damage. Every level ships only once a winning shot is proven to
+          exist, so a miss is never luck.
+        </p>
+        <div class="hero-cta">
+          <span class="btn btn-soon" aria-disabled="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.8a1.5 1.5 0 0 0-.5 1.1v18.2c0 .45.19.86.5 1.1l10-10.2-10-10.2Zm11.1 9.1 2.9-2.9-11-6.2 8.1 9.1Zm0 2.2-8.1 9.1 11-6.2-2.9-2.9Zm4.3-3.9-2.4 2.4 2.4 2.4 2.5-1.4c.9-.5.9-1.9 0-2.4l-2.5-1Z"/></svg>
+            Google Play — coming soon
+          </span>
+          <span class="btn btn-soon" aria-disabled="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.9-1.4-.15-2.8.85-3.5.85-.72 0-1.86-.83-3.06-.81-1.57.02-3.02.91-3.83 2.32-1.63 2.83-.42 7 1.17 9.3.78 1.12 1.7 2.38 2.92 2.34 1.17-.05 1.61-.76 3.03-.76 1.42 0 1.82.76 3.06.73 1.26-.02 2.06-1.14 2.83-2.27.89-1.3 1.26-2.56 1.28-2.63-.03-.01-2.46-.94-2.49-3.72ZM14.1 5.8c.64-.78 1.07-1.86.95-2.94-.92.04-2.03.61-2.69 1.38-.59.69-1.11 1.79-.97 2.85 1.02.08 2.07-.52 2.71-1.29Z"/></svg>
+            App Store — coming soon
+          </span>
+        </div>
+        <p class="hero-note">Android 8.0 and up, iOS 15 and up, phones and tablets, played in landscape, from one build in preparation for both stores. This page is where each listing will be announced.</p>
+      </div>
+      <div class="hero-stage">
+        <div class="shot">
+          <img src="/assets/thwack/crash.webp" alt="A cartoon van driven off the ramp slams into a tower of glass and planks: THWACK in yellow letters, the damage counter at $7,875 and a ×3 combo" width="1600" height="720" fetchpriority="high">
+        </div>
+      </div>
+    </div>
+    <div class="ground" aria-hidden="true"></div>
+  </div>
+
+  <section id="launch">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Set the numbers. Let go.</h2>
+        <p>Every level puts a launcher on the left and something built to fall down on the right, with one clear goal on the chip at the top. You aim it, you power it, and then the physics is on its own.</p>
+      </div>
+      <div class="split">
+        <div class="shot">
+          <img src="/assets/thwack/launcher.webp" alt="A timber catapult on a farm loaded with a cow in a wicker basket, 60% wound, its dotted arc curving toward a pumpkin mark, a red LAUNCH button on the right" width="1600" height="720" loading="lazy">
+        </div>
+        <ol class="steps">
+          <li><div><b>Swing the ramp</b><span>Grab it with your thumb and swing it up or down to set the angle. The readout shows it to a tenth of a degree.</span></div></li>
+          <li><div><b>Hold the pedal</b><span>The longer you hold, the harder it goes. The pedal sits on whichever side you set it.</span></div></li>
+          <li><div><b>Let go, then tap</b><span>Release to launch, and tap once in the air for the payload's own trick — a boost, a belly-flop, three chicks.</span></div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section id="score">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Every wreck scored in dollars</h2>
+        <p>Nothing is marked out of ten. Each piece that breaks, falls or flies is added up as damage, the payload's own dents count too, and the level's goal decides whether the test is approved.</p>
+      </div>
+      <div class="split flip">
+        <div class="shot">
+          <img src="/assets/thwack/report.webp" alt="The damage report beside a flattened tower: APPROVED, three stars, destruction $15,650, wreck $950, style $3,335, total $19,935, the shot at 60.0° and 100% with a boost at 1.2 s, and Next, Again and Replay buttons" width="1600" height="720" loading="lazy">
+        </div>
+        <div>
+          <div class="ledger" role="group" aria-label="The damage report">
+            <dl>
+              <dt>Destruction<span>What the structure lost</span></dt><dd>$15,650</dd>
+              <dt>Wreck<span>The doors, bonnets and bumpers your payload shed</span></dt><dd>$950</dd>
+              <dt>Style<span>Airtime, flips, bounces and big hits</span></dt><dd>$3,335</dd>
+              <dt>Marks &amp; zones<span>Targets hit and places landed in</span></dt><dd>$0</dd>
+              <dt class="total">Total</dt><dd class="total">$19,935</dd>
+            </dl>
+          </div>
+          <ul class="goals" aria-label="Some of the goals">
+            <li>Knock down 40% of it</li>
+            <li>Hit every mark</li>
+            <li>Topple the silo</li>
+            <li>Set off the chain</li>
+            <li>Hit 3 in one go</li>
+          </ul>
+        </div>
+      </div>
+      <div class="grid three" style="margin-top:36px">
+        <div class="tile">
+          <h3>One to three stars</h3>
+          <p>Meet the goal and the test is approved. The bar under the report shows the totals for the second and third stars, so you know how far off the perfect hit you were.</p>
+        </div>
+        <div class="tile">
+          <h3>The shot, written down</h3>
+          <p>The report keeps the angle, the power and the moment you tapped, beside your best on that level — so the next try is a correction, not a guess.</p>
+        </div>
+        <div class="tile">
+          <h3>Again, or watch it</h3>
+          <p>Again puts the same level back at the launcher. Replay runs the crash again from the start, and the physics lands it exactly the same way.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="launchers">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Ramps, cranes and catapults</h2>
+        <p>Each launcher plays differently, and each is taught on its own before a level asks you to use it well. The line in gold is what the coach says the first time you meet it.</p>
+      </div>
+      <div class="launchers">
+        <div class="launcher"><span class="where">Junkyard</span><h3>Ramp rig</h3><p class="coach">Grab the ramp. Swing it. Hold the pedal. Let go.</p><p>Drive off the end and fly. Where it all starts.</p></div>
+        <div class="launcher"><span class="where">Junkyard</span><h3>Magnet crane</h3><p class="coach">Slide the magnet. Tap DROP.</p><p>A car held over the scene, and one moment to let it fall.</p></div>
+        <div class="launcher"><span class="where">Junkyard</span><h3>Tyre bungee</h3><p class="coach">Pull back to aim. Let go.</p><p>A slingshot made of tyres: the pull is the power, the direction is the angle.</p></div>
+        <div class="launcher"><span class="where">Junkyard</span><h3>Swing crane</h3><p class="coach">Tap DROP mid-swing.</p><p>A payload on a pendulum. Timing is everything, and a swing passes the right place twice.</p></div>
+        <div class="launcher"><span class="where">Farm</span><h3>Catapult</h3><p class="coach">Hold to wind. Tap to throw.</p><p>A timber throwing arm on a cart, wound up by a winch, with a cow in the basket.</p></div>
+        <div class="launcher"><span class="where">Farm</span><h3>Tyre swing</h3><p class="coach">Pull back. Tap to let go.</p><p>Hung from an apple tree, and the animals ride it.</p></div>
+        <div class="launcher"><span class="where">Suburbs</span><h3>Firework rail</h3><p class="coach">Light it. Tap to cut loose.</p><p>A rocket taped to the payload, and a choice of when to let go of it.</p></div>
+        <div class="launcher"><span class="where">Suburbs</span><h3>Street run</h3><p class="coach">Hold for speed. Let go.</p><p>A whole street to build up speed on before the hit.</p></div>
+        <div class="launcher"><span class="where">Suburbs</span><h3>Diving board</h3><p class="coach">Hold. Let go on the dip.</p><p>Bounce it, and release at the bottom of the bend for the biggest throw.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cast">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Cars, cows and pianos</h2>
+        <p>Everything flies differently — by its weight, its bounce and what it does when you tap it in the air. One tap, before it touches anything.</p>
+      </div>
+      <div class="split">
+        <div class="shot">
+          <img src="/assets/thwack/trick.webp" alt="A chicken on the ramp and the card that teaches its trick: Split — tap in flight, it splits into three chicks, one tap before it touches anything" width="1600" height="720" loading="lazy">
+        </div>
+        <ul class="facts">
+          <li><b>Cars</b> crumple, lose doors and bonnets, and add their own damage to the bill. A car that is written off says so.</li>
+          <li><b>Animals</b> bounce instead of breaking, and see stars when they land. Cartoon slapstick, start to finish.</li>
+          <li><b>Household things</b> — a fridge, a sofa, a grand piano — are heavy, awkward, and very satisfying to drop on something.</li>
+          <li>Some levels give you more than one payload, or more than one run, and a goal that needs all of them.</li>
+        </ul>
+      </div>
+      <div class="cast" style="margin-top:36px">
+        <div class="tile">
+          <h3>Cars</h3>
+          <ul>
+            <li><b>Hatchback</b><span><i>Boost</i>A burst of speed</span></li>
+            <li><b>Sedan</b><span><i>Boost</i>A burst of speed</span></li>
+            <li><b>Van</b><span><i>Brake</i>It stops and drops</span></li>
+            <li><b>Race car</b><span><i>Nitro</i>A huge burst of speed</span></li>
+            <li><b>Monster truck</b><span><i>Bounce</i>The next landing throws it twice as high</span></li>
+            <li><b>Ice-cream van</b><span><i>Scoops</i>Three scoops drop</span></li>
+          </ul>
+        </div>
+        <div class="tile">
+          <h3>Animals</h3>
+          <ul>
+            <li><b>Cow</b><span><i>Belly-flop</i>It drops straight down</span></li>
+            <li><b>Pig</b><span><i>Roll</i>It spins forward and rolls on</span></li>
+            <li><b>Chicken</b><span><i>Split</i>Three chicks</span></li>
+            <li><b>Frog</b><span><i>Hop</i>It hops up again</span></li>
+            <li><b>Goat</b><span><i>Headbutt</i>Its next hit hits twice as hard</span></li>
+            <li><b>Sheep</b><span><i>Fluff</i>It fluffs up, floats and drifts</span></li>
+          </ul>
+        </div>
+        <div class="tile">
+          <h3>Things</h3>
+          <ul>
+            <li><b>Fridge</b><span><i>Open</i>The door flies off ahead</span></li>
+            <li><b>Sofa</b><span><i>Fold</i>It folds in half</span></li>
+            <li><b>Grand piano</b><span><i>Chord</i>It drops straight down — land it on a mark</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="places">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>From the Junkyard to the Suburbs</h2>
+        <p>A journey on one winding road of levels, three places long. Every chapter brings something new to knock down, and a card to show you what it is the first time it turns up.</p>
+      </div>
+      <div class="places">
+        <div class="place junk"><div class="strip"></div><div class="in"><h3>The Junkyard</h3><p>Angle and power, stone and glass, scrap towers and the first cranes. Where the crash test begins.</p></div></div>
+        <div class="place farm"><div class="strip"></div><div class="in"><h3>The Farm</h3><p>Animals that bounce instead of break, hay bales, seesaws, silos, wind to read off the windsock, and water.</p></div></div>
+        <div class="place burbs"><div class="strip"></div><div class="in"><h3>The Suburbs</h3><p>Fireworks, domino streets, skate parks, moving day and a pool party.</p></div></div>
+      </div>
+      <div class="split flip" style="margin-top:40px">
+        <div class="shot">
+          <img src="/assets/thwack/suburbs.webp" alt="A blue sedan hits a row of dominoes on a suburban street: THWACK, $750 and a ×2 combo, with the goal Set off the chain" width="1600" height="720" loading="lazy">
+        </div>
+        <ul class="facts">
+          <li>Some levels hide a collectible — a hubcap, an egg, a gnome — to grab in the air on the way through.</li>
+          <li>Find every one in a chapter and it earns a sticker for your car, and a gold badge on the map.</li>
+          <li>Stars earn car skins in the Garage.</li>
+          <li>The Field Guide keeps every piece you have met, drawn as it looks on the stage, with the chapter that brought it.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="proof">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Every level can be beaten</h2>
+        <p>Every level is crash tested before it ships. A search fires shot after shot across the whole range of angles and powers, and a level is kept only if a region of winning shots exists and the winning shot it recorded replays exactly. If you miss, a better shot was there.</p>
+      </div>
+      <div class="split">
+        <div class="shot">
+          <img src="/assets/thwack/map.webp" alt="The map on the Farm, chapter 13, The Catapult: a winding road of levels, the finished ones with gold stars, the car parked at level 9" width="1600" height="720" loading="lazy">
+        </div>
+        <ul class="facts">
+          <li><b>The Ghost</b> shows the region where winning shots are — not the shot itself — so you still find it with your own thumb.</li>
+          <li>Ghosts refill over time: three banked, one more every five minutes, or five banked and one every thirty seconds with the unlock.</li>
+          <li>A level you cannot beat can be skipped: one skip a day, or five banked with the unlock. The road goes on either way.</li>
+          <li><b>No lives, no energy, no coins to grind.</b> Play as many levels as you like, as many times as you like.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="daily">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>A Daily, and a Test Yard</h2>
+        <p>Two ways to play that are not the next level on the road.</p>
+      </div>
+      <div class="split flip">
+        <div class="stack">
+          <div class="shot"><img src="/assets/thwack/daily.webp" alt="The Daily: today, 28 September, one star earned with $6,700, three payloads for three shots, a streak of one, and the month's calendar" width="1600" height="720" loading="lazy"></div>
+          <div class="shot"><img src="/assets/thwack/yard.webp" alt="The Test Yard: rows of launchers, payloads and setups to pick from, a preview of the ramp rig and a tower, a seed number and a Build button" width="1600" height="720" loading="lazy"></div>
+        </div>
+        <ul class="facts">
+          <li><b>The Daily</b> gives you three shots at a different challenge every day, built on your phone from the chapters you have reached. One attempt, a score to beat, and a streak to keep.</li>
+          <li>A month calendar keeps the days you played. Today's challenge is free; past days open with the unlock.</li>
+          <li><b>The Test Yard</b> is a sandbox: pick a launcher, a payload and a place — open ground or a scene from a chapter you have reached — press Build, and crash things for the score alone.</li>
+          <li>One launcher, three payloads and one place in the Yard are free. The unlock opens every launcher, payload, place and chapter setup, and a seed field to build the same setup again.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="thumbs">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Made for your thumbs</h2>
+        <p>Landscape, two thumbs, and a stage that is clear of both.</p>
+      </div>
+      <div class="grid">
+        <div class="tile">
+          <h3>Gestures, or buttons</h3>
+          <p>Swing and hold with gestures, or switch on assist controls for buttons and steppers on every launcher.</p>
+        </div>
+        <div class="tile">
+          <h3>Either hand</h3>
+          <p>The pedal goes on the left or the right. Pinch to zoom in on the target, and one button fits the whole scene back on the screen.</p>
+        </div>
+        <div class="tile">
+          <h3>Colour-blind and calm</h3>
+          <p>A colour-blind palette for approved and rejected, reduce motion, and slow motion on the big hits if you want it.</p>
+        </div>
+        <div class="tile">
+          <h3>A camera that follows</h3>
+          <p>A cinematic crash camera for the big hits, with a switch in Settings if you would rather watch the whole stage.</p>
+        </div>
+        <div class="tile">
+          <h3>Read aloud</h3>
+          <p>Screen-reader labels on every control, from the dials to the damage report.</p>
+        </div>
+        <div class="tile">
+          <h3>22 languages</h3>
+          <p>From Arabic to Vietnamese, with the places, the payloads and the car skins named in yours.</p>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>3</b><span>Places, from the Junkyard to the Suburbs</span></div>
+        <div class="stat"><b>9</b><span>Launchers, each taught before it is tested</span></div>
+        <div class="stat"><b>22</b><span>Languages in the app</span></div>
+        <div class="stat"><b>0</b><span>Lives, energy or coins</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="screens">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Inside the game</h2>
+        <p>Screens off a real device playing real levels, nothing redrawn.</p>
+      </div>
+      <div class="gallery">
+        <figure>
+          <div class="shot"><img src="/assets/thwack/crash.webp" alt="A van hits a glass tower" width="1600" height="720" loading="lazy"></div>
+          <figcaption><b>The Junk Tower</b>The van into the glass, three in a row.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/thwack/farm.webp" alt="A cow bounces off a seesaw as a silo of crates topples" width="1600" height="720" loading="lazy"></div>
+          <figcaption><b>Topple the silo</b>A cow, a seesaw, and crates in the air.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/thwack/report.webp" alt="The damage report" width="1600" height="720" loading="lazy"></div>
+          <figcaption><b>Approved</b>Destruction, wreck and style, added up.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/thwack/launcher.webp" alt="The catapult loaded with a cow" width="1600" height="720" loading="lazy"></div>
+          <figcaption><b>The catapult</b>Wound to 60%, the arc toward the mark.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/thwack/trick.webp" alt="The Split card" width="1600" height="720" loading="lazy"></div>
+          <figcaption><b>A new trick</b>A card the first time a payload turns up.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/thwack/map.webp" alt="The map" width="1600" height="720" loading="lazy"></div>
+          <figcaption><b>The road</b>The Farm, and the car at the next level.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/thwack/suburbs.webp" alt="A car hits dominoes" width="1600" height="720" loading="lazy"></div>
+          <figcaption><b>Domino Street</b>Set off the chain.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/thwack/daily.webp" alt="The Daily" width="1600" height="720" loading="lazy"></div>
+          <figcaption><b>The Daily</b>Three shots, today's challenge, the month.</figcaption>
+        </figure>
+        <figure>
+          <div class="shot"><img src="/assets/thwack/yard.webp" alt="The Test Yard" width="1600" height="720" loading="lazy"></div>
+          <figcaption><b>The Test Yard</b>Pick a launcher, a payload and a setup.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What stays on your phone, and what does not</h2>
+        <p>No account, no sign-in, no server of ours. Every level is shipped inside the app and rebuilt on the device, the Daily is built on the phone, and your progress is kept on it.</p>
+      </div>
+      <div class="grid three">
+        <div class="tile">
+          <h3>Ads, for free players</h3>
+          <p>The occasional ad between levels is served through AppLovin, which reads the device's advertising ID to do it. On a device that owns Thwack Unlocked the ad SDK is never started, and on iOS the game never asks to track you.</p>
+        </div>
+        <div class="tile">
+          <h3>Two switches, yours</h3>
+          <p>Crash reports and Usage data, each its own switch under Settings › Diagnostics. Both start off in the EEA, the UK and Switzerland, and either can be turned off anywhere.</p>
+        </div>
+        <div class="tile">
+          <h3>A backup that is a file you keep</h3>
+          <p>Settings › Backup exports your progress to one file, wherever you choose, and imports it on another device. It merges without ever lowering a star or a best. The app has no way to send it anywhere.</p>
+        </div>
+      </div>
+      <p class="hero-note" style="margin-top:22px">
+        The whole account is in the <a href="/thwack/privacy-policy/" style="color:var(--gold)">privacy policy</a>.
+      </p>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Free to play, one unlock</h2>
+        <p>Every level is free, from the first ramp in the Junkyard to the last level in the Suburbs. Nothing on the road is behind the purchase, and nothing is sold by the piece.</p>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <h3>Free</h3>
+          <p class="price">Every level, always</p>
+          <ul>
+            <li>Every level, every place, every launcher on the road</li>
+            <li>Today's Daily and your streak</li>
+            <li>The Test Yard: one launcher, three payloads and one place</li>
+            <li>The Ghost: three banked, one more every five minutes</li>
+            <li>One skip a day</li>
+            <li>Car skins earned with stars, stickers earned by finding things</li>
+            <li>Every control and accessibility setting, and 22 languages</li>
+            <li class="ad">An ad between levels now and then — after a result, never during a shot, and none until the first chapter is done</li>
+          </ul>
+          <p class="foot">No lives, no energy, no trial clock.</p>
+        </div>
+        <div class="plan pro">
+          <h3>Thwack Unlocked</h3>
+          <p class="price">One payment, once</p>
+          <ul>
+            <li>No ads: the ad code is never started on your device</li>
+            <li>The whole Test Yard — every launcher, payload, place and chapter setup, and the seed</li>
+            <li>Every car skin</li>
+            <li>The Daily archive: every past day</li>
+            <li>A bigger, faster Ghost: five banked, one every thirty seconds</li>
+            <li>Five skips banked</li>
+            <li>The collectible Ghost: a second tap shows the region that also grabs the level's collectible</li>
+          </ul>
+          <p class="foot">One purchase, not a subscription. Held by your Google Play or Apple Account, restored on any device you sign into.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="never">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What Thwack does not do</h2>
+        <p>Six facts about the build, not promises about the future.</p>
+      </div>
+      <ul class="never">
+        <li><b>No lives, no energy</b>Nothing stops you playing the next level, or the same one fifty times.</li>
+        <li><b>No coins, no loot boxes</b>There is no currency in the game, and nothing in it is random for money.</li>
+        <li><b>No ad during a shot</b>An ad only ever comes after a result card, and never before the first chapter is finished.</li>
+        <li><b>No watching for rewards</b>There are no rewarded ads: no hint, skip or level is behind one.</li>
+        <li><b>No account, no sign-in</b>There is no server of ours anywhere in this game to hold one.</li>
+        <li><b>No network needed to play</b>Every level is in the app, and the Daily is built on the phone.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Questions</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>How do you know every level can be beaten?</summary>
+          <p>Every level is built on our own machines and then searched shot by shot across its angles and powers before it ships. A level is kept only if a region of winning shots exists and its recorded winning shot replays to the same result in the game's own physics. The same search is what the Ghost draws from, so the region it shows you is a region that really wins.</p>
+        </details>
+        <details>
+          <summary>What does the Ghost show?</summary>
+          <p>The region where winning shots are — a band of angles on the ramp, a stretch of the pedal, a window on a swing — and not the shot itself. You still have to find it with your own thumb, which is the point. Ghosts refill with time; the unlock banks more and refills them faster, and adds a second tap that shows the region that also grabs the level's collectible.</p>
+        </details>
+        <details>
+          <summary>Are there ads?</summary>
+          <p>For free players, yes, and only one kind: a full-screen ad after a result card, once every ten levels cleared, starting after the first chapter. There is no banner, no ad during a shot and no rewarded ad. Thwack Unlocked removes them — on a device that owns it the ad code is never started at all.</p>
+        </details>
+        <details>
+          <summary>Does it work offline?</summary>
+          <p>Yes. Every level is inside the app and the Daily is built on the phone, so a flight or a tunnel changes nothing about the game. The things that want a connection are the store — the purchase, the restore, the rating sheet and Android's update check — the ads, and the two diagnostics switches, if you have them on.</p>
+        </details>
+        <details>
+          <summary>Do I need an account?</summary>
+          <p>There isn't one. No sign-in, no profile, and no server of ours for either to live on. To move to a new phone, export a backup from Settings and import it there; the import merges, so nothing you have is lowered by it.</p>
+        </details>
+        <details>
+          <summary>Is it violent?</summary>
+          <p>It is cartoon slapstick. Cars crumple and get X-eyes, buildings fall over, and animals bounce, see stars and dust themselves off. There is no blood, and the only person in the game is a wooden crash-test dummy.</p>
+        </details>
+        <details>
+          <summary>What does the unlock cost, and is it a subscription?</summary>
+          <p>It is one purchase, once, priced by the store in your own currency, and it is not a subscription. It removes the ads and adds the whole Test Yard, every car skin, the Daily archive, a bigger and faster Ghost, five skips banked and the collectible Ghost. Every level is free without it.</p>
+        </details>
+        <details>
+          <summary>Which platforms is it on?</summary>
+          <p>Android 8.0 and up and iOS 15 and up, on phones and tablets, built from one source set and played in landscape. Both are in preparation for their stores, and this page is where each listing will be announced.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>Find the perfect hit.</h2>
+      <p>A crash test physics puzzle for anyone who loves launching things, knocking things down, and doing it again a little better.</p>
+      <div class="hero-cta">
+        <span class="btn btn-soon" aria-disabled="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 1.8a1.5 1.5 0 0 0-.5 1.1v18.2c0 .45.19.86.5 1.1l10-10.2-10-10.2Zm11.1 9.1 2.9-2.9-11-6.2 8.1 9.1Zm0 2.2-8.1 9.1 11-6.2-2.9-2.9Zm4.3-3.9-2.4 2.4 2.4 2.4 2.5-1.4c.9-.5.9-1.9 0-2.4l-2.5-1Z"/></svg>
+          Google Play — coming soon
+        </span>
+        <span class="btn btn-soon" aria-disabled="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.9-1.4-.15-2.8.85-3.5.85-.72 0-1.86-.83-3.06-.81-1.57.02-3.02.91-3.83 2.32-1.63 2.83-.42 7 1.17 9.3.78 1.12 1.7 2.38 2.92 2.34 1.17-.05 1.61-.76 3.03-.76 1.42 0 1.82.76 3.06.73 1.26-.02 2.06-1.14 2.83-2.27.89-1.3 1.26-2.56 1.28-2.63-.03-.01-2.46-.94-2.49-3.72ZM14.1 5.8c.64-.78 1.07-1.86.95-2.94-.92.04-2.03.61-2.69 1.38-.59.69-1.11 1.79-.97 2.85 1.02.08 2.07-.52 2.71-1.29Z"/></svg>
+          App Store — coming soon
+        </span>
+      </div>
+      <p class="hero-note" style="text-align:center">Questions? <a href="mailto:support@crackoncloud.com" style="color:var(--gold)">support@crackoncloud.com</a></p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© <span id="year">2026</span> crackoncloud</span>
+    <nav>
+      <a href="/">crackoncloud</a>
+      <a href="/thwack/privacy-policy/">Privacy policy</a>
+      <a href="mailto:support@crackoncloud.com">support@crackoncloud.com</a>
+    </nav>
+  </div>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
