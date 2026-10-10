@@ -96,7 +96,7 @@ footer a{text-decoration:none}
     <h1>Shadow Reader</h1>
     <p class="meta">
       Android app <code>com.crackoncloud.reader</code>, published by crackoncloud ·
-      Last updated 21 August 2026
+      Last updated 10 October 2026
     </p>
 
     <div class="callout">
@@ -104,9 +104,9 @@ footer a{text-decoration:none}
       place in them and your notes are kept in the app's own private storage on your device. Nothing
       you read is uploaded to us — we run no server that could receive it.</p>
       <p>The app does reach the network, and every one of those uses is listed in §3. Two of them are
-      on by default: <strong>crash reporting</strong>, and the Google Play services the store itself
-      needs. <strong>Usage statistics are off</strong> until you switch them on. Both switches are in
-      Settings › Privacy.</p>
+      on by default everywhere: <strong>crash reporting</strong>, and the Google Play services the
+      store itself needs. <strong>Usage statistics start off in the EEA, the United Kingdom and
+      Switzerland</strong>, and on elsewhere. Both switches are in Settings › Privacy.</p>
     </div>
 
     <h2>1. What the app stores on your device</h2>
@@ -174,8 +174,9 @@ footer a{text-decoration:none}
         <tr>
           <td>Internet<br>Network state</td>
           <td>Only for the things in §3: a cloud source or sync folder you connected, a catalogue you
-            added, an opt-in metadata lookup, a language pack download, crash reporting, and Google
-            Play's own billing, update and review services. Reading a local book uses no connection
+            added, an opt-in metadata lookup, a language pack download, crash reporting, usage
+            statistics, and Google Play's own billing, update and review services. Reading a local
+            book uses no connection
             at all.</td>
         </tr>
         <tr>
@@ -201,8 +202,9 @@ footer a{text-decoration:none}
 
     <h2>3. What leaves the device, and when</h2>
     <p>
-      Every case below is something you switch on. None of it happens on a fresh install except the
-      crash reporting in §4 and Google Play's own services.
+      Every case below is something you switch on, except three that a fresh install starts with:
+      the crash reporting in §4, the usage statistics in §4 outside the EEA, the United Kingdom and
+      Switzerland, and Google Play's own services.
     </p>
 
     <h3>Sync, if you turn it on</h3>
@@ -253,16 +255,21 @@ footer a{text-decoration:none}
 
     <h2>4. Crash reports and usage statistics</h2>
     <p>
-      These are two separate switches in Settings › Privacy, and they start in opposite positions.
+      These are two separate switches in Settings › Privacy, and both are read before anything is
+      collected.
     </p>
     <ul>
-      <li><strong>Crash reporting is on</strong> on a fresh install. When the app crashes or hits an
-        error, a stack trace and basic device information — model, Android version, app version — go
+      <li><strong>Crash reporting is on</strong> on a fresh install, everywhere. When the app
+        crashes or hits an error, a stack trace and basic device information — model, Android
+        version, app version — go
         to Firebase Crashlytics so it can be fixed. A crash report describes the app failing, not
         what you were reading.</li>
-      <li><strong>Usage statistics are off</strong> until you switch them on. They describe which
-        screens and features get used, and are what tells us whether a change helped. Performance
-        measurement rides the same switch and is off with it.</li>
+      <li><strong>Usage statistics start off in the EEA, the United Kingdom and Switzerland</strong>,
+        and on elsewhere. They describe which screens and features get used, and are what tells us
+        whether a change helped. Performance measurement rides the same switch. Where you start is
+        decided by the country your phone's own language settings name — not by your location, and
+        not by any network lookup — and a phone that names no country at all takes the cautious side
+        and starts off.</li>
     </ul>
     <p>
       Neither may carry a book title, an author, a file path or a passage from your books, and none of
@@ -272,7 +279,8 @@ footer a{text-decoration:none}
     </p>
     <p class="note">
       Turning either switch off stops collection from that moment. Both choices are remembered across
-      updates.
+      updates, and your phone's region only ever decides where a switch starts — never a choice you
+      have made.
     </p>
 
     <h2>5. What you can do with your data</h2>

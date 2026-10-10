@@ -97,7 +97,7 @@ footer a{text-decoration:none}
     <h1>AtomFit</h1>
     <p class="meta">
       Android and Wear OS app <code>com.crackoncloud.fitness</code>, published by crackoncloud ·
-      Last updated 28 August 2026
+      Last updated 10 October 2026
     </p>
 
     <div class="callout">
@@ -105,9 +105,9 @@ footer a{text-decoration:none}
       records, measurements and photos are kept in the app's own private storage on your device. We
       run nothing that could receive them.</p>
       <p>The app reaches the network in a handful of places, and every one is listed in §3. Two happen
-      without you asking: <strong>crash reporting</strong>, and the Google Play services the store
-      itself needs. <strong>Usage statistics are off</strong> until you switch them on. Both switches
-      are in Settings › Privacy.</p>
+      without you asking, everywhere: <strong>crash reporting</strong>, and the Google Play services
+      the store itself needs. <strong>Usage statistics start off in the EEA, the United Kingdom and
+      Switzerland</strong>, and on elsewhere. Both switches are in Settings › Privacy.</p>
     </div>
 
     <h2>1. What the app stores on your device</h2>
@@ -161,9 +161,9 @@ footer a{text-decoration:none}
       <tbody>
         <tr>
           <td>Internet<br>Network state</td>
-          <td>Only for the things in §3: sync to your own Drive if you turn it on, Google Play billing,
-            crash reporting, and usage statistics if you opt in. Logging a workout uses no connection
-            at all.</td>
+          <td>Only for the things in §3 and §4: sync to your own Drive if you turn it on, Google Play
+            billing, crash reporting, and usage statistics. Logging a workout uses no connection at
+            all.</td>
         </tr>
         <tr>
           <td>Foreground service<br><span class="note">special use, connected device</span></td>
@@ -242,18 +242,23 @@ footer a{text-decoration:none}
 
     <h2>4. Crash reports and usage statistics</h2>
     <p>
-      These are two separate switches in Settings › Privacy, and they start in opposite positions.
+      These are two separate switches in Settings › Privacy, and both are read before anything is
+      collected.
     </p>
     <ul>
-      <li><strong>Crash reporting is on</strong> on a fresh install, which means a crash report can be
-        collected before you have agreed to anything — a thing worth saying plainly. When the app
+      <li><strong>Crash reporting is on</strong> on a fresh install, everywhere, which means a crash
+        report can be collected before you have agreed to anything — a thing worth saying plainly. When the app
         crashes or hits an error, a stack trace and basic device information — model, Android version,
         app version — go to Firebase Crashlytics so it can be fixed. It has to ship on to catch a
         crash during startup at all. Turning it off stops collection and drops the reports still
         queued.</li>
-      <li><strong>Usage statistics are off</strong> until you switch them on. They cover Google
-        Analytics and Performance Monitoring together, and describe which screens and features get
-        used and how long they took to draw.</li>
+      <li><strong>Usage statistics start off in the EEA, the United Kingdom and Switzerland</strong>,
+        and on elsewhere. They cover Google Analytics and Performance Monitoring together, and
+        describe which screens and features get used and how long they took to draw. Where you start
+        is decided by the country your phone's own language settings name — not by your location, not
+        by the language you pick inside AtomFit, and not by any network lookup — and a phone that
+        names no country at all takes the cautious side and starts off. Turning it off stops
+        collection and clears the statistics not yet sent.</li>
     </ul>
     <p>
       Neither may carry a workout, a set, a measurement, a photo or an exercise name you typed:
@@ -264,7 +269,9 @@ footer a{text-decoration:none}
       covered by Google's own privacy terms.
     </p>
     <p class="note">
-      Both choices are device-local, never sync, and are re-applied on every app start.
+      Both choices are device-local, never sync, and are re-applied on every app start. Your phone's
+      region only ever decides where the usage statistics switch starts — never a choice you have
+      made.
     </p>
 
     <h2>5. What you can do with your data</h2>
